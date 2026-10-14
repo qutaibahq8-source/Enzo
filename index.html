@@ -92,7 +92,7 @@
       align-items: center;
       height: 84px;
     }
-    .nav-links { display: flex; gap: 2.2rem; }
+    .nav-links { display: flex; gap: 1.8rem; white-space: nowrap; }
     .nav-links a, .nav-actions a {
       font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase;
       position: relative; transition: color 0.3s;
@@ -324,6 +324,125 @@
     .reveal { opacity: 0; transform: translateY(30px); transition: opacity 1s ease, transform 1s ease; }
     .reveal.visible { opacity: 1; transform: none; }
 
+    /* Filters */
+    .filters { display: flex; justify-content: center; gap: 2.2rem; flex-wrap: wrap; margin: -2rem 0 3.5rem; }
+    .filter {
+      background: none; border: none; cursor: pointer; padding: 0.3rem 0;
+      font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--muted); border-bottom: 1px solid transparent; transition: all 0.3s;
+    }
+    .filter:hover { color: var(--ink); }
+    .filter.active { color: var(--gold-dark); border-color: var(--gold); }
+    .filter-note { text-align: center; margin: -2.5rem 0 3rem; font-family: var(--serif); font-style: italic; color: var(--gold-dark); min-height: 1.4em; }
+    .filter-note button { background: none; border: none; cursor: pointer; color: var(--muted); font-family: var(--sans); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; margin-left: 0.6rem; text-decoration: underline; }
+    .product.hidden { display: none; }
+    .swatches { display: flex; justify-content: center; gap: 0.45rem; margin-top: 0.7rem; }
+    .swatch {
+      width: 14px; height: 14px; border-radius: 50%; cursor: pointer; padding: 0;
+      border: 1px solid rgba(143,112,54,0.35); outline: 1px solid transparent; outline-offset: 2px; transition: outline-color 0.25s;
+    }
+    .swatch.active, .swatch:hover { outline-color: var(--gold); }
+    .product h4 { cursor: pointer; }
+
+    /* Palette */
+    .palette { background: var(--white); }
+    .palette-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.5rem; text-align: center; }
+    .shade { background: none; border: none; cursor: pointer; font-family: inherit; color: inherit; }
+    .shade-dot {
+      width: 100%; aspect-ratio: 1; border-radius: 50%; margin-bottom: 1rem;
+      border: 1px solid rgba(143,112,54,0.25);
+      box-shadow: inset 0 0 0 10px rgba(255,255,255,0.35);
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      background-image: repeating-linear-gradient(90deg, rgba(255,255,255,0.08) 0 1px, transparent 1px 3px), repeating-linear-gradient(0deg, rgba(0,0,0,0.04) 0 1px, transparent 1px 3px);
+    }
+    .shade:hover .shade-dot { transform: translateY(-6px); box-shadow: inset 0 0 0 10px rgba(255,255,255,0.5), 0 14px 30px rgba(143,112,54,0.18); }
+    .shade h4 { font-family: var(--serif); font-size: 1.3rem; font-weight: 500; }
+    .shade span { font-size: 0.78rem; color: var(--muted); }
+
+    /* Care */
+    .care { background: var(--ivory); }
+    .care-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+    .care-step { background: var(--white); padding: 2.6rem 2rem; border: 1px solid var(--beige-deep); position: relative; }
+    .care-step .num { font-family: var(--serif); font-size: 3rem; font-weight: 300; color: var(--gold-light); line-height: 1; }
+    .care-step h3 { font-size: 1.5rem; margin: 1rem 0 0.6rem; }
+    .care-step p { color: var(--muted); font-size: 0.92rem; }
+
+    /* FAQ */
+    .faq { background: var(--beige); }
+    .faq-list { max-width: 780px; margin: 0 auto; }
+    .faq details { border-bottom: 1px solid var(--beige-deep); }
+    .faq summary {
+      list-style: none; cursor: pointer; padding: 1.5rem 0;
+      font-family: var(--serif); font-size: 1.4rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after { content: "+"; font-family: var(--sans); font-weight: 300; color: var(--gold); font-size: 1.5rem; transition: transform 0.3s; }
+    .faq details[open] summary::after { transform: rotate(45deg); }
+    .faq details p { color: var(--muted); padding: 0 0 1.6rem; max-width: 640px; }
+
+    /* Overlay, modal & drawer */
+    .overlay {
+      position: fixed; inset: 0; background: rgba(46,42,36,0.45); z-index: 80;
+      opacity: 0; visibility: hidden; transition: opacity 0.4s, visibility 0.4s;
+    }
+    .overlay.show { opacity: 1; visibility: visible; }
+    .modal {
+      position: fixed; top: 50%; left: 50%; z-index: 90;
+      width: min(920px, 100% - 2rem); max-height: calc(100vh - 2rem); overflow: auto;
+      background: var(--ivory); display: grid; grid-template-columns: 1fr 1fr;
+      transform: translate(-50%, -46%); opacity: 0; visibility: hidden;
+      transition: transform 0.45s ease, opacity 0.45s ease, visibility 0.45s;
+    }
+    .modal.show { transform: translate(-50%, -50%); opacity: 1; visibility: visible; }
+    .modal-img { background: linear-gradient(180deg, var(--white), var(--beige)); display: grid; place-items: center; padding: 3rem; min-height: 380px; }
+    .modal-img svg { width: 70%; max-width: 260px; }
+    .modal-body { padding: 3rem 2.6rem; display: flex; flex-direction: column; }
+    .modal-body h3 { font-size: 2.2rem; margin: 0.6rem 0 0.4rem; }
+    .modal-body .price { color: var(--gold-dark); letter-spacing: 0.1em; margin-bottom: 1.2rem; }
+    .modal-body p { color: var(--muted); font-size: 0.95rem; margin-bottom: 1.6rem; }
+    .opt-label { font-size: 0.68rem; letter-spacing: 0.28em; text-transform: uppercase; margin-bottom: 0.7rem; }
+    .opt-label b { font-weight: 400; color: var(--gold-dark); margin-left: 0.4rem; letter-spacing: 0.1em; text-transform: none; font-family: var(--serif); font-style: italic; font-size: 0.95rem; }
+    .modal .swatches { justify-content: flex-start; margin: 0 0 1.6rem; gap: 0.6rem; }
+    .modal .swatch { width: 24px; height: 24px; }
+    .sizes { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
+    .size {
+      min-width: 48px; padding: 0.6rem 0.8rem; background: var(--white); cursor: pointer;
+      border: 1px solid var(--beige-deep); font-family: var(--sans); font-size: 0.78rem; letter-spacing: 0.1em; color: var(--ink);
+      transition: all 0.25s;
+    }
+    .size:hover { border-color: var(--gold); }
+    .size.active { background: var(--ink); color: var(--gold-light); border-color: var(--ink); }
+    .modal .btn { width: 100%; text-align: center; margin-top: auto; }
+    .close-btn {
+      position: absolute; top: 1rem; right: 1.2rem; background: none; border: none; cursor: pointer;
+      font-size: 1.8rem; font-weight: 300; color: var(--ink); line-height: 1; z-index: 2;
+    }
+    .drawer {
+      position: fixed; top: 0; right: 0; bottom: 0; z-index: 90;
+      width: min(420px, 100%); background: var(--ivory);
+      display: flex; flex-direction: column;
+      transform: translateX(100%); transition: transform 0.45s ease; visibility: hidden;
+    }
+    .drawer.show { transform: none; visibility: visible; }
+    .drawer-head { padding: 2rem 2rem 1.4rem; border-bottom: 1px solid var(--beige-deep); position: relative; }
+    .drawer-head h3 { font-size: 1.9rem; }
+    .drawer-items { flex: 1; overflow: auto; padding: 0.5rem 2rem; }
+    .drawer-empty { text-align: center; padding: 4rem 0; font-family: var(--serif); font-style: italic; font-size: 1.3rem; color: var(--muted); }
+    .line { display: grid; grid-template-columns: 70px 1fr auto; gap: 1rem; padding: 1.3rem 0; border-bottom: 1px solid var(--beige-deep); align-items: center; }
+    .line-img { background: linear-gradient(180deg, var(--white), var(--beige)); aspect-ratio: 4/5; display: grid; place-items: center; }
+    .line-img svg { width: 65%; }
+    .line h4 { font-family: var(--serif); font-size: 1.15rem; font-weight: 500; line-height: 1.2; }
+    .line small { color: var(--muted); font-size: 0.78rem; display: block; }
+    .qty { display: inline-flex; align-items: center; gap: 0.7rem; margin-top: 0.4rem; border: 1px solid var(--beige-deep); padding: 0.1rem 0.5rem; }
+    .qty button, .remove { background: none; border: none; cursor: pointer; color: var(--ink); font-family: var(--sans); }
+    .remove { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: underline; margin-top: 0.5rem; }
+    .line-price { color: var(--gold-dark); text-align: right; }
+    .drawer-foot { padding: 1.6rem 2rem 2rem; border-top: 1px solid var(--beige-deep); background: var(--white); }
+    .subtotal { display: flex; justify-content: space-between; font-family: var(--serif); font-size: 1.4rem; margin-bottom: 0.3rem; }
+    .drawer-foot small { display: block; color: var(--muted); margin-bottom: 1.2rem; font-size: 0.8rem; }
+    .drawer-foot .btn { width: 100%; text-align: center; }
+    .bag-link { cursor: pointer; }
+
     /* Toast */
     .toast {
       position: fixed; bottom: 2rem; left: 50%; transform: translate(-50%, 150%);
@@ -335,10 +454,23 @@
     .toast.show { transform: translate(-50%, 0); opacity: 1; visibility: visible; }
 
     /* ---------- Responsive ---------- */
+    @media (max-width: 1240px) {
+      .nav { grid-template-columns: auto 1fr auto; }
+      .nav-links {
+        position: absolute; top: 100%; left: 0; right: 0;
+        flex-direction: column; gap: 1.6rem; padding: 2rem 1.5rem;
+        background: var(--ivory); border-bottom: 1px solid var(--beige-deep);
+        transform: translateY(-12px); opacity: 0; visibility: hidden;
+        transition: transform 0.4s ease, opacity 0.4s ease, visibility 0.4s;
+      }
+      .nav-links.open { transform: none; opacity: 1; visibility: visible; }
+      .menu-toggle { display: block; }
+      .logo { text-align: center; font-size: 1.8rem; }
+    }
     @media (max-width: 960px) {
       .nav { grid-template-columns: auto 1fr auto; }
       .nav-links {
-        position: fixed; top: 120px; left: 0; right: 0;
+        position: absolute; top: 100%; left: 0; right: 0;
         flex-direction: column; gap: 1.6rem; padding: 2rem 1.5rem;
         background: var(--ivory); border-bottom: 1px solid var(--beige-deep);
         transform: translateY(-12px); opacity: 0; visibility: hidden;
@@ -358,6 +490,12 @@
       .values-grid { grid-template-columns: 1fr; }
       .value + .value { border-left: none; border-top: 1px solid var(--beige-deep); padding-top: 2rem; margin-top: 1rem; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
+      .palette-grid { grid-template-columns: repeat(3, 1fr); }
+      .care-grid { grid-template-columns: 1fr 1fr; }
+      .modal { grid-template-columns: 1fr; }
+      .modal-img { min-height: 260px; padding: 2rem; }
+      .modal-img svg { width: 45%; }
+      .modal-body { padding: 2rem 1.5rem; }
     }
     @media (max-width: 560px) {
       section { padding: 5rem 0; }
@@ -365,6 +503,8 @@
       .product-img .quick { opacity: 1; transform: none; font-size: 0.6rem; padding: 0.6rem; }
       .footer-grid { grid-template-columns: 1fr; }
       .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+      .care-grid { grid-template-columns: 1fr; }
+      .filters { gap: 1.2rem; }
     }
   </style>
 </head>
@@ -376,16 +516,17 @@
     <div class="container nav">
       <button class="menu-toggle" aria-label="Open menu"><span></span><span></span></button>
       <nav class="nav-links">
-        <a href="#collections">Collections</a>
         <a href="#shop">Shop</a>
+        <a href="#collections">Collections</a>
+        <a href="#palette">Palette</a>
+        <a href="#care">Linen Care</a>
         <a href="#story">Our Story</a>
-        <a href="#contact">Contact</a>
       </nav>
       <a href="#" class="logo">ENZO</a>
       <div class="nav-actions">
         <a href="#" class="hide-sm">Search</a>
         <a href="#" class="hide-sm">Account</a>
-        <a href="#">Bag<span class="bag-count" id="bagCount">0</span></a>
+        <a class="bag-link" id="bagOpen" role="button" tabindex="0">Bag<span class="bag-count" id="bagCount">0</span></a>
       </div>
     </div>
   </header>
@@ -427,13 +568,13 @@
       </div>
       <div class="collection-grid">
         <div class="collection-card c1 reveal"><div class="bg"></div>
-          <div class="collection-info"><h3>Women</h3><a href="#shop">Discover</a></div>
+          <div class="collection-info"><h3>Women</h3><a href="#shop" data-filter="women">Discover</a></div>
         </div>
         <div class="collection-card c2 reveal"><div class="bg"></div>
-          <div class="collection-info"><h3>Men</h3><a href="#shop">Discover</a></div>
+          <div class="collection-info"><h3>Men</h3><a href="#shop" data-filter="men">Discover</a></div>
         </div>
         <div class="collection-card c3 reveal"><div class="bg"></div>
-          <div class="collection-info"><h3>Accessories</h3><a href="#shop">Discover</a></div>
+          <div class="collection-info"><h3>Accessories</h3><a href="#shop" data-filter="accessories">Discover</a></div>
         </div>
       </div>
     </div>
@@ -447,7 +588,27 @@
         <h2>Signature Linen</h2>
         <div class="gold-rule"></div>
       </div>
+      <div class="filters reveal" id="filters">
+        <button class="filter active" data-filter="all">All</button>
+        <button class="filter" data-filter="women">Women</button>
+        <button class="filter" data-filter="men">Men</button>
+        <button class="filter" data-filter="accessories">Accessories</button>
+      </div>
+      <div class="filter-note" id="filterNote"></div>
       <div class="product-grid" id="productGrid"></div>
+    </div>
+  </section>
+
+  <!-- Palette -->
+  <section class="palette" id="palette">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Shop by Shade</span>
+        <h2>The Linen Palette</h2>
+        <div class="gold-rule"></div>
+        <p>Soft, earthy tones inspired by the flax field — chosen to mix effortlessly with one another.</p>
+      </div>
+      <div class="palette-grid" id="paletteGrid"></div>
     </div>
   </section>
 
@@ -489,6 +650,42 @@
     </div>
   </section>
 
+  <!-- Linen Care -->
+  <section class="care" id="care">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Made to Last</span>
+        <h2>Caring for Linen</h2>
+        <div class="gold-rule"></div>
+        <p>Linen asks for very little — and rewards you with years of softness.</p>
+      </div>
+      <div class="care-grid">
+        <div class="care-step reveal"><div class="num">01</div><h3>Wash Cool</h3><p>Machine wash at 30–40°C on a gentle cycle with a mild detergent. Skip the bleach.</p></div>
+        <div class="care-step reveal"><div class="num">02</div><h3>Air Dry</h3><p>Hang or lay flat to dry in the shade. Linen dries quickly and keeps its shape best this way.</p></div>
+        <div class="care-step reveal"><div class="num">03</div><h3>Embrace the Crease</h3><p>A relaxed crease is part of linen’s charm. For a crisp finish, iron while slightly damp.</p></div>
+        <div class="care-step reveal"><div class="num">04</div><h3>Store to Breathe</h3><p>Fold loosely and keep in a cool, airy place — never sealed in plastic.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Questions</span>
+        <h2>Good to Know</h2>
+        <div class="gold-rule"></div>
+      </div>
+      <div class="faq-list reveal">
+        <details><summary>Will my linen shrink?</summary><p>Our pieces are pre-washed, so shrinkage is minimal. Washing cool and air drying keeps the fit true over time.</p></details>
+        <details><summary>How does the sizing run?</summary><p>Most styles have a relaxed, easy fit. If you prefer a closer silhouette, we suggest sizing down. Each product notes its fit.</p></details>
+        <details><summary>Is linen good for warm weather?</summary><p>Yes — linen is highly breathable and draws moisture away from the skin, keeping you cool. It also layers beautifully in cooler months.</p></details>
+        <details><summary>What is your returns policy?</summary><p>Unworn pieces with their tags can be returned within 30 days for a full refund or exchange.</p></details>
+        <details><summary>Do you ship internationally?</summary><p>We ship worldwide. Shipping is complimentary on every order, and you will receive tracking as soon as your parcel leaves us.</p></details>
+      </div>
+    </div>
+  </section>
+
   <!-- Newsletter -->
   <section class="newsletter" id="contact">
     <div class="container reveal">
@@ -513,15 +710,15 @@
         </div>
         <div>
           <h5>Shop</h5>
-          <ul><li><a href="#">Women</a></li><li><a href="#">Men</a></li><li><a href="#">Accessories</a></li><li><a href="#">New Arrivals</a></li></ul>
+          <ul><li><a href="#shop" data-filter="women">Women</a></li><li><a href="#shop" data-filter="men">Men</a></li><li><a href="#shop" data-filter="accessories">Accessories</a></li><li><a href="#palette">Shop by Shade</a></li></ul>
         </div>
         <div>
           <h5>House</h5>
           <ul><li><a href="#story">Our Story</a></li><li><a href="#">Journal</a></li><li><a href="#">Stores</a></li><li><a href="#">Careers</a></li></ul>
         </div>
         <div>
-          <h5>Care</h5>
-          <ul><li><a href="#">Contact</a></li><li><a href="#">Shipping</a></li><li><a href="#">Returns</a></li><li><a href="#">Size Guide</a></li></ul>
+          <h5>Help</h5>
+          <ul><li><a href="#contact">Contact</a></li><li><a href="#faq">Shipping</a></li><li><a href="#faq">Returns</a></li><li><a href="#care">Linen Care</a></li></ul>
         </div>
       </div>
       <div class="footer-bottom">
@@ -531,72 +728,286 @@
     </div>
   </footer>
 
+  <div class="overlay" id="overlay"></div>
+
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mName">
+    <button class="close-btn" data-close aria-label="Close">×</button>
+    <div class="modal-img" id="mImg"></div>
+    <div class="modal-body">
+      <span class="eyebrow" id="mCat"></span>
+      <h3 id="mName"></h3>
+      <div class="price" id="mPrice"></div>
+      <p id="mDesc"></p>
+      <div class="opt-label">Colour <b id="mColourName"></b></div>
+      <div class="swatches" id="mSwatches"></div>
+      <div class="opt-label">Size <b id="mSizeName"></b></div>
+      <div class="sizes" id="mSizes"></div>
+      <button class="btn btn-solid" id="mAdd">Add to Bag</button>
+    </div>
+  </div>
+
+  <aside class="drawer" id="drawer" aria-label="Shopping bag">
+    <div class="drawer-head">
+      <span class="eyebrow">Your Selection</span>
+      <h3>Shopping Bag</h3>
+      <button class="close-btn" data-close aria-label="Close">×</button>
+    </div>
+    <div class="drawer-items" id="drawerItems"></div>
+    <div class="drawer-foot">
+      <div class="subtotal"><span>Subtotal</span><span id="subtotal">$0</span></div>
+      <small>Complimentary shipping · Duties calculated at checkout</small>
+      <button class="btn btn-solid" id="checkout">Checkout</button>
+    </div>
+  </aside>
+
   <div class="toast" id="toast">Added to your bag</div>
 
   <script>
-    // Simple garment silhouettes in brand tones (replace with real product photos later)
+    // ----- Linen shades -----
+    const shades = {
+      natural:  { name: "Natural",  hex: "#d9ccb4", note: "Undyed flax" },
+      ivory:    { name: "Ivory",    hex: "#f6f0e4", note: "Soft white" },
+      sand:     { name: "Sand",     hex: "#cdb995", note: "Warm beige" },
+      sage:     { name: "Sage",     hex: "#b5b79a", note: "Muted green" },
+      clay:     { name: "Clay",     hex: "#c69b7d", note: "Sun-baked earth" },
+      charcoal: { name: "Charcoal", hex: "#3d382f", note: "Deep stone" }
+    };
+
+    // Simple garment silhouettes; {c} is the garment colour, {d} the detail colour.
+    // Replace with real product photography when available.
     const shapes = {
-      coat: '<path d="M38 8 L50 18 L62 8 L82 16 L92 60 L80 62 L78 40 L78 118 L22 118 L22 40 L20 62 L8 60 L18 16 Z" fill="#c9b28a"/><path d="M50 18 L50 118" stroke="#8f7036" stroke-width="1"/><circle cx="55" cy="50" r="2" fill="#8f7036"/><circle cx="55" cy="70" r="2" fill="#8f7036"/><circle cx="55" cy="90" r="2" fill="#8f7036"/>',
-      dress: '<path d="M40 6 L50 14 L60 6 L66 30 L62 46 L84 118 L16 118 L38 46 L34 30 Z" fill="#e2d4bd"/><path d="M38 46 L62 46" stroke="#b8954f" stroke-width="2"/>',
-      shirt: '<path d="M36 10 L50 18 L64 10 L88 22 L80 46 L72 42 L72 112 L28 112 L28 42 L20 46 L12 22 Z" fill="#ffffff" stroke="#d8bd85" stroke-width="1.5"/><path d="M50 18 L50 112" stroke="#d8bd85"/><path d="M42 12 L50 26 L58 12" fill="none" stroke="#d8bd85" stroke-width="1.5"/>',
-      trousers: '<path d="M26 8 L74 8 L80 116 L58 116 L50 40 L42 116 L20 116 Z" fill="#cdb995"/><path d="M26 16 L74 16" stroke="#8f7036"/>',
-      knit: '<path d="M34 10 Q50 20 66 10 L90 24 L86 70 L74 66 L74 112 L26 112 L26 66 L14 70 L10 24 Z" fill="#efe6d8" stroke="#cdb995" stroke-width="1.5"/><path d="M26 104 L74 104 M26 108 L74 108" stroke="#cdb995"/>',
-      bag: '<path d="M36 40 Q36 14 50 14 Q64 14 64 40" fill="none" stroke="#8f7036" stroke-width="3"/><rect x="18" y="40" width="64" height="62" rx="4" fill="#b8954f"/><rect x="44" y="56" width="12" height="8" fill="#d8bd85"/>',
-      scarf: '<path d="M30 8 L70 8 L64 70 L72 116 L56 116 L50 74 L44 116 L28 116 L36 70 Z" fill="#d8bd85"/><path d="M30 116 v4 M34 116 v4 M38 116 v4 M58 116 v4 M62 116 v4 M66 116 v4" stroke="#8f7036"/>',
-      blazer: '<path d="M36 8 L50 30 L64 8 L86 18 L90 112 L10 112 L14 18 Z" fill="#2e2a24"/><path d="M36 8 L44 60 L50 30 L56 60 L64 8" fill="#3d382f" stroke="#b8954f" stroke-width="1"/><circle cx="50" cy="76" r="2.5" fill="#b8954f"/>'
+      overshirt: '<path d="M38 8 L50 18 L62 8 L82 16 L92 60 L80 62 L78 40 L78 118 L22 118 L22 40 L20 62 L8 60 L18 16 Z" fill="{c}" stroke="{d}" stroke-opacity=".35"/><path d="M50 18 L50 118" stroke="{d}"/><rect x="26" y="50" width="14" height="12" fill="none" stroke="{d}" stroke-opacity=".6"/><rect x="60" y="50" width="14" height="12" fill="none" stroke="{d}" stroke-opacity=".6"/><circle cx="54" cy="40" r="1.8" fill="{d}"/><circle cx="54" cy="64" r="1.8" fill="{d}"/><circle cx="54" cy="88" r="1.8" fill="{d}"/>',
+      dress: '<path d="M40 6 L50 14 L60 6 L66 30 L62 46 L84 118 L16 118 L38 46 L34 30 Z" fill="{c}" stroke="{d}" stroke-opacity=".35"/><path d="M38 46 L62 46" stroke="{d}" stroke-width="2"/>',
+      shirt: '<path d="M36 10 L50 18 L64 10 L88 22 L80 46 L72 42 L72 112 L28 112 L28 42 L20 46 L12 22 Z" fill="{c}" stroke="{d}" stroke-opacity=".5" stroke-width="1.2"/><path d="M50 18 L50 112" stroke="{d}" stroke-opacity=".6"/><path d="M42 12 L50 26 L58 12" fill="none" stroke="{d}" stroke-width="1.2"/>',
+      trousers: '<path d="M26 8 L74 8 L80 116 L58 116 L50 40 L42 116 L20 116 Z" fill="{c}" stroke="{d}" stroke-opacity=".35"/><path d="M26 16 L74 16" stroke="{d}"/><path d="M44 8 v8 M56 8 v8" stroke="{d}" stroke-opacity=".6"/>',
+      top: '<path d="M34 10 Q50 20 66 10 L90 24 L86 70 L74 66 L74 112 L26 112 L26 66 L14 70 L10 24 Z" fill="{c}" stroke="{d}" stroke-opacity=".4" stroke-width="1.2"/><path d="M26 106 L74 106" stroke="{d}" stroke-opacity=".5"/>',
+      shorts: '<path d="M22 30 L78 30 L84 94 L56 94 L50 58 L44 94 L16 94 Z" fill="{c}" stroke="{d}" stroke-opacity=".35"/><path d="M22 38 L78 38" stroke="{d}"/><path d="M46 38 q4 10 8 0" fill="none" stroke="{d}"/>',
+      blazer: '<path d="M36 8 L50 30 L64 8 L86 18 L90 112 L10 112 L14 18 Z" fill="{c}" stroke="{d}" stroke-opacity=".35"/><path d="M36 8 L44 60 L50 30 L56 60 L64 8" fill="{c}" stroke="{d}" stroke-width="1"/><circle cx="50" cy="76" r="2.5" fill="{d}"/><path d="M20 84 h16 M64 84 h16" stroke="{d}" stroke-opacity=".6"/>',
+      tote: '<path d="M36 40 Q36 14 50 14 Q64 14 64 40" fill="none" stroke="{d}" stroke-width="3"/><rect x="18" y="40" width="64" height="66" fill="{c}" stroke="{d}" stroke-opacity=".35"/><path d="M18 50 h64" stroke="{d}" stroke-opacity=".4"/>',
+      scarf: '<path d="M30 8 L70 8 L64 70 L72 116 L56 116 L50 74 L44 116 L28 116 L36 70 Z" fill="{c}" stroke="{d}" stroke-opacity=".35"/><path d="M30 116 v4 M34 116 v4 M38 116 v4 M58 116 v4 M62 116 v4 M66 116 v4" stroke="{d}"/>',
+      hat: '<path d="M30 70 Q30 38 50 38 Q70 38 70 70 Z" fill="{c}" stroke="{d}" stroke-opacity=".35"/><path d="M14 74 Q50 60 86 74 Q50 88 14 74 Z" fill="{c}" stroke="{d}" stroke-opacity=".45"/><path d="M30 64 Q50 58 70 64" fill="none" stroke="{d}" stroke-width="2"/>'
     };
 
     const products = [
-      { name: "Linen Overshirt",     price: 180, shape: "coat",     badge: "New" },
-      { name: "Linen Maxi Dress",    price: 210, shape: "dress" },
-      { name: "Classic Linen Shirt", price: 120, shape: "shirt",    badge: "Bestseller" },
-      { name: "Wide-Leg Linen Trousers", price: 150, shape: "trousers" },
-      { name: "Relaxed Linen Top",   price: 95,  shape: "knit" },
-      { name: "Linen Tote",          price: 75,  shape: "bag",      badge: "New" },
-      { name: "Linen Scarf",         price: 60,  shape: "scarf" },
-      { name: "Linen Blazer",        price: 260, shape: "blazer" }
+      { id: 1,  name: "Linen Maxi Dress",        price: 210, cat: "women",       shape: "dress",     colours: ["natural","ivory","sage"],          badge: "New",        desc: "A floor-skimming silhouette with a softly defined waist. Light, fluid and made for long summer days." },
+      { id: 2,  name: "Classic Linen Shirt",     price: 120, cat: "men",         shape: "shirt",     colours: ["ivory","sand","sage","charcoal"],  badge: "Bestseller", desc: "Our signature shirt in garment-washed linen, with a relaxed collar and mother-of-pearl buttons." },
+      { id: 3,  name: "Wide-Leg Linen Trousers", price: 150, cat: "women",       shape: "trousers",  colours: ["natural","charcoal","clay"],                            desc: "High-waisted and fluid, with a wide leg that moves beautifully. Pairs with everything." },
+      { id: 4,  name: "Linen Overshirt",         price: 180, cat: "men",         shape: "overshirt", colours: ["sand","sage","charcoal"],           badge: "New",        desc: "A heavier-weight linen layer with patch pockets — wear it open over a tee or buttoned as a shirt." },
+      { id: 5,  name: "Relaxed Linen Top",       price: 95,  cat: "women",       shape: "top",       colours: ["ivory","sand","clay"],                                  desc: "An easy, boxy top with dropped shoulders. Effortless with trousers, shorts or tucked into a skirt." },
+      { id: 6,  name: "Linen Blazer",            price: 260, cat: "men",         shape: "blazer",    colours: ["charcoal","natural","sand"],                            desc: "Unstructured tailoring in breathable linen. Softly constructed for warm-weather elegance." },
+      { id: 7,  name: "Linen Shorts",            price: 85,  cat: "women",       shape: "shorts",    colours: ["natural","sage","ivory"],                               desc: "Pleated, high-rise shorts with a soft drape — a summer essential." },
+      { id: 8,  name: "Drawstring Linen Trousers", price: 140, cat: "men",       shape: "trousers",  colours: ["sand","charcoal","natural"],                            desc: "Relaxed trousers with a drawstring waist. As comfortable at home as they are by the sea." },
+      { id: 9,  name: "Linen Tote",              price: 75,  cat: "accessories", shape: "tote",      colours: ["natural","clay","charcoal"],        badge: "New",        desc: "A generous everyday tote in sturdy double-layered linen with an inner pocket." },
+      { id: 10, name: "Linen Scarf",             price: 60,  cat: "accessories", shape: "scarf",     colours: ["sand","ivory","sage"],                                  desc: "Lightweight and finished with a hand-frayed edge. Wear it in the city or wrap it on the beach." },
+      { id: 11, name: "Linen Bucket Hat",        price: 55,  cat: "accessories", shape: "hat",       colours: ["natural","sand","charcoal"],                            desc: "A soft, packable bucket hat that keeps the sun off in style." },
+      { id: 12, name: "Linen Wrap Shirt",        price: 130, cat: "women",       shape: "shirt",     colours: ["clay","ivory","natural"],                               desc: "A feminine take on our classic shirt, with a wrap front and tie waist." }
     ];
 
+    const money = n => "$" + n.toLocaleString("en-US");
+    const detailFor = key => key === "charcoal" ? "#b8954f" : "#8f7036";
+    const svgFor = (p, colour) =>
+      `<svg viewBox="0 0 100 124" aria-hidden="true">${shapes[p.shape].replaceAll("{c}", shades[colour].hex).replaceAll("{d}", detailFor(colour))}</svg>`;
+    const catLabel = { women: "Women", men: "Men", accessories: "Accessories" };
+    const sizesFor = p => p.cat === "accessories" ? ["One Size"] : ["XS", "S", "M", "L", "XL"];
+
+    // ----- Product grid -----
     const grid = document.getElementById("productGrid");
     grid.innerHTML = products.map(p => `
-      <article class="product reveal">
+      <article class="product reveal" data-id="${p.id}" data-cat="${p.cat}" data-colours="${p.colours.join(" ")}">
         <div class="product-img">
           ${p.badge ? `<span class="badge">${p.badge}</span>` : ""}
-          <svg viewBox="0 0 100 124" aria-hidden="true">${shapes[p.shape]}</svg>
-          <button class="quick" data-name="${p.name}">Add to Bag</button>
+          <span class="art">${svgFor(p, p.colours[0])}</span>
+          <button class="quick" data-view="${p.id}">Quick View</button>
         </div>
-        <h4>${p.name}</h4>
-        <div class="price">$${p.price}</div>
+        <h4 data-view="${p.id}">${p.name}</h4>
+        <div class="price">${money(p.price)}</div>
+        <div class="swatches">
+          ${p.colours.map((c, i) => `<button class="swatch${i === 0 ? " active" : ""}" style="background:${shades[c].hex}" data-colour="${c}" title="${shades[c].name}" aria-label="${shades[c].name}"></button>`).join("")}
+        </div>
       </article>`).join("");
 
-    // Bag
-    let bag = 0;
-    const toast = document.getElementById("toast");
-    let toastTimer;
     grid.addEventListener("click", e => {
-      const btn = e.target.closest(".quick");
-      if (!btn) return;
-      bag++;
-      document.getElementById("bagCount").textContent = bag;
-      toast.textContent = `${btn.dataset.name} added to your bag`;
-      toast.classList.add("show");
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => toast.classList.remove("show"), 2200);
+      const sw = e.target.closest(".swatch");
+      if (sw) {
+        const card = sw.closest(".product");
+        const p = products.find(x => x.id == card.dataset.id);
+        card.querySelectorAll(".swatch").forEach(b => b.classList.toggle("active", b === sw));
+        card.querySelector(".art").innerHTML = svgFor(p, sw.dataset.colour);
+        return;
+      }
+      const v = e.target.closest("[data-view]");
+      if (v) {
+        const card = v.closest(".product");
+        openModal(+v.dataset.view, card.querySelector(".swatch.active").dataset.colour);
+      }
     });
 
-    // Mobile menu
+    // ----- Filtering (category + shade) -----
+    let activeCat = "all", activeShade = null;
+    const filterNote = document.getElementById("filterNote");
+    function applyFilters() {
+      document.querySelectorAll(".filter").forEach(b => b.classList.toggle("active", b.dataset.filter === activeCat));
+      grid.querySelectorAll(".product").forEach(card => {
+        const okCat = activeCat === "all" || card.dataset.cat === activeCat;
+        const okShade = !activeShade || card.dataset.colours.split(" ").includes(activeShade);
+        card.classList.toggle("hidden", !(okCat && okShade));
+        if (okCat && okShade) {
+          card.classList.add("visible");
+          if (activeShade) {
+            const p = products.find(x => x.id == card.dataset.id);
+            card.querySelectorAll(".swatch").forEach(b => b.classList.toggle("active", b.dataset.colour === activeShade));
+            card.querySelector(".art").innerHTML = svgFor(p, activeShade);
+          }
+        }
+      });
+      filterNote.innerHTML = activeShade
+        ? `Showing pieces in ${shades[activeShade].name} <button id="clearShade">Clear</button>` : "";
+    }
+    document.addEventListener("click", e => {
+      const f = e.target.closest("[data-filter]");
+      if (f) { activeCat = f.dataset.filter; applyFilters(); }
+      if (e.target.id === "clearShade") { activeShade = null; applyFilters(); }
+    });
+
+    // ----- Palette -----
+    const paletteGrid = document.getElementById("paletteGrid");
+    paletteGrid.innerHTML = Object.entries(shades).map(([key, s]) => `
+      <button class="shade reveal" data-shade="${key}">
+        <div class="shade-dot" style="background-color:${s.hex}"></div>
+        <h4>${s.name}</h4><span>${s.note}</span>
+      </button>`).join("");
+    paletteGrid.addEventListener("click", e => {
+      const b = e.target.closest(".shade");
+      if (!b) return;
+      activeShade = b.dataset.shade; activeCat = "all";
+      applyFilters();
+      document.getElementById("shop").scrollIntoView({ behavior: "smooth" });
+    });
+
+    // ----- Overlay helpers -----
+    const overlay = document.getElementById("overlay");
+    const modal = document.getElementById("modal");
+    const drawer = document.getElementById("drawer");
+    function closeAll() {
+      [overlay, modal, drawer].forEach(el => el.classList.remove("show"));
+      document.body.style.overflow = "";
+    }
+    function show(el) {
+      [modal, drawer].forEach(x => x.classList.toggle("show", x === el));
+      overlay.classList.add("show");
+      document.body.style.overflow = "hidden";
+    }
+    overlay.addEventListener("click", closeAll);
+    document.querySelectorAll("[data-close]").forEach(b => b.addEventListener("click", closeAll));
+    document.addEventListener("keydown", e => { if (e.key === "Escape") closeAll(); });
+
+    // ----- Quick view modal -----
+    let current = null;
+    function renderModal() {
+      const { p, colour, size } = current;
+      document.getElementById("mImg").innerHTML = svgFor(p, colour);
+      document.getElementById("mColourName").textContent = shades[colour].name;
+      document.getElementById("mSizeName").textContent = size || "";
+      document.getElementById("mSwatches").innerHTML = p.colours.map(c =>
+        `<button class="swatch${c === colour ? " active" : ""}" style="background:${shades[c].hex}" data-colour="${c}" aria-label="${shades[c].name}"></button>`).join("");
+      document.getElementById("mSizes").innerHTML = sizesFor(p).map(sz =>
+        `<button class="size${sz === size ? " active" : ""}" data-size="${sz}">${sz}</button>`).join("");
+      document.getElementById("mAdd").textContent = size ? `Add to Bag — ${money(p.price)}` : "Select a Size";
+    }
+    function openModal(id, colour) {
+      const p = products.find(x => x.id === id);
+      const sizes = sizesFor(p);
+      current = { p, colour: colour || p.colours[0], size: sizes.length === 1 ? sizes[0] : null };
+      document.getElementById("mCat").textContent = catLabel[p.cat] + " · 100% Linen";
+      document.getElementById("mName").textContent = p.name;
+      document.getElementById("mPrice").textContent = money(p.price);
+      document.getElementById("mDesc").textContent = p.desc;
+      renderModal();
+      show(modal);
+    }
+    document.getElementById("mSwatches").addEventListener("click", e => {
+      const b = e.target.closest(".swatch"); if (!b) return;
+      current.colour = b.dataset.colour; renderModal();
+    });
+    document.getElementById("mSizes").addEventListener("click", e => {
+      const b = e.target.closest(".size"); if (!b) return;
+      current.size = b.dataset.size; renderModal();
+    });
+    document.getElementById("mAdd").addEventListener("click", () => {
+      if (!current.size) { notify("Please choose a size"); return; }
+      addToBag(current.p.id, current.colour, current.size);
+      closeAll();
+    });
+
+    // ----- Bag -----
+    let bag = [];
+    try { bag = JSON.parse(localStorage.getItem("enzo-bag")) || []; } catch (e) { bag = []; }
+    const save = () => { try { localStorage.setItem("enzo-bag", JSON.stringify(bag)); } catch (e) {} };
+
+    function addToBag(id, colour, size) {
+      const existing = bag.find(i => i.id === id && i.colour === colour && i.size === size);
+      if (existing) existing.qty++; else bag.push({ id, colour, size, qty: 1 });
+      save(); renderBag();
+      notify(`${products.find(p => p.id === id).name} added to your bag`);
+    }
+    function renderBag() {
+      const count = bag.reduce((n, i) => n + i.qty, 0);
+      const total = bag.reduce((n, i) => n + i.qty * products.find(p => p.id === i.id).price, 0);
+      document.getElementById("bagCount").textContent = count;
+      document.getElementById("subtotal").textContent = money(total);
+      document.getElementById("drawerItems").innerHTML = bag.length ? bag.map((i, idx) => {
+        const p = products.find(x => x.id === i.id);
+        return `<div class="line">
+          <div class="line-img">${svgFor(p, i.colour)}</div>
+          <div>
+            <h4>${p.name}</h4>
+            <small>${shades[i.colour].name} · ${i.size}</small>
+            <div class="qty"><button data-dec="${idx}" aria-label="Decrease">−</button><span>${i.qty}</span><button data-inc="${idx}" aria-label="Increase">+</button></div>
+            <div><button class="remove" data-remove="${idx}">Remove</button></div>
+          </div>
+          <div class="line-price">${money(p.price * i.qty)}</div>
+        </div>`;
+      }).join("") : `<div class="drawer-empty">Your bag is empty.<br><br><a href="#shop" class="btn" data-close-drawer>Discover Linen</a></div>`;
+    }
+    document.getElementById("drawerItems").addEventListener("click", e => {
+      const t = e.target;
+      if (t.dataset.inc) bag[t.dataset.inc].qty++;
+      else if (t.dataset.dec) { bag[t.dataset.dec].qty--; if (!bag[t.dataset.dec].qty) bag.splice(t.dataset.dec, 1); }
+      else if (t.dataset.remove) bag.splice(t.dataset.remove, 1);
+      else if (t.hasAttribute("data-close-drawer")) { closeAll(); return; }
+      else return;
+      save(); renderBag();
+    });
+    const bagOpen = document.getElementById("bagOpen");
+    bagOpen.addEventListener("click", () => show(drawer));
+    bagOpen.addEventListener("keydown", e => { if (e.key === "Enter") show(drawer); });
+    document.getElementById("checkout").addEventListener("click", () =>
+      notify(bag.length ? "Checkout is coming soon" : "Your bag is empty"));
+    renderBag();
+
+    // ----- Toast -----
+    const toast = document.getElementById("toast");
+    let toastTimer;
+    function notify(msg) {
+      toast.textContent = msg;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 2400);
+    }
+
+    // ----- Mobile menu -----
     const links = document.querySelector(".nav-links");
     document.querySelector(".menu-toggle").addEventListener("click", () => links.classList.toggle("open"));
     links.addEventListener("click", e => { if (e.target.tagName === "A") links.classList.remove("open"); });
 
-    // Newsletter
+    // ----- Newsletter -----
     document.getElementById("newsletterForm").addEventListener("submit", e => {
       e.preventDefault();
       document.getElementById("formMsg").textContent = "Thank you — welcome to the House of Enzo.";
       e.target.reset();
     });
 
-    // Reveal on scroll
+    // ----- Reveal on scroll -----
     const io = new IntersectionObserver(entries => {
       entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add("visible"); io.unobserve(en.target); } });
     }, { threshold: 0.12 });
