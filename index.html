@@ -463,6 +463,55 @@
     .drawer-foot .btn { width: 100%; text-align: center; }
     .bag-link { cursor: pointer; }
 
+    /* Product photos */
+    .badge, .product-img .quick { z-index: 1; }
+    .product-img .photo, .modal-img .photo, .line-img .photo {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+    }
+    .product-img .photo { transition: transform 1.2s cubic-bezier(.2,.7,.2,1); }
+    .product:hover .product-img .photo { transform: scale(1.05); }
+    .modal-img, .line-img { position: relative; overflow: hidden; }
+
+    /* Account */
+    .account-link { display: inline-flex; align-items: center; gap: 0.45rem; cursor: pointer; }
+    .account-link svg { width: 17px; height: 17px; }
+    .auth-modal {
+      position: fixed; top: 50%; left: 50%; z-index: 90;
+      width: min(460px, 100% - 2rem); max-height: calc(100vh - 2rem); overflow: auto;
+      background: var(--ivory); padding: 3rem 2.6rem 2.6rem;
+      transform: translate(-50%, -46%); opacity: 0; visibility: hidden;
+      transition: transform 0.45s ease, opacity 0.45s ease, visibility 0.45s;
+    }
+    .auth-modal.show { transform: translate(-50%, -50%); opacity: 1; visibility: visible; }
+    .auth-modal h3 { font-size: 2.2rem; margin-top: 0.5rem; }
+    .auth-tabs { display: flex; gap: 2rem; border-bottom: 1px solid var(--beige-deep); margin: 1.4rem 0 2rem; }
+    .auth-tab {
+      background: none; border: none; cursor: pointer; padding: 0 0 0.8rem; margin-bottom: -1px;
+      font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--muted); border-bottom: 1px solid transparent; transition: all 0.3s;
+    }
+    .auth-tab.active { color: var(--ink); border-color: var(--gold); }
+    .field { margin-bottom: 1.3rem; }
+    .field label { display: block; font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .field input {
+      width: 100%; padding: 0.85rem 1rem; border: 1px solid var(--beige-deep); background: var(--white);
+      font-family: var(--sans); font-size: 0.95rem; font-weight: 300; color: var(--ink); outline: none; transition: border-color 0.3s;
+    }
+    .field input:focus { border-color: var(--gold); }
+    .field.invalid input { border-color: #b5523b; }
+    .field-error { color: #a5482f; font-size: 0.78rem; margin-top: 0.35rem; }
+    .field-error:empty { display: none; }
+    .check { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.85rem; color: var(--muted); margin-bottom: 1.6rem; cursor: pointer; }
+    .check input { accent-color: var(--gold); margin-top: 0.35rem; }
+    .auth-modal .btn { width: 100%; text-align: center; }
+    .auth-alt { text-align: center; margin-top: 1.4rem; font-size: 0.85rem; color: var(--muted); }
+    .link-btn { background: none; border: none; cursor: pointer; padding: 0; color: var(--gold-dark); font-family: inherit; font-size: inherit; text-decoration: underline; }
+    .account-email { color: var(--muted); margin: 0.2rem 0 1.8rem; }
+    .account-card { background: var(--white); border: 1px solid var(--beige-deep); padding: 1.2rem 1.4rem; margin-bottom: 1rem; }
+    .account-card h5 { font-family: var(--sans); font-weight: 400; font-size: 0.68rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 0.3rem; }
+    .account-card p { color: var(--muted); font-size: 0.9rem; }
+    .account-view .btn { margin-top: 1rem; }
+
     /* Toast */
     .toast {
       position: fixed; bottom: 2rem; left: 50%; transform: translate(-50%, 150%);
@@ -500,6 +549,7 @@
       .menu-toggle { display: block; }
       .logo { text-align: center; font-size: 1.8rem; }
       .nav-actions .hide-sm { display: none; }
+      .account-link .label { display: none; }
       .hero { grid-template-columns: 1fr; }
       .hero-visual { min-height: 420px; }
       .hero-text { padding: 4rem 1.5rem; }
@@ -516,6 +566,7 @@
       .modal-img { min-height: 260px; padding: 2rem; }
       .modal-img svg { width: 45%; }
       .modal-body { padding: 2rem 1.5rem; }
+      .auth-modal { padding: 2.6rem 1.5rem 2rem; }
     }
     @media (max-width: 560px) {
       section { padding: 5rem 0; }
@@ -545,7 +596,7 @@
       <a href="#" class="logo">ENZO</a>
       <div class="nav-actions">
         <a href="#" class="hide-sm">Search</a>
-        <a href="#" class="hide-sm">Account</a>
+        <a class="account-link" id="accountOpen" role="button" tabindex="0" aria-label="Account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span class="label" id="accountLabel">Sign In</span></a>
         <a class="bag-link" id="bagOpen" role="button" tabindex="0">Bag<span class="bag-count" id="bagCount">0</span></a>
       </div>
     </div>
@@ -780,6 +831,40 @@
     </div>
   </aside>
 
+  <div class="auth-modal" id="authModal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+    <button class="close-btn" data-close aria-label="Close">×</button>
+    <div id="authForms">
+      <span class="eyebrow">Welcome to Enzo</span>
+      <h3 id="authTitle">Your Account</h3>
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="signin">Sign In</button>
+        <button class="auth-tab" data-tab="signup">Create Account</button>
+      </div>
+      <form id="signinForm" novalidate>
+        <div class="field"><label for="siEmail">Email</label><input id="siEmail" type="email" autocomplete="email" /><div class="field-error"></div></div>
+        <div class="field"><label for="siPass">Password</label><input id="siPass" type="password" autocomplete="current-password" /><div class="field-error"></div></div>
+        <button class="btn btn-solid" type="submit">Sign In</button>
+        <p class="auth-alt">New to Enzo? <button type="button" class="link-btn" data-tab="signup">Create an account</button></p>
+      </form>
+      <form id="signupForm" novalidate hidden>
+        <div class="field"><label for="suName">Full Name</label><input id="suName" type="text" autocomplete="name" /><div class="field-error"></div></div>
+        <div class="field"><label for="suEmail">Email</label><input id="suEmail" type="email" autocomplete="email" /><div class="field-error"></div></div>
+        <div class="field"><label for="suPass">Password</label><input id="suPass" type="password" autocomplete="new-password" placeholder="At least 8 characters" /><div class="field-error"></div></div>
+        <label class="check"><input type="checkbox" id="suNews" checked /> Send me the Enzo Letter — new collections and private offers.</label>
+        <button class="btn btn-solid" type="submit">Create Account</button>
+        <p class="auth-alt">Already have an account? <button type="button" class="link-btn" data-tab="signin">Sign in</button></p>
+      </form>
+    </div>
+    <div id="accountView" class="account-view" hidden>
+      <span class="eyebrow">My Account</span>
+      <h3 id="accountHello">Welcome</h3>
+      <p class="account-email" id="accountEmail"></p>
+      <div class="account-card"><h5>My Orders</h5><p>You haven’t placed any orders yet.</p></div>
+      <div class="account-card"><h5>Delivery Address</h5><p>You can add your address at checkout.</p></div>
+      <button class="btn" id="signOutBtn">Sign Out</button>
+    </div>
+  </div>
+
   <div class="toast" id="toast">Added to your bag</div>
 
   <script>
@@ -809,24 +894,30 @@
     };
 
     const products = [
-      { id: 1,  name: "Linen Maxi Dress",        price: 210, cat: "women",       shape: "dress",     colours: ["natural","ivory","sage"],          badge: "New",        desc: "A floor-skimming silhouette with a softly defined waist. Light, fluid and made for long summer days." },
-      { id: 2,  name: "Classic Linen Shirt",     price: 120, cat: "men",         shape: "shirt",     colours: ["ivory","sand","sage","charcoal"],  badge: "Bestseller", desc: "Our signature shirt in garment-washed linen, with a relaxed collar and mother-of-pearl buttons." },
-      { id: 3,  name: "Wide-Leg Linen Trousers", price: 150, cat: "women",       shape: "trousers",  colours: ["natural","charcoal","clay"],                            desc: "High-waisted and fluid, with a wide leg that moves beautifully. Pairs with everything." },
-      { id: 4,  name: "Linen Overshirt",         price: 180, cat: "men",         shape: "overshirt", colours: ["sand","sage","charcoal"],           badge: "New",        desc: "A heavier-weight linen layer with patch pockets — wear it open over a tee or buttoned as a shirt." },
-      { id: 5,  name: "Relaxed Linen Top",       price: 95,  cat: "women",       shape: "top",       colours: ["ivory","sand","clay"],                                  desc: "An easy, boxy top with dropped shoulders. Effortless with trousers, shorts or tucked into a skirt." },
-      { id: 6,  name: "Linen Blazer",            price: 260, cat: "men",         shape: "blazer",    colours: ["charcoal","natural","sand"],                            desc: "Unstructured tailoring in breathable linen. Softly constructed for warm-weather elegance." },
-      { id: 7,  name: "Linen Shorts",            price: 85,  cat: "women",       shape: "shorts",    colours: ["natural","sage","ivory"],                               desc: "Pleated, high-rise shorts with a soft drape — a summer essential." },
-      { id: 8,  name: "Drawstring Linen Trousers", price: 140, cat: "men",       shape: "trousers",  colours: ["sand","charcoal","natural"],                            desc: "Relaxed trousers with a drawstring waist. As comfortable at home as they are by the sea." },
-      { id: 9,  name: "Linen Tote",              price: 75,  cat: "accessories", shape: "tote",      colours: ["natural","clay","charcoal"],        badge: "New",        desc: "A generous everyday tote in sturdy double-layered linen with an inner pocket." },
-      { id: 10, name: "Linen Scarf",             price: 60,  cat: "accessories", shape: "scarf",     colours: ["sand","ivory","sage"],                                  desc: "Lightweight and finished with a hand-frayed edge. Wear it in the city or wrap it on the beach." },
-      { id: 11, name: "Linen Bucket Hat",        price: 55,  cat: "accessories", shape: "hat",       colours: ["natural","sand","charcoal"],                            desc: "A soft, packable bucket hat that keeps the sun off in style." },
-      { id: 12, name: "Linen Wrap Shirt",        price: 130, cat: "women",       shape: "shirt",     colours: ["clay","ivory","natural"],                               desc: "A feminine take on our classic shirt, with a wrap front and tie waist." }
+      { id: 1,  name: "Linen Maxi Dress",        price: 95, cat: "women",       shape: "dress",     colours: ["natural","ivory","sage"],          badge: "New",        desc: "A floor-skimming silhouette with a softly defined waist. Light, fluid and made for long summer days." },
+      { id: 2,  name: "Classic Linen Shirt",     price: 55, cat: "men",         shape: "shirt",     colours: ["ivory","sand","sage","charcoal"],  badge: "Bestseller", desc: "Our signature shirt in garment-washed linen, with a relaxed collar and mother-of-pearl buttons." },
+      { id: 3,  name: "Wide-Leg Linen Trousers", price: 65, cat: "women",       shape: "trousers",  colours: ["natural","charcoal","clay"],                            desc: "High-waisted and fluid, with a wide leg that moves beautifully. Pairs with everything." },
+      { id: 4,  name: "Linen Overshirt",         price: 79, cat: "men",         shape: "overshirt", colours: ["sand","sage","charcoal"],           badge: "New",        desc: "A heavier-weight linen layer with patch pockets — wear it open over a tee or buttoned as a shirt." },
+      { id: 5,  name: "Relaxed Linen Top",       price: 45,  cat: "women",       shape: "top",       colours: ["ivory","sand","clay"],                                  desc: "An easy, boxy top with dropped shoulders. Effortless with trousers, shorts or tucked into a skirt." },
+      { id: 6,  name: "Linen Blazer",            price: 119, cat: "men",         shape: "blazer",    colours: ["charcoal","natural","sand"],                            desc: "Unstructured tailoring in breathable linen. Softly constructed for warm-weather elegance." },
+      { id: 7,  name: "Linen Shorts",            price: 39,  cat: "women",       shape: "shorts",    colours: ["natural","sage","ivory"],                               desc: "Pleated, high-rise shorts with a soft drape — a summer essential." },
+      { id: 8,  name: "Drawstring Linen Trousers", price: 59, cat: "men",       shape: "trousers",  colours: ["sand","charcoal","natural"],                            desc: "Relaxed trousers with a drawstring waist. As comfortable at home as they are by the sea." },
+      { id: 9,  name: "Linen Tote",              price: 29,  cat: "accessories", shape: "tote",      colours: ["natural","clay","charcoal"],        badge: "New",        desc: "A generous everyday tote in sturdy double-layered linen with an inner pocket." },
+      { id: 10, name: "Linen Scarf",             price: 25,  cat: "accessories", shape: "scarf",     colours: ["sand","ivory","sage"],                                  desc: "Lightweight and finished with a hand-frayed edge. Wear it in the city or wrap it on the beach." },
+      { id: 11, name: "Linen Bucket Hat",        price: 22,  cat: "accessories", shape: "hat",       colours: ["natural","sand","charcoal"],                            desc: "A soft, packable bucket hat that keeps the sun off in style." },
+      { id: 12, name: "Linen Wrap Shirt",        price: 59, cat: "women",       shape: "shirt",     colours: ["clay","ivory","natural"],                               desc: "A feminine take on our classic shirt, with a wrap front and tie waist." }
     ];
 
     const money = n => "$" + n.toLocaleString("en-US");
     const detailFor = key => key === "charcoal" ? "#b8954f" : "#8f7036";
     const svgFor = (p, colour) =>
       `<svg viewBox="0 0 100 124" aria-hidden="true">${shapes[p.shape].replaceAll("{c}", shades[colour].hex).replaceAll("{d}", detailFor(colour))}</svg>`;
+    // Real photos: give a product `photo: "images/file.jpg"`, or `photos: { sand: "images/file-sand.jpg" }`
+    // for one photo per colour. Products without a photo fall back to the drawing.
+    const artFor = (p, colour) => {
+      const src = (p.photos && p.photos[colour]) || p.photo;
+      return src ? `<img class="photo" src="${src}" alt="${p.name} in ${shades[colour].name}" loading="lazy" />` : svgFor(p, colour);
+    };
     const catLabel = { women: "Women", men: "Men", accessories: "Accessories" };
     const sizesFor = p => p.cat === "accessories" ? ["One Size"] : ["XS", "S", "M", "L", "XL"];
 
@@ -836,7 +927,7 @@
       <article class="product reveal" data-id="${p.id}" data-cat="${p.cat}" data-colours="${p.colours.join(" ")}">
         <div class="product-img">
           ${p.badge ? `<span class="badge">${p.badge}</span>` : ""}
-          <span class="art">${svgFor(p, p.colours[0])}</span>
+          <span class="art">${artFor(p, p.colours[0])}</span>
           <button class="quick" data-view="${p.id}">Quick View</button>
         </div>
         <h4 data-view="${p.id}">${p.name}</h4>
@@ -852,7 +943,7 @@
         const card = sw.closest(".product");
         const p = products.find(x => x.id == card.dataset.id);
         card.querySelectorAll(".swatch").forEach(b => b.classList.toggle("active", b === sw));
-        card.querySelector(".art").innerHTML = svgFor(p, sw.dataset.colour);
+        card.querySelector(".art").innerHTML = artFor(p, sw.dataset.colour);
         return;
       }
       const v = e.target.closest("[data-view]");
@@ -876,7 +967,7 @@
           if (activeShade) {
             const p = products.find(x => x.id == card.dataset.id);
             card.querySelectorAll(".swatch").forEach(b => b.classList.toggle("active", b.dataset.colour === activeShade));
-            card.querySelector(".art").innerHTML = svgFor(p, activeShade);
+            card.querySelector(".art").innerHTML = artFor(p, activeShade);
           }
         }
       });
@@ -908,12 +999,13 @@
     const overlay = document.getElementById("overlay");
     const modal = document.getElementById("modal");
     const drawer = document.getElementById("drawer");
+    const authModal = document.getElementById("authModal");
     function closeAll() {
-      [overlay, modal, drawer].forEach(el => el.classList.remove("show"));
+      [overlay, modal, drawer, authModal].forEach(el => el.classList.remove("show"));
       document.body.style.overflow = "";
     }
     function show(el) {
-      [modal, drawer].forEach(x => x.classList.toggle("show", x === el));
+      [modal, drawer, authModal].forEach(x => x.classList.toggle("show", x === el));
       overlay.classList.add("show");
       document.body.style.overflow = "hidden";
     }
@@ -925,7 +1017,7 @@
     let current = null;
     function renderModal() {
       const { p, colour, size } = current;
-      document.getElementById("mImg").innerHTML = svgFor(p, colour);
+      document.getElementById("mImg").innerHTML = artFor(p, colour);
       document.getElementById("mColourName").textContent = shades[colour].name;
       document.getElementById("mSizeName").textContent = size || "";
       document.getElementById("mSwatches").innerHTML = p.colours.map(c =>
@@ -978,7 +1070,7 @@
       document.getElementById("drawerItems").innerHTML = bag.length ? bag.map((i, idx) => {
         const p = products.find(x => x.id === i.id);
         return `<div class="line">
-          <div class="line-img">${svgFor(p, i.colour)}</div>
+          <div class="line-img">${artFor(p, i.colour)}</div>
           <div>
             <h4>${p.name}</h4>
             <small>${shades[i.colour].name} · ${i.size}</small>
@@ -1001,9 +1093,105 @@
     const bagOpen = document.getElementById("bagOpen");
     bagOpen.addEventListener("click", () => show(drawer));
     bagOpen.addEventListener("keydown", e => { if (e.key === "Enter") show(drawer); });
-    document.getElementById("checkout").addEventListener("click", () =>
-      notify(bag.length ? "Checkout is coming soon" : "Your bag is empty"));
+    document.getElementById("checkout").addEventListener("click", () => {
+      if (!bag.length) return notify("Your bag is empty");
+      if (!accounts.current()) { openAccount("signin"); return notify("Please sign in to check out"); }
+      notify("Checkout is coming soon");
+    });
     renderBag();
+
+    // ----- Accounts -----
+    // Preview mode: remembers who is signed in on this device only and never stores passwords.
+    // Connect a sign-in service (e.g. Firebase Authentication) here to make accounts work across devices.
+    const store = {
+      get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } },
+      set(k, v) { try { v === null ? localStorage.removeItem(k) : localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+    };
+    const accounts = {
+      current: () => store.get("enzo-user"),
+      known: () => store.get("enzo-accounts") || {},
+      signUp(name, email, newsletter) {
+        const known = this.known();
+        if (known[email]) throw new Error("An account with this email already exists — please sign in.");
+        known[email] = { name, newsletter };
+        store.set("enzo-accounts", known);
+        store.set("enzo-user", { name, email });
+      },
+      signIn(email) {
+        const found = this.known()[email];
+        const name = found ? found.name : email.split("@")[0].replace(/^./, c => c.toUpperCase());
+        store.set("enzo-user", { name, email });
+      },
+      signOut: () => store.set("enzo-user", null)
+    };
+
+    const signinForm = document.getElementById("signinForm");
+    const signupForm = document.getElementById("signupForm");
+    const firstName = u => u.name.split(" ")[0];
+    const emailOk = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    function fieldError(input, msg) {
+      const f = input.closest(".field");
+      f.classList.toggle("invalid", !!msg);
+      f.querySelector(".field-error").textContent = msg || "";
+      return !msg;
+    }
+    function setTab(tab) {
+      document.querySelectorAll(".auth-tab").forEach(t => t.classList.toggle("active", t.dataset.tab === tab));
+      signinForm.hidden = tab !== "signin";
+      signupForm.hidden = tab !== "signup";
+      authModal.querySelectorAll(".field").forEach(f => { f.classList.remove("invalid"); f.querySelector(".field-error").textContent = ""; });
+    }
+    function renderAccount() {
+      const u = accounts.current();
+      document.getElementById("accountLabel").textContent = u ? firstName(u) : "Sign In";
+      document.getElementById("authForms").hidden = !!u;
+      document.getElementById("accountView").hidden = !u;
+      if (u) {
+        document.getElementById("accountHello").textContent = `Welcome, ${firstName(u)}`;
+        document.getElementById("accountEmail").textContent = u.email;
+      }
+    }
+    function openAccount(tab = "signin") {
+      renderAccount();
+      if (!accounts.current()) setTab(tab);
+      show(authModal);
+    }
+    authModal.addEventListener("click", e => { const t = e.target.closest("[data-tab]"); if (t) setTab(t.dataset.tab); });
+
+    signinForm.addEventListener("submit", e => {
+      e.preventDefault();
+      const email = document.getElementById("siEmail"), pass = document.getElementById("siPass");
+      const ok = [
+        fieldError(email, emailOk(email.value.trim()) ? "" : "Please enter a valid email."),
+        fieldError(pass, pass.value ? "" : "Please enter your password.")
+      ].every(Boolean);
+      if (!ok) return;
+      accounts.signIn(email.value.trim().toLowerCase());
+      signinForm.reset(); renderAccount(); closeAll();
+      notify(`Welcome back, ${firstName(accounts.current())}`);
+    });
+    signupForm.addEventListener("submit", e => {
+      e.preventDefault();
+      const name = document.getElementById("suName"), email = document.getElementById("suEmail"), pass = document.getElementById("suPass");
+      const ok = [
+        fieldError(name, name.value.trim() ? "" : "Please enter your name."),
+        fieldError(email, emailOk(email.value.trim()) ? "" : "Please enter a valid email."),
+        fieldError(pass, pass.value.length >= 8 ? "" : "Password must be at least 8 characters.")
+      ].every(Boolean);
+      if (!ok) return;
+      try {
+        accounts.signUp(name.value.trim(), email.value.trim().toLowerCase(), document.getElementById("suNews").checked);
+      } catch (err) { fieldError(email, err.message); return; }
+      signupForm.reset(); renderAccount(); closeAll();
+      notify(`Welcome to Enzo, ${firstName(accounts.current())}`);
+    });
+    document.getElementById("signOutBtn").addEventListener("click", () => {
+      accounts.signOut(); renderAccount(); closeAll(); notify("You have signed out");
+    });
+    const accountOpen = document.getElementById("accountOpen");
+    accountOpen.addEventListener("click", () => openAccount());
+    accountOpen.addEventListener("keydown", e => { if (e.key === "Enter") openAccount(); });
+    renderAccount();
 
     // ----- Toast -----
     const toast = document.getElementById("toast");
