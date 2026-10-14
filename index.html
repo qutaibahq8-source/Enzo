@@ -179,14 +179,6 @@
       display: grid; place-items: center;
       background: linear-gradient(180deg, rgba(255,255,255,0.35), rgba(255,255,255,0.05));
     }
-    .monogram {
-      font-family: var(--serif);
-      font-size: clamp(7rem, 14vw, 11rem);
-      font-weight: 300;
-      color: var(--white);
-      text-shadow: 0 2px 30px rgba(143, 112, 54, 0.35);
-      line-height: 1;
-    }
     .hero-tag {
       position: absolute; bottom: 2.5rem; right: 2.5rem;
       font-family: var(--serif); font-style: italic; font-size: 1.1rem;
@@ -513,6 +505,122 @@
     .account-card p { color: var(--muted); font-size: 0.9rem; }
     .account-view .btn { margin-top: 1rem; }
 
+    [hidden] { display: none !important; }
+
+    /* Flax mark */
+    .flax { width: 22px; height: 22px; flex: none; }
+    .flax { stroke-width: 1.3px; }
+    .logo { display: inline-flex; align-items: center; gap: 0.7rem; }
+    .logo .flax { color: var(--gold); margin-right: -0.2em; }
+    .hero-frame .flax { width: 46%; height: auto; color: var(--white); filter: drop-shadow(0 2px 18px rgba(143,112,54,0.35)); }
+    .hero-frame .flax { stroke-width: 1.6px; }
+
+    /* Owner dashboard */
+    :root {
+      --chart: #a87a24;          /* validated: chroma and 3:1 contrast on white */
+      --chart-hover: #8f6a1c;
+      --grid: #ece4d6;
+      --good: #3d6b45; --good-bg: #e5efe2;
+      --pending: #8a5a14; --pending-bg: #f6ead2;
+      --tip-muted: #cfc5b4;
+    }
+    .owner-link { display: inline-flex; align-items: center; gap: 0.45rem; cursor: pointer; color: var(--gold-dark); }
+    .owner-link svg { width: 17px; height: 17px; }
+    .dash {
+      position: fixed; inset: 0; z-index: 70; background: var(--ivory); overflow-y: auto;
+      padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px);
+      opacity: 0; visibility: hidden; transition: opacity 0.35s ease, visibility 0.35s;
+    }
+    .dash.show { opacity: 1; visibility: visible; }
+    .dash-inner { width: min(1120px, 100% - 3rem); margin-inline: auto; padding-block: 2.2rem 4rem; display: grid; gap: 1.25rem; }
+    .dash-top { display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem; flex-wrap: wrap; padding-bottom: 1.2rem; border-bottom: 1px solid var(--beige-deep); }
+    .dash-top h2 { font-size: clamp(2rem, 4vw, 2.8rem); margin-top: 0.4rem; text-wrap: balance; }
+    .dash-top .btn { padding: 0.8rem 1.6rem; }
+    .dash-bar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .periods { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .period {
+      border: 1px solid var(--beige-deep); background: var(--white); padding: 0.55rem 0.95rem; cursor: pointer;
+      font-family: var(--sans); font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
+    }
+    .period:hover { border-color: var(--gold); }
+    .period.active { background: var(--ink); border-color: var(--ink); color: var(--gold-light); }
+    .tiles { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 1rem; }
+    .tile { background: var(--white); border: 1px solid var(--beige-deep); padding: 1.3rem 1.4rem; display: grid; gap: 0.35rem; align-content: start; min-width: 0; }
+    .tile-label { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+    .tile-value { font-family: var(--sans); font-weight: 500; font-size: 1.85rem; line-height: 1.15; color: var(--ink); overflow-wrap: anywhere; }
+    .tile.lead { background: var(--ink); border-color: var(--ink); }
+    .tile.lead .tile-label { color: var(--gold-light); }
+    .tile.lead .tile-value { font-size: clamp(2.6rem, 5vw, 3.3rem); color: var(--white); }
+    .tile.lead .tile-note { color: var(--tip-muted); }
+    .tile-note { font-size: 0.82rem; color: var(--muted); }
+    .dash-grid { display: grid; grid-template-columns: 1.65fr 1fr; gap: 1rem; }
+    .dash-grid > .card { align-self: start; }
+    .dash-side { display: grid; gap: 1rem; align-content: start; min-width: 0; }
+    .card { background: var(--white); border: 1px solid var(--beige-deep); padding: 1.4rem 1.5rem; min-width: 0; }
+    .card h3 { font-size: 1.45rem; }
+    .card .sub { color: var(--muted); font-size: 0.85rem; margin: 0.1rem 0 1.1rem; }
+    .chart { position: relative; }
+    .chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+    .chart text { font-family: var(--sans); font-size: 11px; fill: var(--muted); font-variant-numeric: tabular-nums; }
+    .chart .peak { fill: var(--ink); font-weight: 500; }
+    .chart .bar { fill: var(--chart); transition: fill 0.15s; }
+    .chart .bar.on { fill: var(--chart-hover); }
+    .chart .hit { fill: transparent; cursor: default; outline: none; }
+    .chart .hit:focus-visible { stroke: var(--gold); stroke-width: 1; }
+    .tip {
+      position: absolute; z-index: 2; pointer-events: none; transform: translate(-50%, calc(-100% - 8px));
+      background: var(--ink); color: var(--tip-muted); padding: 0.45rem 0.7rem; font-size: 0.78rem; white-space: nowrap;
+      opacity: 0; transition: opacity 0.12s;
+    }
+    .tip.show { opacity: 1; }
+    .tip strong { display: block; color: var(--white); font-weight: 500; font-size: 0.95rem; }
+    .empty-note { padding: 2.6rem 1rem; text-align: center; color: var(--muted); font-family: var(--serif); font-style: italic; font-size: 1.2rem; }
+    .empty-note .btn { margin-top: 1.2rem; font-style: normal; }
+    .hbars { display: grid; gap: 0.95rem; }
+    .hbar-head { display: flex; justify-content: space-between; gap: 1rem; font-size: 0.9rem; margin-bottom: 0.35rem; }
+    .hbar-head .name { min-width: 0; overflow-wrap: anywhere; }
+    .hbar-head .val { font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .hbar-head .val small { color: var(--muted); margin-left: 0.4rem; }
+    .hbar-track { height: 10px; }
+    .hbar-fill { height: 100%; background: var(--chart); border-radius: 0 4px 4px 0; min-width: 3px; }
+    .table-wrap { overflow-x: auto; margin: 0 -0.4rem; }
+    table.sales { width: 100%; min-width: 760px; border-collapse: collapse; font-size: 0.9rem; }
+    .sales th {
+      text-align: left; font-weight: 400; font-size: 0.64rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--muted); padding: 0.6rem 0.7rem; border-bottom: 1px solid var(--beige-deep); white-space: nowrap;
+    }
+    .sales td { padding: 0.85rem 0.7rem; border-bottom: 1px solid var(--beige); vertical-align: middle; }
+    .sales .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .sales td.muted { color: var(--muted); }
+    .sales .item small { display: block; color: var(--muted); font-size: 0.78rem; }
+    .chip { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.22rem 0.65rem 0.22rem 0.5rem; border-radius: 999px; font-size: 0.74rem; white-space: nowrap; }
+    .chip svg { width: 12px; height: 12px; }
+    .chip.paid { background: var(--good-bg); color: var(--good); }
+    .chip.pending { background: var(--pending-bg); color: var(--pending); }
+    .row-actions { display: flex; gap: 0.9rem; justify-content: flex-end; white-space: nowrap; }
+    .row-actions button { background: none; border: none; cursor: pointer; padding: 0; font-family: var(--sans); font-size: 0.78rem; color: var(--gold-dark); text-decoration: underline; }
+    .row-actions button.danger { color: #a5482f; }
+    .table-foot { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; padding-top: 1rem; color: var(--muted); font-size: 0.85rem; }
+
+    /* Record a sale */
+    .sale-modal { width: min(620px, 100% - 2rem); }
+    .sale-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.2rem; }
+    .sale-grid .full { grid-column: 1 / -1; }
+    .field select {
+      width: 100%; padding: 0.85rem 1rem; border: 1px solid var(--beige-deep); background: var(--white); color: var(--ink);
+      font-family: var(--sans); font-size: 0.95rem; font-weight: 300; outline: none; border-radius: 0;
+    }
+    .field select:focus { border-color: var(--gold); }
+    .seg { display: flex; border: 1px solid var(--beige-deep); background: var(--white); }
+    .seg label { flex: 1; text-align: center; padding: 0.8rem 0.5rem; cursor: pointer; font-size: 0.85rem; color: var(--muted); }
+    .seg input { position: absolute; opacity: 0; pointer-events: none; }
+    .seg input:checked + span { color: var(--ink); font-weight: 500; }
+    .seg label:has(input:checked) { background: var(--beige); }
+    .seg label:has(input:focus-visible) { outline: 1px solid var(--gold); outline-offset: -3px; }
+    .sale-total { display: flex; justify-content: space-between; align-items: baseline; padding: 1rem 0 1.4rem; border-top: 1px solid var(--beige-deep); margin-top: 0.3rem; }
+    .sale-total span { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+    .sale-total strong { font-family: var(--sans); font-weight: 500; font-size: 1.6rem; }
+
     /* Toast */
     .toast {
       position: fixed; bottom: calc(2rem + env(safe-area-inset-bottom, 0px)); left: 50%; transform: translate(-50%, 150%);
@@ -568,6 +676,11 @@
       .modal-img svg { width: 45%; }
       .modal-body { padding: 2rem 1.5rem; }
       .auth-modal { padding: 2.6rem 1.5rem 2rem; }
+      .tiles { grid-template-columns: 1fr 1fr; }
+      .tile.lead { grid-column: 1 / -1; }
+      .tiles > .tile:last-child { grid-column: 1 / -1; }
+      .dash-grid { grid-template-columns: 1fr; }
+      .owner-link .label { display: none; }
     }
     @media (max-width: 560px) {
       section { padding: 5rem 0; }
@@ -577,10 +690,16 @@
       .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
       .care-grid { grid-template-columns: 1fr; }
       .filters { gap: 1.2rem; }
+      .sale-grid { grid-template-columns: 1fr; }
+      .dash-inner { width: calc(100% - 2rem); }
+      .tile-value { font-size: 1.45rem; }
     }
   </style>
 </head>
 <body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="flax" viewBox="-66 -66 132 132"><path d="M0.00 -11.16 C26.04 -44.64 14.32 -62.00 0.00 -62.00 C-14.32 -62.00 -26.04 -44.64 0.00 -11.16 Z M10.61 -3.45 C50.50 10.97 63.39 -5.54 58.97 -19.16 C54.54 -32.78 34.41 -38.56 10.61 -3.45 Z M6.56 9.03 C5.17 51.42 24.86 58.58 36.44 50.16 C48.03 41.74 47.31 20.81 6.56 9.03 Z M-6.56 9.03 C-47.31 20.81 -48.03 41.74 -36.44 50.16 C-24.86 58.58 -5.17 51.42 -6.56 9.03 Z M-10.61 -3.45 C-34.41 -38.56 -54.54 -32.78 -58.97 -19.16 C-63.39 -5.54 -50.50 10.97 -10.61 -3.45 Z" fill="none" stroke="currentColor" vector-effect="non-scaling-stroke" stroke-linejoin="round"/><circle cx="0" cy="0" r="6.8" fill="currentColor"/></symbol>
+  </svg>
 
   <div class="announce">Complimentary shipping on all orders · 100% pure linen</div>
 
@@ -594,9 +713,10 @@
         <a href="#care">Linen Care</a>
         <a href="#story">Our Story</a>
       </nav>
-      <a href="#" class="logo">ENZO</a>
+      <a href="#" class="logo"><svg class="flax" viewBox="0 0 132 132" aria-hidden="true"><use href="#flax" width="132" height="132"/></svg>ENZO</a>
       <div class="nav-actions">
         <a href="#" class="hide-sm">Search</a>
+        <a class="owner-link" id="ownerOpen" role="button" tabindex="0" aria-label="Sales dashboard" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span class="label">Dashboard</span></a>
         <a class="account-link" id="accountOpen" role="button" tabindex="0" aria-label="Account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span class="label" id="accountLabel">Sign In</span></a>
         <a class="bag-link" id="bagOpen" role="button" tabindex="0">Bag<span class="bag-count" id="bagCount">0</span></a>
       </div>
@@ -615,7 +735,7 @@
       </div>
     </div>
     <div class="hero-visual">
-      <div class="hero-frame"><span class="monogram">E</span></div>
+      <div class="hero-frame"><svg class="flax" viewBox="0 0 132 132" aria-hidden="true"><use href="#flax" width="132" height="132"/></svg></div>
       <span class="hero-tag">Pure Linen — Est. 2026</span>
     </div>
   </section>
@@ -777,7 +897,7 @@
     <div class="container">
       <div class="footer-grid">
         <div>
-          <div class="logo">ENZO</div>
+          <div class="logo"><svg class="flax" viewBox="0 0 132 132" aria-hidden="true"><use href="#flax" width="132" height="132"/></svg>ENZO</div>
           <p>Pure linen clothing, crafted with care for the modern wardrobe.</p>
         </div>
         <div>
@@ -864,6 +984,100 @@
       <div class="account-card"><h5>Delivery Address</h5><p>You can add your address at checkout.</p></div>
       <button class="btn" id="signOutBtn">Sign Out</button>
     </div>
+  </div>
+
+  <!-- Owner dashboard: shown only to the store's owner -->
+  <section class="dash" id="dash" aria-labelledby="dashTitle" hidden>
+    <div class="dash-inner">
+      <div class="dash-top">
+        <div>
+          <span class="eyebrow">Owner · Only visible to you</span>
+          <h2 id="dashTitle">Sales Dashboard</h2>
+        </div>
+        <div style="display:flex;gap:0.6rem;flex-wrap:wrap">
+          <button class="btn btn-solid" id="recordSale">Record a Sale</button>
+          <button class="btn" id="dashClose">Back to Store</button>
+        </div>
+      </div>
+
+      <div class="dash-bar">
+        <div class="periods" id="periods">
+          <button class="period active" data-period="month">This month</button>
+          <button class="period" data-period="30">Last 30 days</button>
+          <button class="period" data-period="90">Last 90 days</button>
+          <button class="period" data-period="all">All time</button>
+        </div>
+        <span class="tile-note" id="dashStatus"></span>
+      </div>
+
+      <div class="tiles">
+        <div class="tile lead"><span class="tile-label">Earned</span><span class="tile-value" id="kEarned">$0</span><span class="tile-note" id="kEarnedNote">Paid sales</span></div>
+        <div class="tile"><span class="tile-label">Coming in</span><span class="tile-value" id="kPending">$0</span><span class="tile-note" id="kPendingNote">Waiting for payment</span></div>
+        <div class="tile"><span class="tile-label">Orders</span><span class="tile-value" id="kOrders">0</span><span class="tile-note" id="kItems">0 pieces sold</span></div>
+        <div class="tile"><span class="tile-label">Average order</span><span class="tile-value" id="kAvg">$0</span><span class="tile-note">Paid and pending</span></div>
+      </div>
+
+      <div class="dash-grid">
+        <div class="card">
+          <h3>Earned over time</h3>
+          <p class="sub" id="chartSub">Paid sales per day</p>
+          <div class="chart" id="chart"></div>
+        </div>
+        <div class="dash-side">
+          <div class="card">
+            <h3>Best sellers</h3>
+            <p class="sub">By money taken, paid and pending</p>
+            <div class="hbars" id="bestSellers"></div>
+          </div>
+          <div class="card">
+            <h3>Where sales come from</h3>
+            <p class="sub">Share of orders</p>
+            <div class="hbars" id="channels"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>All sales</h3>
+        <p class="sub">Mark a sale as paid when the money arrives</p>
+        <div class="table-wrap">
+          <table class="sales">
+            <thead><tr><th>Date</th><th>Item</th><th>Customer</th><th>Channel</th><th class="num">Amount</th><th>Status</th><th></th></tr></thead>
+            <tbody id="salesRows"></tbody>
+          </table>
+        </div>
+        <div class="table-foot" id="salesFoot"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="auth-modal sale-modal" id="saleModal" role="dialog" aria-modal="true" aria-labelledby="saleTitle">
+    <button class="close-btn" data-close aria-label="Close">×</button>
+    <span class="eyebrow">Owner</span>
+    <h3 id="saleTitle">Record a Sale</h3>
+    <p class="tile-note" style="margin:0.3rem 0 1.6rem">Add sales from Instagram, WhatsApp or in person so your totals stay complete.</p>
+    <form id="saleForm" novalidate>
+      <div class="sale-grid">
+        <div class="field full"><label for="saleProduct">Item</label><select id="saleProduct"></select><div class="field-error"></div></div>
+        <div class="field full" id="saleItemField" hidden><label for="saleItem">Item name</label><input id="saleItem" type="text" placeholder="e.g. Linen Kaftan" /><div class="field-error"></div></div>
+        <div class="field"><label for="saleColour">Colour</label><select id="saleColour"></select><div class="field-error"></div></div>
+        <div class="field"><label for="saleSize">Size</label><select id="saleSize"></select><div class="field-error"></div></div>
+        <div class="field"><label for="saleQty">Quantity</label><input id="saleQty" type="number" min="1" step="1" value="1" inputmode="numeric" /><div class="field-error"></div></div>
+        <div class="field"><label for="salePrice">Price each ($)</label><input id="salePrice" type="number" min="0" step="0.01" inputmode="decimal" /><div class="field-error"></div></div>
+        <div class="field"><label for="saleCustomer">Customer</label><input id="saleCustomer" type="text" placeholder="Name or @instagram (optional)" /><div class="field-error"></div></div>
+        <div class="field"><label for="saleChannel">Sold through</label>
+          <select id="saleChannel"><option>Instagram</option><option>WhatsApp</option><option>Website</option><option>In person</option><option>Other</option></select><div class="field-error"></div></div>
+        <div class="field"><label for="saleDate">Date</label><input id="saleDate" type="date" /><div class="field-error"></div></div>
+        <div class="field"><label>Payment</label>
+          <div class="seg">
+            <label><input type="radio" name="saleStatus" id="salePaid" value="paid" checked /><span>Paid</span></label>
+            <label><input type="radio" name="saleStatus" id="salePending" value="pending" /><span>Not paid yet</span></label>
+          </div>
+        </div>
+      </div>
+      <div class="sale-total"><span>Total</span><strong id="saleTotal">$0</strong></div>
+      <button class="btn btn-solid" type="submit" id="saleSave">Save Sale</button>
+    </form>
   </div>
 
   <div class="toast" id="toast">Added to your bag</div>
@@ -1001,12 +1215,13 @@
     const modal = document.getElementById("modal");
     const drawer = document.getElementById("drawer");
     const authModal = document.getElementById("authModal");
+    const saleModal = document.getElementById("saleModal");
     function closeAll() {
-      [overlay, modal, drawer, authModal].forEach(el => el.classList.remove("show"));
-      document.body.style.overflow = "";
+      [overlay, modal, drawer, authModal, saleModal].forEach(el => el.classList.remove("show"));
+      document.body.style.overflow = document.getElementById("dash").classList.contains("show") ? "hidden" : "";
     }
     function show(el) {
-      [modal, drawer, authModal].forEach(x => x.classList.toggle("show", x === el));
+      [modal, drawer, authModal, saleModal].forEach(x => x.classList.toggle("show", x === el));
       overlay.classList.add("show");
       document.body.style.overflow = "hidden";
     }
@@ -1193,6 +1408,296 @@
     accountOpen.addEventListener("click", () => openAccount());
     accountOpen.addEventListener("keydown", e => { if (e.key === "Enter") openAccount(); });
     renderAccount();
+
+    // ----- Owner dashboard -----
+    // Shown only to the store's owner. On claude.ai the platform confirms the owner (user.isOwner())
+    // and keeps sales in this page's database, which only the owner can read or change.
+    const dash = document.getElementById("dash");
+    const ownerOpen = document.getElementById("ownerOpen");
+    let sales = [], salesDb = null, period = "month", dashReady = false, dashError = "";
+
+    const pad2 = n => String(n).padStart(2, "0");
+    const ymd = d => `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
+    const parseYmd = s => { const [y, m, d] = String(s).split("-").map(Number); return new Date(y, (m || 1) - 1, d || 1); };
+    const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+    const fmtDay = d => d.toLocaleDateString("en-US", d.getFullYear() === new Date().getFullYear() ? { month: "short", day: "numeric" } : { month: "short", day: "numeric", year: "numeric" });
+    const fmtMonth = d => d.toLocaleDateString("en-US", { month: "short", year: "2-digit" });
+    const cash = n => "$" + Number(n || 0).toLocaleString("en-US", { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 });
+    const compact = n => n >= 1e6 ? "$" + +(n / 1e6).toFixed(1) + "M" : n >= 1000 ? "$" + +(n / 1000).toFixed(1) + "K" : "$" + +n.toFixed(2);
+    const sumTotal = list => list.reduce((n, s) => n + (Number(s.total) || 0), 0);
+    const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+    const SVGNS = "http://www.w3.org/2000/svg";
+    const svgEl = (tag, attrs) => { const e = document.createElementNS(SVGNS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; };
+
+    function range() {
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+      if (period === "month") return { start: new Date(today.getFullYear(), today.getMonth(), 1), today, bucket: "day", sub: "Paid sales per day this month" };
+      if (period === "30") return { start: addDays(today, -29), today, bucket: "day", sub: "Paid sales per day, last 30 days" };
+      if (period === "90") return { start: addDays(today, -90), today, bucket: "week", sub: "Paid sales per week, last 13 weeks" };
+      const first = sales.reduce((m, s) => (s.date && s.date < m ? s.date : m), ymd(today));
+      const f = parseYmd(first), sixBack = new Date(today.getFullYear(), today.getMonth() - 5, 1);
+      return { start: null, today, bucket: "month", from: f < sixBack ? new Date(f.getFullYear(), f.getMonth(), 1) : sixBack, sub: "Paid sales per month" };
+    }
+    function buckets(r, paid) {
+      const out = [];
+      if (r.bucket === "month") {
+        const end = new Date(r.today.getFullYear(), r.today.getMonth(), 1);
+        for (let d = new Date(r.from); d <= end; d = new Date(d.getFullYear(), d.getMonth() + 1, 1)) {
+          const key = ymd(d).slice(0, 7);
+          const rows = paid.filter(s => String(s.date).slice(0, 7) === key);
+          out.push({ label: fmtMonth(d), tip: d.toLocaleDateString("en-US", { month: "long", year: "numeric" }), value: sumTotal(rows), count: rows.length });
+        }
+        return out;
+      }
+      const span = r.bucket === "week" ? 7 : 1;
+      for (let d = r.bucket === "week" ? addDays(r.today, -90) : new Date(r.start); d <= r.today; d = addDays(d, span)) {
+        const last = addDays(d, span - 1), a = ymd(d), b = ymd(last);
+        const rows = paid.filter(s => s.date >= a && s.date <= b);
+        out.push({ label: fmtDay(d), tip: span === 1 ? fmtDay(d) : `${fmtDay(d)} – ${fmtDay(last)}`, value: sumTotal(rows), count: rows.length });
+      }
+      return out;
+    }
+    const niceStep = raw => {
+      if (!(raw > 0)) return 1;
+      const p = 10 ** Math.floor(Math.log10(raw)), f = raw / p;
+      return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 2.5 ? 2.5 : f <= 5 ? 5 : 10) * p;
+    };
+
+    function emptyNote(text, withButton) {
+      const box = el("div", "empty-note", text);
+      if (withButton) { const b = el("button", "btn btn-solid", "Record a Sale"); b.type = "button"; b.addEventListener("click", openSale); box.append(document.createElement("br"), b); }
+      return box;
+    }
+
+    function drawChart(box, points) {
+      box.textContent = "";
+      if (!points.some(p => p.value > 0)) { box.append(emptyNote("No paid sales in this period yet.", false)); return; }
+      const W = Math.max(280, Math.floor(box.clientWidth || 640)), H = 250, L = 48, R = 8, T = 24, B = 28;
+      const pw = W - L - R, ph = H - T - B, n = points.length;
+      const maxV = Math.max(...points.map(p => p.value));
+      const step = niceStep(maxV / 4), top = Math.ceil(maxV / step) * step || step;
+      const svg = svgEl("svg", { viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: "img", "aria-label": "Earned over time" });
+      for (let v = 0; v <= top + 1e-9; v += step) {
+        const y = T + ph - (v / top) * ph;
+        svg.append(svgEl("line", { x1: L, x2: W - R, y1: y, y2: y, stroke: "var(--grid)", "stroke-width": 1 }));
+        const t = svgEl("text", { x: L - 8, y: y + 4, "text-anchor": "end" }); t.textContent = compact(v); svg.append(t);
+      }
+      const slot = pw / n;
+      let bw = Math.min(24, Math.max(2, slot * 0.62)); if (slot - bw < 2) bw = Math.max(1, slot - 2);
+      const every = Math.ceil(n / Math.max(2, Math.floor(pw / 66)));
+      const tip = el("div", "tip"); const tipVal = el("strong"); const tipLab = el("span"); tip.append(tipVal, tipLab);
+      let peak = 0; points.forEach((p, i) => { if (p.value > points[peak].value) peak = i; });
+      points.forEach((p, i) => {
+        const h = (p.value / top) * ph, x = L + i * slot + (slot - bw) / 2, y = T + ph - h;
+        let bar = null;
+        if (h > 0) {
+          const r = Math.min(4, bw / 2, h);
+          bar = svgEl("path", { class: "bar", d: `M${x},${y + h} V${y + r} Q${x},${y} ${x + r},${y} H${x + bw - r} Q${x + bw},${y} ${x + bw},${y + r} V${y + h} Z` });
+          svg.append(bar);
+        }
+        if (i % every === 0) { const t = svgEl("text", { x: L + i * slot + slot / 2, y: H - 8, "text-anchor": "middle" }); t.textContent = p.label; svg.append(t); }
+        if (i === peak) {
+          const t = svgEl("text", { class: "peak", x: Math.min(W - R - 24, Math.max(L + 24, x + bw / 2)), y: y - 8, "text-anchor": "middle" });
+          t.textContent = cash(p.value); svg.append(t);
+        }
+        const hit = svgEl("rect", { class: "hit", x: L + i * slot, y: T, width: slot, height: ph, tabindex: 0, "aria-label": `${p.tip}: ${cash(p.value)}` });
+        const on = () => {
+          tipVal.textContent = cash(p.value);
+          tipLab.textContent = `${p.tip} · ${p.count} ${p.count === 1 ? "order" : "orders"}`;
+          tip.style.left = Math.min(W - 70, Math.max(70, x + bw / 2)) + "px"; tip.style.top = y + "px";
+          tip.classList.add("show"); if (bar) bar.classList.add("on");
+        };
+        const off = () => { tip.classList.remove("show"); if (bar) bar.classList.remove("on"); };
+        hit.addEventListener("pointerenter", on); hit.addEventListener("focus", on);
+        hit.addEventListener("pointerleave", off); hit.addEventListener("blur", off);
+        svg.append(hit);
+      });
+      box.append(svg, tip);
+    }
+
+    function drawBars(box, rows, emptyText) {
+      box.textContent = "";
+      if (!rows.length) { box.append(el("p", "tile-note", emptyText)); return; }
+      const max = Math.max(...rows.map(r => r.value)) || 1;
+      rows.forEach(r => {
+        const row = el("div"), head = el("div", "hbar-head"), val = el("span", "val", r.valueText);
+        val.append(el("small", null, r.note));
+        head.append(el("span", "name", r.name), val);
+        const track = el("div", "hbar-track"), fill = el("div", "hbar-fill");
+        fill.style.width = (r.value / max) * 100 + "%"; track.append(fill);
+        row.append(head, track); box.append(row);
+      });
+    }
+
+    const ICON_CHECK = '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2.5 6.2 5 8.6 9.5 3.6"/></svg>';
+    const ICON_CLOCK = '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="6" cy="6" r="4.6"/><path d="M6 3.4V6l1.8 1.2"/></svg>';
+
+    function drawTable(list) {
+      const body = document.getElementById("salesRows"), foot = document.getElementById("salesFoot");
+      body.textContent = ""; foot.textContent = "";
+      if (!list.length) {
+        const tr = el("tr"), td = el("td"); td.colSpan = 7;
+        td.append(emptyNote(sales.length ? "No sales in this period." : "No sales recorded yet. Add your first one to start tracking.", true));
+        tr.append(td); body.append(tr); return;
+      }
+      const rows = [...list].sort((a, b) => (b.date || "").localeCompare(a.date || "") || (b.createdAt || "").localeCompare(a.createdAt || ""));
+      rows.forEach(s => {
+        const tr = el("tr");
+        tr.append(el("td", "muted", s.date ? fmtDay(parseYmd(s.date)) : "—"));
+        const item = el("td", "item", s.item || "Item");
+        item.append(el("small", null, [s.colour, s.size, `× ${s.qty || 1}`].filter(Boolean).join(" · ")));
+        tr.append(item, el("td", s.customer ? null : "muted", s.customer || "—"), el("td", null, s.channel || "—"), el("td", "num", cash(s.total)));
+        const paid = s.status === "paid";
+        const chip = el("span", "chip " + (paid ? "paid" : "pending")); chip.innerHTML = paid ? ICON_CHECK : ICON_CLOCK;
+        chip.append(paid ? "Paid" : "Not paid yet");
+        const st = el("td"); st.append(chip); tr.append(st);
+        const acts = el("td"), wrap = el("div", "row-actions");
+        const toggle = el("button", null, paid ? "Mark unpaid" : "Mark paid"); toggle.type = "button";
+        toggle.addEventListener("click", async () => {
+          toggle.disabled = true;
+          try { await salesDb.doc("sales/" + s.id).update({ status: paid ? "pending" : "paid" }); notify(paid ? "Marked as not paid yet" : "Marked as paid"); }
+          catch (e) { toggle.disabled = false; notify("Couldn't update the sale. Please try again."); }
+        });
+        const del = el("button", "danger", "Delete"); del.type = "button"; let armed = 0;
+        del.addEventListener("click", async () => {
+          if (!armed) { del.textContent = "Confirm delete"; armed = setTimeout(() => { armed = 0; del.textContent = "Delete"; }, 4000); return; }
+          clearTimeout(armed); del.disabled = true;
+          try { await salesDb.doc("sales/" + s.id).delete(); notify("Sale deleted"); }
+          catch (e) { del.disabled = false; notify("Couldn't delete the sale. Please try again."); }
+        });
+        wrap.append(toggle, del); acts.append(wrap); tr.append(acts);
+        body.append(tr);
+      });
+      foot.append(el("span", null, `${rows.length} ${rows.length === 1 ? "sale" : "sales"} in this period`), el("span", null, `Total ${cash(sumTotal(rows))}`));
+    }
+
+    function renderDash() {
+      if (dash.hidden) return;
+      const r = range();
+      const list = sales.filter(s => !r.start || (s.date >= ymd(r.start) && s.date <= ymd(r.today)));
+      const paid = list.filter(s => s.status === "paid"), pending = list.filter(s => s.status !== "paid");
+      const set = (id, t) => { document.getElementById(id).textContent = t; };
+      set("kEarned", cash(sumTotal(paid)));
+      set("kEarnedNote", `From ${paid.length} paid ${paid.length === 1 ? "order" : "orders"}`);
+      set("kPending", cash(sumTotal(pending)));
+      set("kPendingNote", pending.length ? `${pending.length} ${pending.length === 1 ? "order" : "orders"} waiting for payment` : "Nothing waiting for payment");
+      set("kOrders", list.length.toLocaleString("en-US"));
+      const pieces = list.reduce((n, s) => n + (Number(s.qty) || 0), 0);
+      set("kItems", `${pieces} ${pieces === 1 ? "piece" : "pieces"} sold`);
+      set("kAvg", cash(list.length ? Math.round((sumTotal(list) / list.length) * 100) / 100 : 0));
+      set("chartSub", r.sub);
+      set("dashStatus", dashError || (dashReady ? "" : "Loading your sales…"));
+      document.querySelectorAll(".period").forEach(b => b.classList.toggle("active", b.dataset.period === period));
+      drawChart(document.getElementById("chart"), buckets(r, paid));
+
+      const byItem = {};
+      list.forEach(s => { const k = s.item || "Item"; byItem[k] = byItem[k] || { total: 0, qty: 0 }; byItem[k].total += Number(s.total) || 0; byItem[k].qty += Number(s.qty) || 0; });
+      drawBars(document.getElementById("bestSellers"),
+        Object.entries(byItem).sort((a, b) => b[1].total - a[1].total).slice(0, 5)
+          .map(([name, v]) => ({ name, value: v.total, valueText: cash(v.total), note: `${v.qty} sold` })),
+        "Your best sellers appear here once you record sales.");
+      const byChannel = {};
+      list.forEach(s => { const k = s.channel || "Other"; byChannel[k] = (byChannel[k] || 0) + 1; });
+      drawBars(document.getElementById("channels"),
+        Object.entries(byChannel).sort((a, b) => b[1] - a[1])
+          .map(([name, n]) => ({ name, value: n, valueText: Math.round((n / list.length) * 100) + "%", note: `${n} ${n === 1 ? "order" : "orders"}` })),
+        "Instagram, WhatsApp, website and in-person sales are compared here.");
+      drawTable(list);
+    }
+
+    function openDash() {
+      dash.hidden = false; void dash.offsetWidth; dash.classList.add("show");
+      document.body.style.overflow = "hidden"; dash.scrollTop = 0; renderDash();
+    }
+    function closeDash() {
+      dash.classList.remove("show"); document.body.style.overflow = "";
+      setTimeout(() => { if (!dash.classList.contains("show")) dash.hidden = true; }, 350);
+    }
+    document.getElementById("dashClose").addEventListener("click", closeDash);
+    document.getElementById("periods").addEventListener("click", e => {
+      const b = e.target.closest(".period"); if (!b) return; period = b.dataset.period; renderDash();
+    });
+    ownerOpen.addEventListener("click", openDash);
+    ownerOpen.addEventListener("keydown", e => { if (e.key === "Enter") openDash(); });
+    document.addEventListener("keydown", e => {
+      if (e.key !== "Escape" || !dash.classList.contains("show")) return;
+      if (!document.querySelector(".modal.show, .drawer.show, .auth-modal.show")) closeDash();
+    }, true);
+    let resizeTimer;
+    window.addEventListener("resize", () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(() => { if (dash.classList.contains("show")) renderDash(); }, 150); });
+
+    // ----- Record a sale -----
+    const saleForm = document.getElementById("saleForm");
+    const sp = document.getElementById("saleProduct"), sColour = document.getElementById("saleColour"), sSize = document.getElementById("saleSize");
+    const sQty = document.getElementById("saleQty"), sPrice = document.getElementById("salePrice"), sItem = document.getElementById("saleItem");
+    const fillSelect = (select, items) => { select.textContent = ""; items.forEach(([v, t]) => { const o = el("option", null, t); o.value = v; select.append(o); }); };
+    fillSelect(sp, [...products.map(p => [String(p.id), `${p.name} · ${cash(p.price)}`]), ["other", "Other item…"]]);
+    function syncSale() {
+      const p = products.find(x => String(x.id) === sp.value);
+      document.getElementById("saleItemField").hidden = !!p;
+      fillSelect(sColour, (p ? p.colours : Object.keys(shades)).map(c => [c, shades[c].name]).concat(p ? [] : [["", "Other / mixed"]]));
+      fillSelect(sSize, (p ? sizesFor(p) : ["XS", "S", "M", "L", "XL", "One Size"]).map(z => [z, z]));
+      sPrice.value = p ? p.price : "";
+      updateSaleTotal();
+    }
+    function updateSaleTotal() {
+      const t = (parseInt(sQty.value, 10) || 0) * (parseFloat(sPrice.value) || 0);
+      document.getElementById("saleTotal").textContent = cash(Math.round(t * 100) / 100);
+    }
+    sp.addEventListener("change", syncSale);
+    sQty.addEventListener("input", updateSaleTotal); sPrice.addEventListener("input", updateSaleTotal);
+    function openSale() {
+      saleForm.reset(); sp.value = String(products[0].id); syncSale();
+      document.getElementById("saleDate").value = ymd(new Date());
+      saleForm.querySelectorAll(".field").forEach(f => { f.classList.remove("invalid"); const er = f.querySelector(".field-error"); if (er) er.textContent = ""; });
+      show(document.getElementById("saleModal"));
+    }
+    document.getElementById("recordSale").addEventListener("click", openSale);
+    saleForm.addEventListener("submit", async e => {
+      e.preventDefault();
+      const p = products.find(x => String(x.id) === sp.value);
+      const qty = parseInt(sQty.value, 10), price = parseFloat(sPrice.value), date = document.getElementById("saleDate");
+      const ok = [
+        p ? true : fieldError(sItem, sItem.value.trim() ? "" : "Please enter the item name."),
+        fieldError(sQty, qty >= 1 && String(qty) === sQty.value.trim() ? "" : "Enter a whole number, 1 or more."),
+        fieldError(sPrice, price >= 0 ? "" : "Enter the price, for example 110."),
+        fieldError(date, /^\d{4}-\d{2}-\d{2}$/.test(date.value) ? "" : "Choose the date of the sale.")
+      ].every(Boolean);
+      if (!ok) return;
+      if (!salesDb) { notify("Sales can't be saved right now. Please reload the page."); return; }
+      const save = document.getElementById("saleSave"); save.disabled = true; save.textContent = "Saving…";
+      const sale = {
+        item: p ? p.name : sItem.value.trim().slice(0, 80),
+        productId: p ? p.id : null,
+        colour: sColour.value ? shades[sColour.value].name : "",
+        size: sSize.value, qty, price,
+        total: Math.round(qty * price * 100) / 100,
+        customer: document.getElementById("saleCustomer").value.trim().slice(0, 80),
+        channel: document.getElementById("saleChannel").value,
+        status: document.getElementById("salePaid").checked ? "paid" : "pending",
+        date: date.value,
+        createdAt: new Date().toISOString()
+      };
+      try {
+        await salesDb.collection("sales").add(sale);
+        closeAll(); notify(`Sale saved: ${cash(sale.total)}`);
+      } catch (err) {
+        notify(err && err.code === "quota_exceeded" ? "Your sales storage is full. Delete old sales to add new ones." : "Couldn't save the sale. Please try again.");
+      } finally { save.disabled = false; save.textContent = "Save Sale"; }
+    });
+
+    (async function startOwner() {
+      if (!window.claude || typeof window.claude.use !== "function") return;
+      const user = await window.claude.use("user");
+      if (!user || !(await user.isOwner())) return;
+      ownerOpen.hidden = false;
+      salesDb = await window.claude.use("db");
+      if (!salesDb) { dashError = "Your sales can't be loaded right now. Reload the page to try again."; renderDash(); return; }
+      salesDb.collection("sales").onSnapshot(snap => {
+        sales = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        dashReady = true; dashError = ""; renderDash();
+      }, () => { dashError = "Sales stopped updating. Reload the page to see the latest."; renderDash(); });
+    })();
 
     // ----- Toast -----
     const toast = document.getElementById("toast");
