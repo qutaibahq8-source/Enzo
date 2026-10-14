@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ENZO — Timeless Clothing</title>
+  <meta name="description" content="ENZO — refined, timeless clothing crafted with care." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --white: #ffffff;
+      --ivory: #fbf8f2;
+      --beige: #efe6d8;
+      --beige-deep: #e2d4bd;
+      --sand: #cdb995;
+      --gold: #b8954f;
+      --gold-light: #d8bd85;
+      --gold-dark: #8f7036;
+      --ink: #2e2a24;
+      --muted: #7a7062;
+      --serif: "Cormorant Garamond", Georgia, serif;
+      --sans: "Jost", "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      font-weight: 300;
+      color: var(--ink);
+      background: var(--ivory);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    .container { width: min(1200px, 100% - 3rem); margin-inline: auto; }
+
+    .eyebrow {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 400;
+    }
+    h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.1; }
+    h2 { font-size: clamp(2.2rem, 4.5vw, 3.4rem); }
+    .gold-rule { width: 60px; height: 1px; background: var(--gold); margin: 1.4rem auto; }
+
+    .btn {
+      display: inline-block;
+      padding: 0.95rem 2.4rem;
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      border: 1px solid var(--gold);
+      color: var(--gold-dark);
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.4s ease;
+    }
+    .btn:hover { background: var(--gold); color: var(--white); }
+    .btn-solid { background: var(--gold); color: var(--white); }
+    .btn-solid:hover { background: var(--gold-dark); border-color: var(--gold-dark); }
+
+    /* ---------- Announcement ---------- */
+    .announce {
+      background: var(--ink);
+      color: var(--gold-light);
+      text-align: center;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      padding: 0.6rem 1rem;
+    }
+
+    /* ---------- Header ---------- */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(251, 248, 242, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--beige-deep);
+    }
+    .nav {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      height: 84px;
+    }
+    .nav-links { display: flex; gap: 2.2rem; }
+    .nav-links a, .nav-actions a {
+      font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase;
+      position: relative; transition: color 0.3s;
+    }
+    .nav-links a::after {
+      content: ""; position: absolute; left: 0; bottom: -4px;
+      width: 0; height: 1px; background: var(--gold); transition: width 0.35s;
+    }
+    .nav-links a:hover { color: var(--gold-dark); }
+    .nav-links a:hover::after { width: 100%; }
+    .logo {
+      font-family: var(--serif);
+      font-size: 2.2rem;
+      font-weight: 500;
+      letter-spacing: 0.45em;
+      padding-left: 0.45em;
+      color: var(--ink);
+    }
+    .nav-actions { display: flex; justify-content: flex-end; gap: 1.8rem; align-items: center; }
+    .bag-count {
+      display: inline-grid; place-items: center;
+      width: 18px; height: 18px; border-radius: 50%;
+      background: var(--gold); color: var(--white);
+      font-size: 0.6rem; letter-spacing: 0; margin-left: 4px;
+    }
+    .menu-toggle { display: none; background: none; border: none; cursor: pointer; }
+    .menu-toggle span { display: block; width: 24px; height: 1px; background: var(--ink); margin: 6px 0; }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      position: relative;
+      min-height: calc(100vh - 120px);
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      background: linear-gradient(135deg, var(--beige) 0%, var(--ivory) 60%);
+      overflow: hidden;
+    }
+    .hero-text {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 4rem 3rem 4rem max(1.5rem, calc((100vw - 1200px) / 2));
+    }
+    .hero-text h1 {
+      font-size: clamp(3.2rem, 7vw, 6.2rem);
+      font-weight: 300;
+      margin: 1.2rem 0 1.5rem;
+    }
+    .hero-text h1 em { font-style: italic; color: var(--gold); }
+    .hero-text p { max-width: 420px; color: var(--muted); margin-bottom: 2.5rem; font-size: 1.02rem; }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .hero-visual {
+      position: relative;
+      display: grid; place-items: center;
+      background:
+        radial-gradient(circle at 70% 30%, rgba(216, 189, 133, 0.45), transparent 55%),
+        linear-gradient(160deg, var(--beige-deep), var(--sand));
+    }
+    .hero-frame {
+      width: min(380px, 70%);
+      aspect-ratio: 3 / 4;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      outline: 1px solid var(--gold-light);
+      outline-offset: 18px;
+      display: grid; place-items: center;
+      background: linear-gradient(180deg, rgba(255,255,255,0.35), rgba(255,255,255,0.05));
+    }
+    .monogram {
+      font-family: var(--serif);
+      font-size: clamp(7rem, 14vw, 11rem);
+      font-weight: 300;
+      color: var(--white);
+      text-shadow: 0 2px 30px rgba(143, 112, 54, 0.35);
+      line-height: 1;
+    }
+    .hero-tag {
+      position: absolute; bottom: 2.5rem; right: 2.5rem;
+      font-family: var(--serif); font-style: italic; font-size: 1.1rem;
+      color: var(--white); letter-spacing: 0.05em;
+    }
+
+    /* ---------- Marquee ---------- */
+    .marquee {
+      background: var(--white);
+      border-block: 1px solid var(--beige-deep);
+      overflow: hidden; white-space: nowrap;
+      padding: 1.1rem 0;
+    }
+    .marquee-track { display: inline-block; animation: scroll 35s linear infinite; }
+    .marquee span {
+      font-family: var(--serif); font-size: 1.25rem; font-style: italic;
+      color: var(--gold-dark); margin: 0 2.5rem;
+    }
+    .marquee span::after { content: "✦"; font-style: normal; color: var(--gold-light); margin-left: 5rem; font-size: 0.8rem; }
+    @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ---------- Sections ---------- */
+    section { padding: 7rem 0; }
+    .section-head { text-align: center; margin-bottom: 4rem; }
+    .section-head p { color: var(--muted); max-width: 520px; margin: 0 auto; }
+
+    /* Collections */
+    .collections { background: var(--white); }
+    .collection-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .collection-card {
+      position: relative; aspect-ratio: 3 / 4; overflow: hidden; cursor: pointer;
+      display: flex; align-items: flex-end;
+    }
+    .collection-card .bg {
+      position: absolute; inset: 0;
+      transition: transform 1.2s cubic-bezier(.2,.7,.2,1);
+    }
+    .collection-card:hover .bg { transform: scale(1.06); }
+    .c1 .bg { background: linear-gradient(170deg, #efe6d8 0%, #d9c6a5 100%); }
+    .c2 .bg { background: linear-gradient(170deg, #f6f1e8 0%, #c9b28a 100%); }
+    .c3 .bg { background: linear-gradient(170deg, #e8dcc7 0%, #b8954f 100%); }
+    .collection-card .bg::after {
+      content: ""; position: absolute; inset: 1.2rem;
+      border: 1px solid rgba(255,255,255,0.6);
+    }
+    .collection-info { position: relative; padding: 2.5rem; color: var(--white); width: 100%; }
+    .collection-info h3 { font-size: 2.2rem; text-shadow: 0 1px 12px rgba(46,42,36,0.2); }
+    .collection-info a {
+      font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
+      border-bottom: 1px solid var(--white); padding-bottom: 3px;
+    }
+
+    /* Products */
+    .products { background: var(--ivory); }
+    .product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.5rem 1.5rem; }
+    .product { text-align: center; }
+    .product-img {
+      position: relative; aspect-ratio: 4 / 5; margin-bottom: 1.3rem; overflow: hidden;
+      background: linear-gradient(180deg, var(--white), var(--beige));
+      display: grid; place-items: center;
+    }
+    .product-img svg { width: 55%; height: auto; transition: transform 0.8s ease; }
+    .product:hover .product-img svg { transform: translateY(-6px) scale(1.03); }
+    .product-img .quick {
+      position: absolute; left: 1rem; right: 1rem; bottom: 1rem;
+      padding: 0.8rem; background: var(--white); color: var(--ink);
+      border: none; cursor: pointer;
+      font-family: var(--sans); font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase;
+      opacity: 0; transform: translateY(10px); transition: all 0.4s ease;
+    }
+    .product:hover .quick { opacity: 1; transform: translateY(0); }
+    .product-img .quick:hover { background: var(--gold); color: var(--white); }
+    .badge {
+      position: absolute; top: 1rem; left: 1rem;
+      font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--gold-dark); background: var(--white); padding: 0.3rem 0.7rem;
+    }
+    .product h4 { font-family: var(--serif); font-size: 1.35rem; font-weight: 500; }
+    .product .price { color: var(--gold-dark); font-size: 0.9rem; letter-spacing: 0.1em; }
+
+    /* Story */
+    .story { background: var(--beige); }
+    .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .story-visual {
+      aspect-ratio: 4 / 5;
+      background: linear-gradient(160deg, var(--white), var(--beige-deep));
+      position: relative; display: grid; place-items: center;
+    }
+    .story-visual::before {
+      content: ""; position: absolute; inset: -1.5rem 1.5rem 1.5rem -1.5rem;
+      border: 1px solid var(--gold); z-index: -0; pointer-events: none;
+    }
+    .story-visual blockquote {
+      font-family: var(--serif); font-style: italic; font-size: 2rem;
+      color: var(--gold-dark); text-align: center; padding: 2rem; max-width: 340px; line-height: 1.3;
+    }
+    .story-text h2 { margin: 1rem 0 1.5rem; }
+    .story-text p { color: var(--muted); margin-bottom: 1.2rem; }
+    .story-text .signature {
+      font-family: var(--serif); font-style: italic; font-size: 1.8rem; color: var(--gold); margin: 1.5rem 0 2rem;
+    }
+
+    /* Values */
+    .values { background: var(--white); padding: 5rem 0; }
+    .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); text-align: center; }
+    .value { padding: 1rem 2.5rem; }
+    .value + .value { border-left: 1px solid var(--beige-deep); }
+    .value-icon { font-size: 1.3rem; color: var(--gold); margin-bottom: 1rem; }
+    .value h3 { font-size: 1.6rem; margin-bottom: 0.6rem; }
+    .value p { color: var(--muted); font-size: 0.92rem; }
+
+    /* Newsletter */
+    .newsletter {
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold) 55%, var(--gold-light));
+      color: var(--white); text-align: center;
+    }
+    .newsletter .eyebrow { color: var(--beige); }
+    .newsletter h2 { margin: 1rem 0; }
+    .newsletter p { opacity: 0.9; margin-bottom: 2.5rem; }
+    .newsletter form {
+      display: flex; max-width: 520px; margin: 0 auto;
+      border-bottom: 1px solid rgba(255,255,255,0.7);
+    }
+    .newsletter input {
+      flex: 1; background: transparent; border: none; outline: none;
+      padding: 1rem 0; color: var(--white);
+      font-family: var(--sans); font-size: 0.95rem; font-weight: 300;
+    }
+    .newsletter input::placeholder { color: rgba(255,255,255,0.75); }
+    .newsletter button {
+      background: none; border: none; color: var(--white); cursor: pointer;
+      font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase;
+    }
+    .form-msg { margin-top: 1.2rem; font-family: var(--serif); font-style: italic; font-size: 1.2rem; min-height: 1.5em; }
+
+    /* Footer */
+    footer { background: var(--ink); color: var(--beige); padding: 5rem 0 2rem; }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
+    footer .logo { color: var(--gold-light); font-size: 1.9rem; padding-left: 0; }
+    footer p { color: #b5aa98; font-size: 0.9rem; margin-top: 1rem; max-width: 280px; }
+    footer h5 {
+      font-family: var(--sans); font-weight: 400; font-size: 0.7rem;
+      letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 1.3rem;
+    }
+    footer ul { list-style: none; }
+    footer li { margin-bottom: 0.7rem; font-size: 0.9rem; }
+    footer li a { color: #cfc5b4; transition: color 0.3s; }
+    footer li a:hover { color: var(--gold-light); }
+    .footer-bottom {
+      border-top: 1px solid #4a443a; padding-top: 2rem;
+      display: flex; justify-content: space-between; font-size: 0.75rem; color: #8f8574; letter-spacing: 0.1em;
+    }
+
+    /* Reveal animation */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 1s ease, transform 1s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 2rem; left: 50%; transform: translate(-50%, 150%);
+      background: var(--ink); color: var(--gold-light);
+      padding: 1rem 2rem; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+      opacity: 0; visibility: hidden;
+      transition: transform 0.5s ease, opacity 0.5s ease, visibility 0.5s; z-index: 100;
+    }
+    .toast.show { transform: translate(-50%, 0); opacity: 1; visibility: visible; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 960px) {
+      .nav { grid-template-columns: auto 1fr auto; }
+      .nav-links {
+        position: fixed; top: 120px; left: 0; right: 0;
+        flex-direction: column; gap: 1.6rem; padding: 2rem 1.5rem;
+        background: var(--ivory); border-bottom: 1px solid var(--beige-deep);
+        transform: translateY(-12px); opacity: 0; visibility: hidden;
+        transition: transform 0.4s ease, opacity 0.4s ease, visibility 0.4s;
+      }
+      .nav-links.open { transform: none; opacity: 1; visibility: visible; }
+      .menu-toggle { display: block; }
+      .logo { text-align: center; font-size: 1.8rem; }
+      .nav-actions .hide-sm { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-visual { min-height: 420px; }
+      .hero-text { padding: 4rem 1.5rem; }
+      .collection-grid { grid-template-columns: 1fr; }
+      .collection-card { aspect-ratio: 4 / 3; }
+      .product-grid { grid-template-columns: repeat(2, 1fr); }
+      .story-grid { grid-template-columns: 1fr; gap: 4rem; }
+      .values-grid { grid-template-columns: 1fr; }
+      .value + .value { border-left: none; border-top: 1px solid var(--beige-deep); padding-top: 2rem; margin-top: 1rem; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px) {
+      section { padding: 5rem 0; }
+      .product-grid { gap: 2rem 1rem; }
+      .product-img .quick { opacity: 1; transform: none; font-size: 0.6rem; padding: 0.6rem; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="announce">Complimentary shipping on all orders · Crafted with care</div>
+
+  <header>
+    <div class="container nav">
+      <button class="menu-toggle" aria-label="Open menu"><span></span><span></span></button>
+      <nav class="nav-links">
+        <a href="#collections">Collections</a>
+        <a href="#shop">Shop</a>
+        <a href="#story">Our Story</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a href="#" class="logo">ENZO</a>
+      <div class="nav-actions">
+        <a href="#" class="hide-sm">Search</a>
+        <a href="#" class="hide-sm">Account</a>
+        <a href="#">Bag<span class="bag-count" id="bagCount">0</span></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" style="padding:0">
+    <div class="hero-text">
+      <span class="eyebrow">Autumn / Winter Collection</span>
+      <h1>Quiet <em>elegance,</em><br />timeless form.</h1>
+      <p>Refined essentials in natural fabrics and soft, neutral tones — designed to be worn, loved and kept for years.</p>
+      <div class="hero-cta">
+        <a href="#shop" class="btn btn-solid">Shop Now</a>
+        <a href="#collections" class="btn">Explore</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-frame"><span class="monogram">E</span></div>
+      <span class="hero-tag">Maison Enzo — Est. 2026</span>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Timeless Tailoring</span><span>Natural Fabrics</span><span>Considered Design</span><span>Made to Last</span>
+      <span>Timeless Tailoring</span><span>Natural Fabrics</span><span>Considered Design</span><span>Made to Last</span>
+      <span>Timeless Tailoring</span><span>Natural Fabrics</span><span>Considered Design</span><span>Made to Last</span>
+      <span>Timeless Tailoring</span><span>Natural Fabrics</span><span>Considered Design</span><span>Made to Last</span>
+    </div>
+  </div>
+
+  <!-- Collections -->
+  <section class="collections" id="collections">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Curated For You</span>
+        <h2>The Collections</h2>
+        <div class="gold-rule"></div>
+        <p>Three expressions of the Enzo wardrobe, each defined by restraint and quality.</p>
+      </div>
+      <div class="collection-grid">
+        <div class="collection-card c1 reveal"><div class="bg"></div>
+          <div class="collection-info"><h3>Women</h3><a href="#shop">Discover</a></div>
+        </div>
+        <div class="collection-card c2 reveal"><div class="bg"></div>
+          <div class="collection-info"><h3>Men</h3><a href="#shop">Discover</a></div>
+        </div>
+        <div class="collection-card c3 reveal"><div class="bg"></div>
+          <div class="collection-info"><h3>Accessories</h3><a href="#shop">Discover</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section class="products" id="shop">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">New Arrivals</span>
+        <h2>Signature Pieces</h2>
+        <div class="gold-rule"></div>
+      </div>
+      <div class="product-grid" id="productGrid"></div>
+    </div>
+  </section>
+
+  <!-- Story -->
+  <section class="story" id="story">
+    <div class="container story-grid">
+      <div class="story-visual reveal">
+        <blockquote>“Elegance is not about being noticed — it is about being remembered.”</blockquote>
+      </div>
+      <div class="story-text reveal">
+        <span class="eyebrow">Our Story</span>
+        <h2>Crafted with intention</h2>
+        <p>Enzo was born from a simple belief: that clothing should feel as good as it looks, and last far longer than a season.</p>
+        <p>Every piece is designed in small runs, using carefully sourced wool, linen, cotton and silk. We favour clean lines, soft palettes and the quiet details that reveal themselves over time.</p>
+        <div class="signature">— Enzo</div>
+        <a href="#contact" class="btn">Read More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="values">
+    <div class="container values-grid">
+      <div class="value reveal">
+        <div class="value-icon">✦</div>
+        <h3>Natural Fabrics</h3>
+        <p>Wool, linen, cotton and silk — chosen for comfort and longevity.</p>
+      </div>
+      <div class="value reveal">
+        <div class="value-icon">✦</div>
+        <h3>Small Batches</h3>
+        <p>Thoughtfully produced in limited quantities to reduce waste.</p>
+      </div>
+      <div class="value reveal">
+        <div class="value-icon">✦</div>
+        <h3>Lasting Quality</h3>
+        <p>Finished by hand with details made to endure for years.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="newsletter" id="contact">
+    <div class="container reveal">
+      <span class="eyebrow">The Enzo Letter</span>
+      <h2>Join the House of Enzo</h2>
+      <p>Be the first to discover new collections, private events and exclusive offers.</p>
+      <form id="newsletterForm">
+        <input type="email" placeholder="Your email address" required aria-label="Email address" />
+        <button type="submit">Subscribe</button>
+      </form>
+      <div class="form-msg" id="formMsg"></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="logo">ENZO</div>
+          <p>Refined, timeless clothing crafted with care for the modern wardrobe.</p>
+        </div>
+        <div>
+          <h5>Shop</h5>
+          <ul><li><a href="#">Women</a></li><li><a href="#">Men</a></li><li><a href="#">Accessories</a></li><li><a href="#">New Arrivals</a></li></ul>
+        </div>
+        <div>
+          <h5>House</h5>
+          <ul><li><a href="#story">Our Story</a></li><li><a href="#">Journal</a></li><li><a href="#">Stores</a></li><li><a href="#">Careers</a></li></ul>
+        </div>
+        <div>
+          <h5>Care</h5>
+          <ul><li><a href="#">Contact</a></li><li><a href="#">Shipping</a></li><li><a href="#">Returns</a></li><li><a href="#">Size Guide</a></li></ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> ENZO. All rights reserved.</span>
+        <span>Instagram · Pinterest · TikTok</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast">Added to your bag</div>
+
+  <script>
+    // Simple garment silhouettes in brand tones (replace with real product photos later)
+    const shapes = {
+      coat: '<path d="M38 8 L50 18 L62 8 L82 16 L92 60 L80 62 L78 40 L78 118 L22 118 L22 40 L20 62 L8 60 L18 16 Z" fill="#c9b28a"/><path d="M50 18 L50 118" stroke="#8f7036" stroke-width="1"/><circle cx="55" cy="50" r="2" fill="#8f7036"/><circle cx="55" cy="70" r="2" fill="#8f7036"/><circle cx="55" cy="90" r="2" fill="#8f7036"/>',
+      dress: '<path d="M40 6 L50 14 L60 6 L66 30 L62 46 L84 118 L16 118 L38 46 L34 30 Z" fill="#e2d4bd"/><path d="M38 46 L62 46" stroke="#b8954f" stroke-width="2"/>',
+      shirt: '<path d="M36 10 L50 18 L64 10 L88 22 L80 46 L72 42 L72 112 L28 112 L28 42 L20 46 L12 22 Z" fill="#ffffff" stroke="#d8bd85" stroke-width="1.5"/><path d="M50 18 L50 112" stroke="#d8bd85"/><path d="M42 12 L50 26 L58 12" fill="none" stroke="#d8bd85" stroke-width="1.5"/>',
+      trousers: '<path d="M26 8 L74 8 L80 116 L58 116 L50 40 L42 116 L20 116 Z" fill="#cdb995"/><path d="M26 16 L74 16" stroke="#8f7036"/>',
+      knit: '<path d="M34 10 Q50 20 66 10 L90 24 L86 70 L74 66 L74 112 L26 112 L26 66 L14 70 L10 24 Z" fill="#efe6d8" stroke="#cdb995" stroke-width="1.5"/><path d="M26 104 L74 104 M26 108 L74 108" stroke="#cdb995"/>',
+      bag: '<path d="M36 40 Q36 14 50 14 Q64 14 64 40" fill="none" stroke="#8f7036" stroke-width="3"/><rect x="18" y="40" width="64" height="62" rx="4" fill="#b8954f"/><rect x="44" y="56" width="12" height="8" fill="#d8bd85"/>',
+      scarf: '<path d="M30 8 L70 8 L64 70 L72 116 L56 116 L50 74 L44 116 L28 116 L36 70 Z" fill="#d8bd85"/><path d="M30 116 v4 M34 116 v4 M38 116 v4 M58 116 v4 M62 116 v4 M66 116 v4" stroke="#8f7036"/>',
+      blazer: '<path d="M36 8 L50 30 L64 8 L86 18 L90 112 L10 112 L14 18 Z" fill="#2e2a24"/><path d="M36 8 L44 60 L50 30 L56 60 L64 8" fill="#3d382f" stroke="#b8954f" stroke-width="1"/><circle cx="50" cy="76" r="2.5" fill="#b8954f"/>'
+    };
+
+    const products = [
+      { name: "Camel Wool Coat",   price: 420, shape: "coat",     badge: "New" },
+      { name: "Silk Slip Dress",   price: 260, shape: "dress" },
+      { name: "Linen Shirt",       price: 140, shape: "shirt" },
+      { name: "Tailored Trousers", price: 190, shape: "trousers", badge: "Bestseller" },
+      { name: "Cashmere Knit",     price: 310, shape: "knit" },
+      { name: "Leather Tote",      price: 380, shape: "bag",      badge: "New" },
+      { name: "Cashmere Scarf",    price: 150, shape: "scarf" },
+      { name: "Noir Blazer",       price: 350, shape: "blazer" }
+    ];
+
+    const grid = document.getElementById("productGrid");
+    grid.innerHTML = products.map(p => `
+      <article class="product reveal">
+        <div class="product-img">
+          ${p.badge ? `<span class="badge">${p.badge}</span>` : ""}
+          <svg viewBox="0 0 100 124" aria-hidden="true">${shapes[p.shape]}</svg>
+          <button class="quick" data-name="${p.name}">Add to Bag</button>
+        </div>
+        <h4>${p.name}</h4>
+        <div class="price">$${p.price}</div>
+      </article>`).join("");
+
+    // Bag
+    let bag = 0;
+    const toast = document.getElementById("toast");
+    let toastTimer;
+    grid.addEventListener("click", e => {
+      const btn = e.target.closest(".quick");
+      if (!btn) return;
+      bag++;
+      document.getElementById("bagCount").textContent = bag;
+      toast.textContent = `${btn.dataset.name} added to your bag`;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 2200);
+    });
+
+    // Mobile menu
+    const links = document.querySelector(".nav-links");
+    document.querySelector(".menu-toggle").addEventListener("click", () => links.classList.toggle("open"));
+    links.addEventListener("click", e => { if (e.target.tagName === "A") links.classList.remove("open"); });
+
+    // Newsletter
+    document.getElementById("newsletterForm").addEventListener("submit", e => {
+      e.preventDefault();
+      document.getElementById("formMsg").textContent = "Thank you — welcome to the House of Enzo.";
+      e.target.reset();
+    });
+
+    // Reveal on scroll
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add("visible"); io.unobserve(en.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
