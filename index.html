@@ -258,6 +258,10 @@
     }
     .product h4 { font-family: var(--serif); font-size: 1.35rem; font-weight: 500; }
     .product .price { color: var(--gold-dark); font-size: 0.9rem; letter-spacing: 0.1em; }
+    .product .price .kwd { display: block; color: var(--muted); font-size: 0.76rem; letter-spacing: 0.06em; margin-top: 0.1rem; }
+    .night-world .product .price .kwd { color: var(--frost-muted); }
+    .line-price small { display: block; color: var(--muted); font-size: 0.75rem; }
+    .subtotal-kwd { text-align: right; color: var(--muted); font-size: 0.85rem; margin: -0.2rem 0 0.4rem; }
 
     /* Story */
     .story { background: var(--beige); }
@@ -358,10 +362,10 @@
 
     /* Palette */
     .palette { background: var(--white); }
-    .palette-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.5rem; text-align: center; }
+    .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem 1.8rem; text-align: center; }
     .shade { background: none; border: none; cursor: pointer; font-family: inherit; color: inherit; }
     .shade-dot {
-      width: 100%; aspect-ratio: 1; border-radius: 50%; margin-bottom: 1rem;
+      width: min(100%, 140px); aspect-ratio: 1; border-radius: 50%; margin: 0 auto 1rem;
       border: 1px solid rgba(143,112,54,0.25);
       box-shadow: inset 0 0 0 10px rgba(255,255,255,0.35);
       transition: transform 0.5s ease, box-shadow 0.5s ease;
@@ -749,7 +753,6 @@
       .values-grid { grid-template-columns: 1fr; }
       .value + .value { border-left: none; border-top: 1px solid var(--beige-deep); padding-top: 2rem; margin-top: 1rem; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
-      .palette-grid { grid-template-columns: repeat(3, 1fr); }
       .care-grid { grid-template-columns: 1fr 1fr; }
       .modal { grid-template-columns: 1fr; }
       .modal-img { min-height: 260px; padding: 2rem; }
@@ -772,7 +775,10 @@
       .footer-grid { grid-template-columns: 1fr; }
       .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
       .care-grid { grid-template-columns: 1fr; }
-      .filters { gap: 1.2rem; }
+      .filters { gap: 0.6rem 1.2rem; }
+      .palette-grid { gap: 1rem 0.6rem; }
+      .shade h4 { font-size: 0.95rem; }
+      .shade span { display: none; }
       .sale-grid { grid-template-columns: 1fr; }
       .dash-inner { width: calc(100% - 2rem); }
       .tile-value { font-size: 1.45rem; }
@@ -813,12 +819,12 @@
   <div class="world" id="world-enzo">
   <section class="hero" id="enzo" style="padding:0">
     <div class="hero-text">
-      <span class="eyebrow">The Linen Collection</span>
-      <h1>Woven from <em>nature,</em><br />made to breathe.</h1>
-      <p>Refined essentials in pure, breathable linen and soft, natural tones — light on the skin, effortless in every season, and made to soften beautifully with time.</p>
+      <span class="eyebrow">The Summer Collection</span>
+      <h1>Linen for long,<br /><em>unhurried</em> summers.</h1>
+      <p>Polos, linen shirts and tailored shorts in soft heritage colours, for him and for her. Quietly luxurious, and made to be handed down.</p>
       <div class="hero-cta">
-        <a href="#shop" class="btn btn-solid">Shop Now</a>
-        <a href="#collections" class="btn">Explore</a>
+        <a href="#shop" class="btn btn-solid">Shop the Collection</a>
+        <a href="#shop" class="btn" data-filter="polos">The Polo Edit</a>
       </div>
     </div>
     <div class="hero-visual">
@@ -829,10 +835,10 @@
 
   <div class="marquee" aria-hidden="true">
     <div class="marquee-track">
-      <span>Pure Linen</span><span>Naturally Breathable</span><span>Softens With Every Wear</span><span>Made to Last</span>
-      <span>Pure Linen</span><span>Naturally Breathable</span><span>Softens With Every Wear</span><span>Made to Last</span>
-      <span>Pure Linen</span><span>Naturally Breathable</span><span>Softens With Every Wear</span><span>Made to Last</span>
-      <span>Pure Linen</span><span>Naturally Breathable</span><span>Softens With Every Wear</span><span>Made to Last</span>
+      <span>Pure Linen</span><span>Knitted Polos</span><span>Riviera Summers</span><span>Made to Be Handed Down</span>
+      <span>Pure Linen</span><span>Knitted Polos</span><span>Riviera Summers</span><span>Made to Be Handed Down</span>
+      <span>Pure Linen</span><span>Knitted Polos</span><span>Riviera Summers</span><span>Made to Be Handed Down</span>
+      <span>Pure Linen</span><span>Knitted Polos</span><span>Riviera Summers</span><span>Made to Be Handed Down</span>
     </div>
   </div>
 
@@ -843,7 +849,7 @@
         <span class="eyebrow">Curated For You</span>
         <h2>The Collections</h2>
         <div class="gold-rule"></div>
-        <p>Three expressions of the Enzo linen wardrobe, each defined by restraint and quality.</p>
+        <p>For her, for him, and the polos that started it all. Each defined by restraint and quality.</p>
       </div>
       <div class="collection-grid">
         <div class="collection-card c1 reveal"><div class="bg"></div>
@@ -853,7 +859,7 @@
           <div class="collection-info"><h3>Men</h3><a href="#shop" data-filter="men">Discover</a></div>
         </div>
         <div class="collection-card c3 reveal"><div class="bg"></div>
-          <div class="collection-info"><h3>Accessories</h3><a href="#shop" data-filter="accessories">Discover</a></div>
+          <div class="collection-info"><h3>The Polo Edit</h3><a href="#shop" data-filter="polos">Discover</a></div>
         </div>
       </div>
     </div>
@@ -863,15 +869,20 @@
   <section class="products" id="shop">
     <div class="container">
       <div class="section-head reveal">
-        <span class="eyebrow">New Arrivals</span>
-        <h2>Signature Linen</h2>
+        <span class="eyebrow">The Summer Collection</span>
+        <h2>The Summer Wardrobe</h2>
         <div class="gold-rule"></div>
+        <p>Polos, linen shirts, trousers and shorts for women and men, each in several colours. Prices in US dollars and Kuwaiti dinars.</p>
       </div>
       <div class="filters reveal" id="filters">
         <button class="filter active" data-filter="all">All</button>
         <button class="filter" data-filter="women">Women</button>
         <button class="filter" data-filter="men">Men</button>
-        <button class="filter" data-filter="accessories">Accessories</button>
+        <button class="filter" data-filter="polos">Polos</button>
+        <button class="filter" data-filter="shirts">Shirts</button>
+        <button class="filter" data-filter="bottoms">Trousers &amp; Shorts</button>
+        <button class="filter" data-filter="dresses">Dresses &amp; Skirts</button>
+        <button class="filter" data-filter="knitwear">Knitwear</button>
       </div>
       <div class="filter-note" id="filterNote"></div>
       <div class="product-grid" id="productGrid"></div>
@@ -883,9 +894,9 @@
     <div class="container">
       <div class="section-head reveal">
         <span class="eyebrow">Shop by Shade</span>
-        <h2>The Linen Palette</h2>
+        <h2>Heritage Colours</h2>
         <div class="gold-rule"></div>
-        <p>Soft, earthy tones inspired by the flax field — chosen to mix effortlessly with one another.</p>
+        <p>Sun-faded neutrals, navy, sky and club greens: colours that never date and always work together.</p>
       </div>
       <div class="palette-grid" id="paletteGrid"></div>
     </div>
@@ -1077,7 +1088,7 @@
         </div>
         <div>
           <h5>Shop</h5>
-          <ul><li><a href="#shop" data-filter="women">Women</a></li><li><a href="#shop" data-filter="men">Men</a></li><li><a href="#shop" data-filter="accessories">Accessories</a></li><li><a href="#palette">Shop by Shade</a></li></ul>
+          <ul><li><a href="#shop" data-filter="women">Women</a></li><li><a href="#shop" data-filter="men">Men</a></li><li><a href="#shop" data-filter="polos">Polos</a></li><li><a href="#palette">Shop by Shade</a></li></ul>
         </div>
         <div>
           <h5>House</h5>
@@ -1122,6 +1133,7 @@
     <div class="drawer-items" id="drawerItems"></div>
     <div class="drawer-foot">
       <div class="subtotal"><span>Subtotal</span><span id="subtotal">$0</span></div>
+      <div class="subtotal-kwd" id="subtotalKwd">KWD 0.000</div>
       <small>Complimentary shipping · Duties calculated at checkout</small>
       <button class="btn btn-solid" id="checkout">Checkout</button>
     </div>
@@ -1269,9 +1281,15 @@
       black:    { name: "Black",    hex: "#141210", note: "Night" },
       camel:    { name: "Camel",    hex: "#b48c5f", note: "Warm tan" },
       burgundy: { name: "Burgundy", hex: "#5e2b2e", note: "Deep wine" },
-      olive:    { name: "Olive",    hex: "#4b4a2b", note: "Deep green" }
+      olive:    { name: "Olive",    hex: "#4b4a2b", note: "Deep green" },
+      white:    { name: "White",    hex: "#fbfaf6", note: "Chalk white" },
+      navy:     { name: "Navy",     hex: "#26314a", note: "Deep marine" },
+      sky:      { name: "Sky",      hex: "#b3c7da", note: "Pale blue" },
+      forest:   { name: "Forest",   hex: "#2f4a3b", note: "Club green" },
+      tobacco:  { name: "Tobacco",  hex: "#8c6443", note: "Warm brown" },
+      butter:   { name: "Butter",   hex: "#eedfaa", note: "Soft yellow" }
     };
-    const linenPalette = ["natural", "ivory", "sand", "sage", "clay", "charcoal"];
+    const linenPalette = ["ivory", "sand", "natural", "sage", "olive", "sky", "navy", "forest", "tobacco", "clay"];
 
     // Simple garment silhouettes; {c} is the garment colour, {d} the detail colour.
     // Replace with real product photography when available.
@@ -1283,29 +1301,74 @@
       top: '<path d="M34 10 Q50 20 66 10 L90 24 L86 70 L74 66 L74 112 L26 112 L26 66 L14 70 L10 24 Z" fill="{c}" stroke="{d}" stroke-opacity=".4" stroke-width="1.2"/><path d="M26 106 L74 106" stroke="{d}" stroke-opacity=".5"/>',
       shorts: '<path d="M22 30 L78 30 L84 94 L56 94 L50 58 L44 94 L16 94 Z" fill="{c}" stroke="{d}" stroke-opacity=".35"/><path d="M22 38 L78 38" stroke="{d}"/><path d="M46 38 q4 10 8 0" fill="none" stroke="{d}"/>',
       blazer: '<path d="M36 8 L50 30 L64 8 L86 18 L90 112 L10 112 L14 18 Z" fill="{c}" stroke="{d}" stroke-opacity=".35"/><path d="M36 8 L44 60 L50 30 L56 60 L64 8" fill="{c}" stroke="{d}" stroke-width="1"/><circle cx="50" cy="76" r="2.5" fill="{d}"/><path d="M20 84 h16 M64 84 h16" stroke="{d}" stroke-opacity=".6"/>',
-      tote: '<path d="M36 40 Q36 14 50 14 Q64 14 64 40" fill="none" stroke="{d}" stroke-width="3"/><rect x="18" y="40" width="64" height="66" fill="{c}" stroke="{d}" stroke-opacity=".35"/><path d="M18 50 h64" stroke="{d}" stroke-opacity=".4"/>',
       scarf: '<path d="M30 8 L70 8 L64 70 L72 116 L56 116 L50 74 L44 116 L28 116 L36 70 Z" fill="{c}" stroke="{d}" stroke-opacity=".35"/><path d="M30 116 v4 M34 116 v4 M38 116 v4 M58 116 v4 M62 116 v4 M66 116 v4" stroke="{d}"/>',
+      polo: '<path d="M34 12 L50 18 L66 12 L88 24 L82 48 L74 45 L74 114 L26 114 L26 45 L18 48 L12 24 Z" fill="{c}" stroke="{d}" stroke-opacity=".45" stroke-width="1.1"/><path d="M47 26 V44 H53 V26" fill="none" stroke="{d}" stroke-opacity=".7"/><circle cx="50" cy="32" r="1.4" fill="{d}"/><circle cx="50" cy="39" r="1.4" fill="{d}"/><path d="M34 12 L50 18 L66 12 L64 23 L53 30 L50 20 L47 30 L36 23 Z" fill="{c}" stroke="{d}" stroke-width="1.1" stroke-linejoin="round"/><path d="M16 27 L21 46 M84 27 L79 46" stroke="{d}" stroke-opacity=".5"/>',
+      knitpolo: '<path d="M34 12 L50 18 L66 12 L88 24 L82 48 L74 45 L74 114 L26 114 L26 45 L18 48 L12 24 Z" fill="{c}" stroke="{d}" stroke-opacity=".45" stroke-width="1.1"/><path d="M32 50 V104 M38 50 V104 M44 50 V104 M56 50 V104 M62 50 V104 M68 50 V104" stroke="{d}" stroke-opacity=".16"/><path d="M26 106 H74 M30 106 V114 M35 106 V114 M40 106 V114 M45 106 V114 M50 106 V114 M55 106 V114 M60 106 V114 M65 106 V114 M70 106 V114" stroke="{d}" stroke-opacity=".5"/><path d="M34 12 L50 18 L66 12 L64 23 L52 34 L50 22 L48 34 L36 23 Z" fill="{c}" stroke="{d}" stroke-width="1.1" stroke-linejoin="round"/><path d="M16 27 L21 46 M84 27 L79 46" stroke="{d}" stroke-opacity=".5"/>',
+      longpolo: '<path d="M34 12 L50 18 L66 12 L84 20 L94 84 L84 86 L76 44 L76 114 L24 114 L24 44 L16 86 L6 84 L16 20 Z" fill="{c}" stroke="{d}" stroke-opacity=".45" stroke-width="1.1"/><path d="M30 50 V104 M37 50 V104 M44 50 V104 M56 50 V104 M63 50 V104 M70 50 V104" stroke="{d}" stroke-opacity=".16"/><path d="M47 26 V44 H53 V26" fill="none" stroke="{d}" stroke-opacity=".7"/><circle cx="50" cy="32" r="1.4" fill="{d}"/><circle cx="50" cy="39" r="1.4" fill="{d}"/><path d="M34 12 L50 18 L66 12 L64 23 L53 30 L50 20 L47 30 L36 23 Z" fill="{c}" stroke="{d}" stroke-width="1.1" stroke-linejoin="round"/><path d="M7 78 L17 80 M83 80 L93 78 M24 106 H76" stroke="{d}" stroke-opacity=".55"/>',
+      campshirt: '<path d="M34 10 L50 16 L66 10 L88 22 L82 46 L74 43 L74 112 L26 112 L26 43 L18 46 L12 22 Z" fill="{c}" stroke="{d}" stroke-opacity=".45" stroke-width="1.1"/><path d="M34 10 L42 27 L50 36 L58 27 L66 10" fill="none" stroke="{d}" stroke-width="1.1"/><path d="M42 27 L47 19 M58 27 L53 19" stroke="{d}" stroke-opacity=".7"/><path d="M50 36 V112" stroke="{d}" stroke-opacity=".55"/><circle cx="52.5" cy="50" r="1.3" fill="{d}"/><circle cx="52.5" cy="66" r="1.3" fill="{d}"/><circle cx="52.5" cy="82" r="1.3" fill="{d}"/><circle cx="52.5" cy="98" r="1.3" fill="{d}"/>',
+      stripeshirt: '<path d="M36 10 L50 18 L64 10 L88 22 L80 46 L72 42 L72 112 L28 112 L28 42 L20 46 L12 22 Z" fill="#fbfaf6" stroke="{c}" stroke-opacity=".6" stroke-width="1.2"/><path d="M32 30 V110 M37 24 V110 M42 22 V110 M58 22 V110 M63 24 V110 M68 30 V110 M16 26 L22 44 M20 24 L26 42 M84 26 L78 44 M80 24 L74 42" stroke="{c}" stroke-width="1.6" stroke-opacity=".85"/><path d="M50 18 L50 112" stroke="{c}" stroke-opacity=".6"/><path d="M42 12 L50 26 L58 12" fill="none" stroke="{c}" stroke-width="1.2"/>',
+      swimshorts: '<path d="M22 34 L78 34 L83 86 L56 86 L50 62 L44 86 L17 86 Z" fill="{c}" stroke="{d}" stroke-opacity=".45"/><path d="M22 42 H78" stroke="{d}" stroke-opacity=".7"/><path d="M47 42 q-2 8 -5 11 M53 42 q2 8 5 11" fill="none" stroke="{d}"/><path d="M26 50 q6 6 4 16 M74 50 q-6 6 -4 16" fill="none" stroke="{d}" stroke-opacity=".4"/>',
+      cable: '<path d="M36 10 Q50 20 64 10 L86 20 L94 80 L80 82 L76 40 L76 110 L24 110 L24 40 L20 82 L6 80 L14 20 Z" fill="{c}" stroke="{d}" stroke-opacity=".5"/><path d="M36 10 Q50 26 64 10" fill="none" stroke="{d}" stroke-width="1.2"/><path d="M38 34 q4 6 0 12 q-4 6 0 12 q4 6 0 12 q-4 6 0 12 q4 6 0 12 M62 34 q-4 6 0 12 q4 6 0 12 q-4 6 0 12 q4 6 0 12 q-4 6 0 12 M50 32 V98" fill="none" stroke="{d}" stroke-opacity=".45"/><path d="M24 102 H76 M30 102 V110 M36 102 V110 M42 102 V110 M48 102 V110 M54 102 V110 M60 102 V110 M66 102 V110 M72 102 V110" stroke="{d}" stroke-opacity=".55"/>',
+      cardigan: '<path d="M36 10 Q50 14 64 10 L86 20 L94 80 L80 82 L76 40 L76 110 L24 110 L24 40 L20 82 L6 80 L14 20 Z" fill="{c}" stroke="{d}" stroke-opacity=".5"/><path d="M36 10 L50 54 L64 10" fill="none" stroke="{d}" stroke-width="1.2"/><path d="M50 54 V110" stroke="{d}" stroke-opacity=".6"/><path d="M34 40 q3 5 0 10 q-3 5 0 10 q3 5 0 10 q-3 5 0 10 M66 40 q-3 5 0 10 q3 5 0 10 q-3 5 0 10 q3 5 0 10" fill="none" stroke="{d}" stroke-opacity=".4"/><circle cx="53" cy="62" r="1.6" fill="#fbfaf6" stroke="{d}" stroke-width=".6"/><circle cx="53" cy="74" r="1.6" fill="#fbfaf6" stroke="{d}" stroke-width=".6"/><circle cx="53" cy="86" r="1.6" fill="#fbfaf6" stroke="{d}" stroke-width=".6"/><circle cx="53" cy="98" r="1.6" fill="#fbfaf6" stroke="{d}" stroke-width=".6"/><path d="M24 104 H76" stroke="{d}" stroke-opacity=".55"/>',
+      skirt: '<path d="M34 18 L66 18 L66 28 L80 114 L20 114 L34 28 Z" fill="{c}" stroke="{d}" stroke-opacity=".45"/><path d="M34 28 H66" stroke="{d}" stroke-opacity=".7"/><path d="M42 28 L35 114 M50 28 V114 M58 28 L65 114" stroke="{d}" stroke-opacity=".4"/>',
+      vest: '<path d="M36 10 L50 40 L64 10 L76 16 L77 50 L80 104 L62 112 L50 100 L38 112 L20 104 L23 50 L24 16 Z" fill="{c}" stroke="{d}" stroke-opacity=".5"/><path d="M36 10 L50 40 L64 10" fill="none" stroke="{d}" stroke-width="1.1"/><path d="M50 40 V100" stroke="{d}" stroke-opacity=".6"/><circle cx="52.5" cy="50" r="1.6" fill="{d}"/><circle cx="52.5" cy="62" r="1.6" fill="{d}"/><circle cx="52.5" cy="74" r="1.6" fill="{d}"/><circle cx="52.5" cy="86" r="1.6" fill="{d}"/><path d="M28 70 h12 M60 70 h12" stroke="{d}" stroke-opacity=".7"/>',
+      shirtdress: '<path d="M36 10 L50 18 L64 10 L86 22 L80 44 L72 41 L70 58 L80 118 L20 118 L30 58 L28 41 L20 44 L14 22 Z" fill="{c}" stroke="{d}" stroke-opacity=".45" stroke-width="1.1"/><path d="M42 12 L50 26 L58 12" fill="none" stroke="{d}" stroke-width="1.1"/><path d="M50 26 V118" stroke="{d}" stroke-opacity=".55"/><path d="M30 58 H70" stroke="{d}" stroke-width="2.2"/><circle cx="52.5" cy="36" r="1.2" fill="{d}"/><circle cx="52.5" cy="48" r="1.2" fill="{d}"/><circle cx="52.5" cy="72" r="1.2" fill="{d}"/><circle cx="52.5" cy="90" r="1.2" fill="{d}"/>',
+      polodress: '<path d="M36 12 L50 18 L64 12 L84 24 L78 44 L71 41 L70 60 L80 118 L20 118 L30 60 L29 41 L22 44 L16 24 Z" fill="{c}" stroke="{d}" stroke-opacity=".45" stroke-width="1.1"/><path d="M47 26 V42 H53 V26" fill="none" stroke="{d}" stroke-opacity=".7"/><circle cx="50" cy="31" r="1.3" fill="{d}"/><circle cx="50" cy="37" r="1.3" fill="{d}"/><path d="M36 12 L50 18 L64 12 L62 22 L53 29 L50 20 L47 29 L38 22 Z" fill="{c}" stroke="{d}" stroke-width="1.1" stroke-linejoin="round"/><path d="M30 60 H70" stroke="{d}" stroke-opacity=".5"/>',
       coat: '<path d="M36 6 L50 22 L64 6 L84 14 L92 74 L82 76 L80 44 L80 120 L20 120 L20 44 L18 76 L8 74 L16 14 Z" fill="{c}" stroke="{d}" stroke-opacity=".55"/><path d="M36 6 L45 52 L50 22 L55 52 L64 6" fill="none" stroke="{d}" stroke-width="1.1"/><path d="M50 52 V120" stroke="{d}" stroke-opacity=".6"/><circle cx="55" cy="66" r="1.9" fill="{d}"/><circle cx="55" cy="84" r="1.9" fill="{d}"/><path d="M26 92 h12 M62 92 h12" stroke="{d}" stroke-opacity=".7"/>',
-      sweater: '<path d="M36 10 Q50 20 64 10 L86 20 L94 80 L80 82 L76 40 L76 110 L24 110 L24 40 L20 82 L6 80 L14 20 Z" fill="{c}" stroke="{d}" stroke-opacity=".55"/><path d="M36 10 Q50 26 64 10" fill="none" stroke="{d}" stroke-width="1.2"/><path d="M24 102 H76 M30 102 V110 M36 102 V110 M42 102 V110 M48 102 V110 M54 102 V110 M60 102 V110 M66 102 V110 M72 102 V110" stroke="{d}" stroke-opacity=".6"/><path d="M8 72 L21 74 M79 74 L92 72" stroke="{d}" stroke-opacity=".6"/>',
-      hat: '<path d="M30 70 Q30 38 50 38 Q70 38 70 70 Z" fill="{c}" stroke="{d}" stroke-opacity=".35"/><path d="M14 74 Q50 60 86 74 Q50 88 14 74 Z" fill="{c}" stroke="{d}" stroke-opacity=".45"/><path d="M30 64 Q50 58 70 64" fill="none" stroke="{d}" stroke-width="2"/>'
+      sweater: '<path d="M36 10 Q50 20 64 10 L86 20 L94 80 L80 82 L76 40 L76 110 L24 110 L24 40 L20 82 L6 80 L14 20 Z" fill="{c}" stroke="{d}" stroke-opacity=".55"/><path d="M36 10 Q50 26 64 10" fill="none" stroke="{d}" stroke-width="1.2"/><path d="M24 102 H76 M30 102 V110 M36 102 V110 M42 102 V110 M48 102 V110 M54 102 V110 M60 102 V110 M66 102 V110 M72 102 V110" stroke="{d}" stroke-opacity=".6"/><path d="M8 72 L21 74 M79 74 L92 72" stroke="{d}" stroke-opacity=".6"/>'
     };
 
     const products = [
-      { id: 21, name: "ENZO Polo", price: 85, cat: "men", shape: "shirt", colours: ["black", "olive"], badge: "New", label: "ENZO Essentials",
+      // ENZO: the summer house. Prices sit between high-street linen (about $100) and premium labels ($150–160).
+      { id: 21, name: "ENZO Piqué Polo",            price: 95,  cat: "men",   tags: ["polos"],     shape: "polo",       colours: ["black", "olive"], badge: "New", label: "Cotton Piqué",
         photos: { black: "images/polo-black.jpg", olive: "images/polo-olive.jpg" },
-        desc: "A clean, classic polo with a two-button placket. The ENZO mark is printed inside the neck, so the outside stays plain. The black has white tipping on the collar and sleeves." },
-      { id: 1,  name: "Linen Maxi Dress",        price: 180, cat: "women",       shape: "dress",     colours: ["natural","ivory","sage"],          badge: "New",        desc: "A floor-skimming silhouette with a softly defined waist. Light, fluid and made for long summer days." },
-      { id: 2,  name: "Classic Linen Shirt",     price: 110, cat: "men",         shape: "shirt",     colours: ["ivory","sand","sage","charcoal"],  badge: "Bestseller", desc: "Our signature shirt in garment-washed linen, with a relaxed collar and mother-of-pearl buttons." },
-      { id: 3,  name: "Wide-Leg Linen Trousers", price: 140, cat: "women",       shape: "trousers",  colours: ["natural","charcoal","clay"],                            desc: "High-waisted and fluid, with a wide leg that moves beautifully. Pairs with everything." },
-      { id: 4,  name: "Linen Overshirt",         price: 160, cat: "men",         shape: "overshirt", colours: ["sand","sage","charcoal"],           badge: "New",        desc: "A heavier-weight linen layer with patch pockets — wear it open over a tee or buttoned as a shirt." },
-      { id: 5,  name: "Relaxed Linen Top",       price: 89,  cat: "women",       shape: "top",       colours: ["ivory","sand","clay"],                                  desc: "An easy, boxy top with dropped shoulders. Effortless with trousers, shorts or tucked into a skirt." },
-      { id: 6,  name: "Linen Blazer",            price: 200, cat: "men",         shape: "blazer",    colours: ["charcoal","natural","sand"],                            desc: "Unstructured tailoring in breathable linen. Softly constructed for warm-weather elegance." },
-      { id: 7,  name: "Linen Shorts",            price: 95,  cat: "women",       shape: "shorts",    colours: ["natural","sage","ivory"],                               desc: "Pleated, high-rise shorts with a soft drape — a summer essential." },
-      { id: 8,  name: "Drawstring Linen Trousers", price: 130, cat: "men",       shape: "trousers",  colours: ["sand","charcoal","natural"],                            desc: "Relaxed trousers with a drawstring waist. As comfortable at home as they are by the sea." },
-      { id: 9,  name: "Linen Tote",              price: 85,  cat: "accessories", shape: "tote",      colours: ["natural","clay","charcoal"],        badge: "New",        desc: "A generous everyday tote in sturdy double-layered linen with an inner pocket." },
-      { id: 10, name: "Linen Scarf",             price: 75,  cat: "accessories", shape: "scarf",     colours: ["sand","ivory","sage"],                                  desc: "Lightweight and finished with a hand-frayed edge. Wear it in the city or wrap it on the beach." },
-      { id: 11, name: "Linen Bucket Hat",        price: 70,  cat: "accessories", shape: "hat",       colours: ["natural","sand","charcoal"],                            desc: "A soft, packable bucket hat that keeps the sun off in style." },
-      { id: 12, name: "Linen Wrap Shirt",        price: 120, cat: "women",       shape: "shirt",     colours: ["clay","ivory","natural"],                               desc: "A feminine take on our classic shirt, with a wrap front and tie waist." },
+        desc: "Our signature polo in soft cotton piqué with a two-button placket. The ENZO mark is printed inside the neck, so the outside stays plain. The black has white tipping on the collar and sleeves." },
+      { id: 22, name: "Knitted Riviera Polo",       price: 125, cat: "men",   tags: ["polos", "knitwear"], shape: "knitpolo", colours: ["ivory", "navy", "sage", "tobacco"], badge: "New", label: "Knitted Cotton",
+        desc: "A fine-knit polo with an open collar and ribbed hem, made for long lunches by the sea." },
+      { id: 23, name: "Fitted Piqué Polo",          price: 90,  cat: "women", tags: ["polos"],     shape: "polo",       colours: ["white", "navy", "butter", "sage"], label: "Cotton Piqué",
+        desc: "A neat, slightly fitted polo with a short placket. Tucked into linen trousers, it is the summer uniform." },
+      { id: 24, name: "Piqué Polo Dress",           price: 130, cat: "women", tags: ["polos", "dresses"], shape: "polodress", colours: ["navy", "ivory", "forest"], badge: "New", label: "Cotton Piqué",
+        desc: "A polo collar on an easy knee-length dress, cut with a softly flared skirt." },
+      { id: 2,  name: "Classic Linen Shirt",        price: 115, cat: "men",   tags: ["shirts"],    shape: "shirt",      colours: ["white", "ivory", "sky", "sand", "sage"], badge: "Bestseller",
+        desc: "Our signature shirt in garment-washed linen, with a relaxed collar and mother-of-pearl buttons." },
+      { id: 12, name: "Linen Wrap Shirt",           price: 115, cat: "women", tags: ["shirts"],    shape: "shirt",      colours: ["ivory", "clay", "natural", "sky"],
+        desc: "A feminine take on our classic shirt, with a wrap front and tie waist." },
+      { id: 25, name: "Long-Sleeve Knit Polo",      price: 135, cat: "men",   tags: ["polos", "knitwear"], shape: "longpolo", colours: ["ivory", "navy", "forest"], label: "Knitted Cotton",
+        desc: "A long-sleeved knitted polo for cooler evenings on the terrace. Wear it buttoned or open." },
+      { id: 26, name: "Knitted Polo Top",           price: 110, cat: "women", tags: ["polos", "knitwear"], shape: "knitpolo", colours: ["ivory", "butter", "sky", "navy"], label: "Knitted Cotton",
+        desc: "A short-sleeved knitted polo with a soft collar and ribbed hem. Lovely with a midi skirt." },
+      { id: 27, name: "Camp-Collar Linen Shirt",    price: 110, cat: "men",   tags: ["shirts"],    shape: "campshirt",  colours: ["ivory", "sand", "olive", "clay"],
+        desc: "A boxy short-sleeved shirt with an open camp collar. Easy over swim shorts or tucked into trousers." },
+      { id: 1,  name: "Linen Maxi Dress",           price: 165, cat: "women", tags: ["dresses"],   shape: "dress",      colours: ["natural", "ivory", "sage", "sky"],
+        desc: "A floor-skimming silhouette with a softly defined waist. Light, fluid and made for long summer days." },
+      { id: 28, name: "Striped Linen Shirt",        price: 120, cat: "men",   tags: ["shirts"],    shape: "stripeshirt", colours: ["sky", "navy", "sand"],
+        desc: "A crisp linen shirt with a fine stripe on a white ground. Named for the colour of its stripe." },
+      { id: 29, name: "Linen Shirt Dress",          price: 150, cat: "women", tags: ["dresses", "shirts"], shape: "shirtdress", colours: ["ivory", "sand", "sky", "navy"],
+        desc: "A belted shirt dress in breathable linen, buttoned all the way down." },
+      { id: 30, name: "Pleated Linen Trousers",     price: 140, cat: "men",   tags: ["bottoms"],   shape: "trousers",   colours: ["sand", "ivory", "navy", "olive"],
+        desc: "Single-pleated trousers with a high rise and a gentle taper. The foundation of a summer wardrobe." },
+      { id: 3,  name: "Wide-Leg Linen Trousers",    price: 135, cat: "women", tags: ["bottoms"],   shape: "trousers",   colours: ["natural", "ivory", "navy", "clay"],
+        desc: "High-waisted and fluid, with a wide leg that moves beautifully. Pairs with everything." },
+      { id: 8,  name: "Drawstring Linen Trousers",  price: 125, cat: "men",   tags: ["bottoms"],   shape: "trousers",   colours: ["natural", "navy", "sage"],
+        desc: "Relaxed trousers with a drawstring waist. As comfortable at home as they are by the sea." },
+      { id: 31, name: "Linen Midi Skirt",           price: 120, cat: "women", tags: ["bottoms", "dresses"], shape: "skirt", colours: ["ivory", "sand", "navy", "olive"],
+        desc: "A pleated A-line midi skirt with a clean waistband, made to move." },
+      { id: 32, name: "Tailored Linen Shorts",      price: 90,  cat: "men",   tags: ["bottoms"],   shape: "shorts",     colours: ["sand", "navy", "white", "olive", "sky"],
+        desc: "Pressed linen shorts with a flat front and a mid-thigh length. Smart enough for lunch at the club." },
+      { id: 7,  name: "Pleated Linen Shorts",       price: 85,  cat: "women", tags: ["bottoms"],   shape: "shorts",     colours: ["natural", "sage", "ivory", "navy"],
+        desc: "Pleated, high-rise shorts with a soft drape. A summer essential." },
+      { id: 33, name: "Riviera Swim Shorts",        price: 80,  cat: "men",   tags: ["bottoms"],   shape: "swimshorts", colours: ["navy", "sky", "butter", "clay"], label: "Quick-Dry Swim",
+        desc: "Tailored swim shorts with a drawstring waist and a short inseam, quick to dry in the sun." },
+      { id: 5,  name: "Relaxed Linen Top",          price: 85,  cat: "women", tags: ["shirts"],    shape: "top",        colours: ["ivory", "sand", "clay", "butter"],
+        desc: "An easy, boxy top with dropped shoulders. Effortless with trousers, shorts or tucked into a skirt." },
+      { id: 34, name: "Cable-Knit Cotton Sweater",  price: 140, cat: "men",   tags: ["knitwear"],  shape: "cable",      colours: ["ivory", "navy", "sage"], label: "Knitted Cotton",
+        desc: "A light cotton cable knit for summer evenings, best worn over the shoulders." },
+      { id: 35, name: "Cable-Knit Cotton Cardigan", price: 145, cat: "women", tags: ["knitwear"],  shape: "cardigan",   colours: ["ivory", "navy", "sage"], label: "Knitted Cotton",
+        desc: "A V-neck cardigan in light cotton cable knit with pearl-effect buttons." },
+      { id: 6,  name: "Unstructured Linen Blazer",  price: 195, cat: "men",   tags: ["tailoring"], shape: "blazer",     colours: ["sand", "navy", "ivory"],
+        desc: "Unlined, softly shouldered linen tailoring that keeps its shape in the heat." },
+      { id: 36, name: "Linen Waistcoat",            price: 105, cat: "women", tags: ["tailoring"], shape: "vest",       colours: ["sand", "ivory", "navy"],
+        desc: "A tailored waistcoat to wear on its own or over a shirt, with a matching pair of trousers." },
       // LARENZO: the winter house
       { id: 13, line: "larenzo", name: "Wool Overcoat",          price: 200, cat: "men",         shape: "coat",     colours: ["black","camel","charcoal"],  badge: "New",        desc: "A long, clean-lined overcoat in dense wool. Warm enough for the coldest nights, light enough to wear every day." },
       { id: 14, line: "larenzo", name: "Belted Wool Coat",       price: 195, cat: "women",       shape: "coat",     colours: ["camel","black","ivory"],                          desc: "A softly tailored coat with a tie belt and deep pockets." },
@@ -1319,7 +1382,13 @@
     const isLarenzo = p => p.line === "larenzo";
 
     const money = n => "$" + n.toLocaleString("en-US");
-    const detailFor = key => ["charcoal", "black", "burgundy"].includes(key) ? "#c9a866" : "#8f7036";
+    // Prices show in US dollars and Kuwaiti dinars (1 USD ≈ 0.307 KWD, mid-market, October 2026).
+    // Shop prices round to the nearest quarter dinar; totals in the dashboard use the exact conversion.
+    const KWD_PER_USD = 0.307;
+    const toKwd = usd => Math.round(usd * KWD_PER_USD * 4) / 4;
+    const kwd = amount => "KWD " + amount.toFixed(3);
+    const kwdExact = usd => kwd(Math.round(usd * KWD_PER_USD * 1000) / 1000);
+    const detailFor = key => ["charcoal", "black", "burgundy", "navy", "forest", "olive", "tobacco"].includes(key) ? "#c9a866" : "#8f7036";
     const svgFor = (p, colour) =>
       `<svg viewBox="0 0 100 124" aria-hidden="true">${shapes[p.shape].replaceAll("{c}", shades[colour].hex).replaceAll("{d}", detailFor(colour))}</svg>`;
     // Real photos: give a product `photo: "images/file.jpg"`, or `photos: { sand: "images/file-sand.jpg" }`
@@ -1335,14 +1404,14 @@
     const grid = document.getElementById("productGrid");
     const larenzoGrid = document.getElementById("larenzoGrid");
     const cardHTML = p => `
-      <article class="product reveal" data-id="${p.id}" data-cat="${p.cat}" data-colours="${p.colours.join(" ")}">
+      <article class="product reveal" data-id="${p.id}" data-tags="${[p.cat, ...(p.tags || [])].join(" ")}" data-colours="${p.colours.join(" ")}">
         <div class="product-img">
           ${p.badge ? `<span class="badge">${p.badge}</span>` : ""}
           <span class="art">${artFor(p, p.colours[0])}</span>
           <button class="quick" data-view="${p.id}">Quick View</button>
         </div>
         <h4 data-view="${p.id}">${p.name}</h4>
-        <div class="price">${money(p.price)}</div>
+        <div class="price">${money(p.price)}<span class="kwd">${kwd(toKwd(p.price))}</span></div>
         <div class="swatches">
           ${p.colours.map((c, i) => `<button class="swatch${i === 0 ? " active" : ""}" style="background:${shades[c].hex}" data-colour="${c}" title="${shades[c].name}" aria-label="${shades[c].name}"></button>`).join("")}
         </div>
@@ -1374,7 +1443,7 @@
     function applyFilters() {
       document.querySelectorAll(".filter").forEach(b => b.classList.toggle("active", b.dataset.filter === activeCat));
       grid.querySelectorAll(".product").forEach(card => {
-        const okCat = activeCat === "all" || card.dataset.cat === activeCat;
+        const okCat = activeCat === "all" || card.dataset.tags.split(" ").includes(activeCat);
         const okShade = !activeShade || card.dataset.colours.split(" ").includes(activeShade);
         card.classList.toggle("hidden", !(okCat && okShade));
         if (okCat && okShade) {
@@ -1440,7 +1509,7 @@
         `<button class="swatch${c === colour ? " active" : ""}" style="background:${shades[c].hex}" data-colour="${c}" aria-label="${shades[c].name}"></button>`).join("");
       document.getElementById("mSizes").innerHTML = sizesFor(p).map(sz =>
         `<button class="size${sz === size ? " active" : ""}" data-size="${sz}">${sz}</button>`).join("");
-      document.getElementById("mAdd").textContent = size ? `Add to Bag — ${money(p.price)}` : "Select a Size";
+      document.getElementById("mAdd").textContent = size ? `Add to Bag — ${money(p.price)} · ${kwd(toKwd(p.price))}` : "Select a Size";
     }
     function openModal(id, colour) {
       const p = products.find(x => x.id === id);
@@ -1448,7 +1517,7 @@
       current = { p, colour: colour || p.colours[0], size: sizes.length === 1 ? sizes[0] : null };
       document.getElementById("mCat").textContent = catLabel[p.cat] + " · " + (p.label || (isLarenzo(p) ? "LARENZO Winter" : "100% Linen"));
       document.getElementById("mName").textContent = p.name;
-      document.getElementById("mPrice").textContent = money(p.price);
+      document.getElementById("mPrice").textContent = `${money(p.price)} · ${kwd(toKwd(p.price))}`;
       document.getElementById("mDesc").textContent = p.desc;
       renderModal();
       show(modal);
@@ -1470,6 +1539,8 @@
     // ----- Bag -----
     let bag = [];
     try { bag = JSON.parse(localStorage.getItem("enzo-bag")) || []; } catch (e) { bag = []; }
+    // Drop anything saved from pieces that are no longer sold
+    bag = Array.isArray(bag) ? bag.filter(i => products.some(p => p.id === i.id) && shades[i.colour]) : [];
     const save = () => { try { localStorage.setItem("enzo-bag", JSON.stringify(bag)); } catch (e) {} };
 
     function addToBag(id, colour, size) {
@@ -1483,6 +1554,7 @@
       const total = bag.reduce((n, i) => n + i.qty * products.find(p => p.id === i.id).price, 0);
       document.getElementById("bagCount").textContent = count;
       document.getElementById("subtotal").textContent = money(total);
+      document.getElementById("subtotalKwd").textContent = kwd(bag.reduce((n, i) => n + i.qty * toKwd(products.find(p => p.id === i.id).price), 0));
       document.getElementById("drawerItems").innerHTML = bag.length ? bag.map((i, idx) => {
         const p = products.find(x => x.id === i.id);
         return `<div class="line">
@@ -1493,7 +1565,7 @@
             <div class="qty"><button data-dec="${idx}" aria-label="Decrease">−</button><span>${i.qty}</span><button data-inc="${idx}" aria-label="Increase">+</button></div>
             <div><button class="remove" data-remove="${idx}">Remove</button></div>
           </div>
-          <div class="line-price">${money(p.price * i.qty)}</div>
+          <div class="line-price">${money(p.price * i.qty)}<small>${kwd(toKwd(p.price) * i.qty)}</small></div>
         </div>`;
       }).join("") : `<div class="drawer-empty">Your bag is empty.<br><br><a href="#shop" class="btn" data-close-drawer>Discover Linen</a></div>`;
     }
@@ -1778,9 +1850,9 @@
       const paid = list.filter(s => s.status === "paid"), pending = list.filter(s => s.status !== "paid");
       const set = (id, t) => { document.getElementById(id).textContent = t; };
       set("kEarned", cash(sumTotal(paid)));
-      set("kEarnedNote", `From ${paid.length} paid ${paid.length === 1 ? "order" : "orders"}`);
+      set("kEarnedNote", `${kwdExact(sumTotal(paid))} · from ${paid.length} paid ${paid.length === 1 ? "order" : "orders"}`);
       set("kPending", cash(sumTotal(pending)));
-      set("kPendingNote", pending.length ? `${pending.length} ${pending.length === 1 ? "order" : "orders"} waiting for payment` : "Nothing waiting for payment");
+      set("kPendingNote", pending.length ? `${kwdExact(sumTotal(pending))} · ${pending.length} ${pending.length === 1 ? "order" : "orders"} waiting` : "Nothing waiting for payment");
       set("kOrders", list.length.toLocaleString("en-US"));
       const pieces = list.reduce((n, s) => n + (Number(s.qty) || 0), 0);
       set("kItems", `${pieces} ${pieces === 1 ? "piece" : "pieces"} sold`);
