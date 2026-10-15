@@ -621,6 +621,85 @@
     .sale-total span { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
     .sale-total strong { font-family: var(--sans); font-weight: 500; font-size: 1.6rem; }
 
+    /* ---------- LARENZO: the winter house ---------- */
+    :root {
+      --night: #0e0d0b;
+      --night-2: #171512;
+      --night-3: #231f1a;
+      --night-line: #2e2924;
+      --frost: #f3ede2;
+      --frost-muted: #a59c8d;
+    }
+    .snow { width: 22px; height: 22px; flex: none; stroke-width: 1.3px; }
+    .world { display: block; }
+    .night-world { background: var(--night); color: var(--frost); }
+    .night-world .eyebrow { color: var(--gold-light); }
+    .night-world .gold-rule { background: var(--gold-light); }
+    .night-world .section-head p { color: var(--frost-muted); }
+    .night-world .btn { border-color: var(--gold-light); color: var(--gold-light); }
+    .night-world .btn:hover { background: var(--gold-light); color: var(--night); }
+    .night-world .btn-solid { background: var(--gold-light); color: var(--night); }
+    .night-world .btn-solid:hover { background: var(--frost); border-color: var(--frost); }
+
+    /* The fade between the two houses: a tall band that turns day into night (or back) as you scroll */
+    .season-band { height: 70vh; min-height: 420px; position: relative; display: grid; place-items: center; }
+    .season-band.to-night { background: linear-gradient(180deg, var(--ivory) 0%, #d9cdb9 28%, #6d655a 58%, var(--night) 100%); }
+    .season-band.to-day { background: linear-gradient(180deg, var(--night) 0%, #6d655a 42%, #d9cdb9 72%, var(--ivory) 100%); }
+    .band-cue { position: absolute; left: 0; right: 0; text-align: center; display: grid; justify-items: center; gap: 0.9rem; padding-inline: 1rem; }
+    .to-night .band-cue { bottom: 12%; color: var(--gold-light); }
+    .to-day .band-cue { top: 12%; color: var(--gold-light); }
+    .band-cue .snow, .band-cue .flax { width: 34px; height: 34px; }
+    .band-cue span { font-size: 0.7rem; letter-spacing: 0.4em; text-transform: uppercase; }
+    .band-cue em { font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.1rem); color: var(--frost); letter-spacing: 0.02em; }
+
+    /* Header follows whichever house you are in */
+    header { color: var(--ink); transition: background-color 0.8s ease, border-color 0.8s ease, color 0.8s ease; }
+    body.night header { background: rgba(14, 13, 11, 0.92); border-color: var(--night-line); color: var(--frost); }
+    body.night .nav-links a:hover { color: var(--gold-light); }
+    body.night .nav-links a::after { background: var(--gold-light); }
+    body.night .owner-link { color: var(--gold-light); }
+    body.night .menu-toggle span { background: var(--frost); }
+    .menu-toggle span { transition: background-color 0.8s ease; }
+    .logo { display: grid; justify-items: center; color: inherit; }
+    .logo > span { grid-area: 1 / 1; display: inline-flex; align-items: center; gap: 0.7rem; transition: opacity 0.8s ease, transform 0.8s ease; }
+    .logo .logo-night { opacity: 0; transform: translateY(6px); pointer-events: none; letter-spacing: 0.32em; }
+    .logo .logo-night .snow { color: var(--gold-light); margin-right: -0.15em; }
+    body.night .logo .logo-day { opacity: 0; transform: translateY(-6px); pointer-events: none; }
+    body.night .logo .logo-night { opacity: 1; transform: none; pointer-events: auto; }
+    .nav-links .to-other { color: var(--gold-dark); }
+    body.night .nav-links .to-other { color: var(--gold-light); }
+
+    /* LARENZO hero */
+    .night-hero { display: grid; grid-template-columns: 1.05fr 1fr; background: radial-gradient(120% 90% at 85% 10%, #2a241c 0%, var(--night) 55%); }
+    .night-hero .hero-text { padding: 5rem 3rem 5rem max(1.5rem, calc((100vw - 1200px) / 2)); }
+    .night-hero .wordmark { font-family: var(--serif); font-weight: 400; font-size: clamp(2.6rem, 6.4vw, 5.4rem); letter-spacing: 0.28em; line-height: 1; margin: 1.3rem 0 1.2rem; color: var(--frost); }
+    .night-hero .night-sub { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(1.7rem, 3vw, 2.4rem); color: var(--gold-light); margin-bottom: 1.4rem; }
+    .night-hero p { max-width: 440px; color: var(--frost-muted); margin-bottom: 2.5rem; font-size: 1.02rem; }
+    .night-visual { position: relative; display: grid; place-items: center; min-height: 680px; background: linear-gradient(160deg, var(--night-3), var(--night) 70%); }
+    .night-frame {
+      width: min(380px, 70%); aspect-ratio: 3 / 4; display: grid; place-items: center;
+      border: 1px solid rgba(216, 189, 133, 0.55); outline: 1px solid rgba(216, 189, 133, 0.22); outline-offset: 18px;
+      background: radial-gradient(circle at 50% 40%, rgba(216, 189, 133, 0.08), transparent 70%);
+    }
+    .night-frame .snow { width: 46%; height: auto; color: var(--gold-light); stroke-width: 1.4px; filter: drop-shadow(0 0 22px rgba(216, 189, 133, 0.25)); }
+    .night-visual .hero-tag { color: var(--frost-muted); }
+    .night-world .marquee { background: var(--night-2); border-color: var(--night-line); }
+    .night-world .marquee span { color: var(--gold-light); }
+    .night-world .marquee span::after { color: var(--frost-muted); }
+
+    /* LARENZO collection cards on night */
+    .night-world .products { background: var(--night); }
+    .night-world .product-img { background: linear-gradient(180deg, var(--night-3), var(--night-2)); }
+    .night-world .badge { background: var(--night); color: var(--gold-light); }
+    .night-world .product h4 { color: var(--frost); }
+    .night-world .product .price { color: var(--gold-light); }
+    .night-world .swatch { border-color: rgba(243, 237, 226, 0.35); }
+    .night-world .values { background: var(--night-2); }
+    .night-world .value + .value { border-color: var(--night-line); }
+    .night-world .value p { color: var(--frost-muted); }
+    .night-world .value-icon { color: var(--gold-light); }
+    .night-world .value-icon .snow { width: 20px; height: 20px; }
+
     /* Toast */
     .toast {
       position: fixed; bottom: calc(2rem + env(safe-area-inset-bottom, 0px)); left: 50%; transform: translate(-50%, 150%);
@@ -644,6 +723,7 @@
       .nav-links.open { transform: none; opacity: 1; visibility: visible; }
       .menu-toggle { display: block; }
       .logo { text-align: center; font-size: 1.8rem; }
+      body.night .nav-links { background: var(--night); border-color: var(--night-line); }
     }
     @media (max-width: 960px) {
       .nav { grid-template-columns: auto 1fr auto; }
@@ -681,6 +761,9 @@
       .tiles > .tile:last-child { grid-column: 1 / -1; }
       .dash-grid { grid-template-columns: 1fr; }
       .owner-link .label { display: none; }
+      .night-hero { grid-template-columns: 1fr; }
+      .night-hero .hero-text { padding: 4rem 1.5rem; }
+      .night-visual { min-height: 480px; }
     }
     @media (max-width: 560px) {
       section { padding: 5rem 0; }
@@ -693,27 +776,30 @@
       .sale-grid { grid-template-columns: 1fr; }
       .dash-inner { width: calc(100% - 2rem); }
       .tile-value { font-size: 1.45rem; }
+      .logo { font-size: 1.5rem; }
+      .logo .flax, .logo .snow { display: none; }
+      .logo .logo-night { letter-spacing: 0.2em; }
     }
   </style>
 </head>
 <body>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <symbol id="flax" viewBox="-66 -66 132 132"><path d="M0.00 -11.16 C26.04 -44.64 14.32 -62.00 0.00 -62.00 C-14.32 -62.00 -26.04 -44.64 0.00 -11.16 Z M10.61 -3.45 C50.50 10.97 63.39 -5.54 58.97 -19.16 C54.54 -32.78 34.41 -38.56 10.61 -3.45 Z M6.56 9.03 C5.17 51.42 24.86 58.58 36.44 50.16 C48.03 41.74 47.31 20.81 6.56 9.03 Z M-6.56 9.03 C-47.31 20.81 -48.03 41.74 -36.44 50.16 C-24.86 58.58 -5.17 51.42 -6.56 9.03 Z M-10.61 -3.45 C-34.41 -38.56 -54.54 -32.78 -58.97 -19.16 C-63.39 -5.54 -50.50 10.97 -10.61 -3.45 Z" fill="none" stroke="currentColor" vector-effect="non-scaling-stroke" stroke-linejoin="round"/><circle cx="0" cy="0" r="6.8" fill="currentColor"/></symbol>
+    <symbol id="snow" viewBox="0 0 132 132"><path d="M66.00 53.60 L66.00 4.00 M66.00 35.00 L78.45 21.18 M66.00 35.00 L53.55 21.18 M66.00 18.88 L73.88 10.13 M66.00 18.88 L58.12 10.13 M76.74 59.80 L119.69 35.00 M92.85 50.50 L111.04 54.37 M92.85 50.50 L98.59 32.81 M106.81 42.44 L118.33 44.89 M106.81 42.44 L110.45 31.24 M76.74 72.20 L119.69 97.00 M92.85 81.50 L98.59 99.19 M92.85 81.50 L111.04 77.63 M106.81 89.56 L110.45 100.76 M106.81 89.56 L118.33 87.11 M66.00 78.40 L66.00 128.00 M66.00 97.00 L53.55 110.82 M66.00 97.00 L78.45 110.82 M66.00 113.12 L58.12 121.87 M66.00 113.12 L73.88 121.87 M55.26 72.20 L12.31 97.00 M39.15 81.50 L20.96 77.63 M39.15 81.50 L33.41 99.19 M25.19 89.56 L13.67 87.11 M25.19 89.56 L21.55 100.76 M55.26 59.80 L12.31 35.00 M39.15 50.50 L33.41 32.81 M39.15 50.50 L20.96 54.37 M25.19 42.44 L21.55 31.24 M25.19 42.44 L13.67 44.89" fill="none" stroke="currentColor" vector-effect="non-scaling-stroke" stroke-linecap="round"/><circle cx="66" cy="66" r="6.2" fill="none" stroke="currentColor" vector-effect="non-scaling-stroke"/></symbol>
   </svg>
 
-  <div class="announce">Complimentary shipping on all orders · 100% pure linen</div>
+  <div class="announce">Complimentary shipping on all orders · ENZO &amp; LARENZO</div>
 
   <header>
     <div class="container nav">
       <button class="menu-toggle" aria-label="Open menu"><span></span><span></span></button>
       <nav class="nav-links">
         <a href="#shop">Shop</a>
-        <a href="#collections">Collections</a>
         <a href="#palette">Palette</a>
-        <a href="#care">Linen Care</a>
         <a href="#story">Our Story</a>
+        <a href="#larenzo" class="to-other" id="toOther">Larenzo</a>
       </nav>
-      <a href="#" class="logo"><svg class="flax" viewBox="0 0 132 132" aria-hidden="true"><use href="#flax" width="132" height="132"/></svg>ENZO</a>
+      <a href="#" class="logo" aria-label="ENZO and LARENZO home"><span class="logo-day"><svg class="flax" viewBox="0 0 132 132" aria-hidden="true"><use href="#flax" width="132" height="132"/></svg>ENZO</span><span class="logo-night"><svg class="snow" viewBox="0 0 132 132" aria-hidden="true"><use href="#snow" width="132" height="132"/></svg>LARENZO</span></a>
       <div class="nav-actions">
         <a href="#" class="hide-sm">Search</a>
         <a class="owner-link" id="ownerOpen" role="button" tabindex="0" aria-label="Sales dashboard" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span class="label">Dashboard</span></a>
@@ -723,8 +809,9 @@
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="hero" style="padding:0">
+  <!-- ENZO: the summer house -->
+  <div class="world" id="world-enzo">
+  <section class="hero" id="enzo" style="padding:0">
     <div class="hero-text">
       <span class="eyebrow">The Linen Collection</span>
       <h1>Woven from <em>nature,</em><br />made to breathe.</h1>
@@ -892,13 +979,101 @@
     </div>
   </section>
 
+  </div>
+
+  <!-- The fade between the two houses -->
+  <div class="season-band to-night" id="seasonBand">
+    <a class="band-cue" href="#larenzo" id="bandCue"><svg class="snow" viewBox="0 0 132 132" aria-hidden="true"><use href="#snow" width="132" height="132"/></svg><span>Into winter</span><em>LARENZO</em></a>
+  </div>
+
+  <!-- LARENZO: the winter house -->
+  <div class="world night-world" id="world-larenzo">
+    <section class="night-hero" id="larenzo" style="padding:0">
+      <div class="hero-text">
+        <span class="eyebrow">The Winter House of Enzo</span>
+        <h2 class="wordmark">LARENZO</h2>
+        <p class="night-sub">Warmth, quietly tailored.</p>
+        <p>Wool, cashmere and heavyweight linen in deep, night-time tones — made for cool evenings and long winters.</p>
+        <div class="hero-cta">
+          <a href="#larenzo-shop" class="btn btn-solid">Shop Winter</a>
+          <a href="#enzo" class="btn">Visit ENZO</a>
+        </div>
+      </div>
+      <div class="night-visual">
+        <div class="night-frame"><svg class="snow" viewBox="0 0 132 132" aria-hidden="true"><use href="#snow" width="132" height="132"/></svg></div>
+        <span class="hero-tag">The Winter House — Est. 2026</span>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Wool &amp; Cashmere</span><span>Tailored Warmth</span><span>Made to Layer</span><span>Long Winter Nights</span>
+        <span>Wool &amp; Cashmere</span><span>Tailored Warmth</span><span>Made to Layer</span><span>Long Winter Nights</span>
+        <span>Wool &amp; Cashmere</span><span>Tailored Warmth</span><span>Made to Layer</span><span>Long Winter Nights</span>
+        <span>Wool &amp; Cashmere</span><span>Tailored Warmth</span><span>Made to Layer</span><span>Long Winter Nights</span>
+      </div>
+    </div>
+
+    <section class="products" id="larenzo-shop">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">The Winter Collection</span>
+          <h2>Made for Cold Nights</h2>
+          <div class="gold-rule"></div>
+          <p>Coats, knits and tailoring in black, camel, charcoal and deep burgundy.</p>
+        </div>
+        <div class="product-grid" id="larenzoGrid"></div>
+      </div>
+    </section>
+
+    <section class="values">
+      <div class="container values-grid">
+        <div class="value reveal">
+          <div class="value-icon"><svg class="snow" viewBox="0 0 132 132" aria-hidden="true"><use href="#snow" width="132" height="132"/></svg></div>
+          <h3>Wool &amp; Cashmere</h3>
+          <p>Soft, warm fibres chosen for long winters.</p>
+        </div>
+        <div class="value reveal">
+          <div class="value-icon"><svg class="snow" viewBox="0 0 132 132" aria-hidden="true"><use href="#snow" width="132" height="132"/></svg></div>
+          <h3>Tailored Warmth</h3>
+          <p>Clean lines and considered cuts that keep their shape all season.</p>
+        </div>
+        <div class="value reveal">
+          <div class="value-icon"><svg class="snow" viewBox="0 0 132 132" aria-hidden="true"><use href="#snow" width="132" height="132"/></svg></div>
+          <h3>Made to Layer</h3>
+          <p>Pieces that sit over your ENZO linen as the evenings cool.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Season order. Winter (November–March) opens on LARENZO with ENZO below;
+    // summer (April–October) opens on ENZO with LARENZO below.
+    // Add #winter or #summer to the link to preview either order.
+    (function () {
+      var h = location.hash.slice(1), m = new Date().getMonth() + 1;
+      var winter = h === "winter" ? true : h === "summer" ? false : (m >= 11 || m <= 3);
+      document.documentElement.setAttribute("data-season", winter ? "winter" : "summer");
+      if (!winter) return;
+      var enzo = document.getElementById("world-enzo"), lar = document.getElementById("world-larenzo"), band = document.getElementById("seasonBand");
+      enzo.parentNode.insertBefore(lar, enzo);
+      enzo.parentNode.insertBefore(band, enzo);
+      band.className = "season-band to-day";
+      var cue = document.getElementById("bandCue");
+      cue.setAttribute("href", "#enzo");
+      cue.innerHTML = '<svg class="flax" viewBox="0 0 132 132" aria-hidden="true"><use href="#flax" width="132" height="132"/></svg><span>Into summer</span><em>ENZO</em>';
+      document.body.classList.add("night");
+    })();
+  </script>
+
   <!-- Footer -->
   <footer>
     <div class="container">
       <div class="footer-grid">
         <div>
           <div class="logo"><svg class="flax" viewBox="0 0 132 132" aria-hidden="true"><use href="#flax" width="132" height="132"/></svg>ENZO</div>
-          <p>Pure linen clothing, crafted with care for the modern wardrobe.</p>
+          <p>ENZO for pure summer linen, LARENZO for winter. Crafted with care for the modern wardrobe.</p>
         </div>
         <div>
           <h5>Shop</h5>
@@ -1090,8 +1265,12 @@
       sand:     { name: "Sand",     hex: "#cdb995", note: "Warm beige" },
       sage:     { name: "Sage",     hex: "#b5b79a", note: "Muted green" },
       clay:     { name: "Clay",     hex: "#c69b7d", note: "Sun-baked earth" },
-      charcoal: { name: "Charcoal", hex: "#3d382f", note: "Deep stone" }
+      charcoal: { name: "Charcoal", hex: "#3d382f", note: "Deep stone" },
+      black:    { name: "Black",    hex: "#141210", note: "Night" },
+      camel:    { name: "Camel",    hex: "#b48c5f", note: "Warm tan" },
+      burgundy: { name: "Burgundy", hex: "#5e2b2e", note: "Deep wine" }
     };
+    const linenPalette = ["natural", "ivory", "sand", "sage", "clay", "charcoal"];
 
     // Simple garment silhouettes; {c} is the garment colour, {d} the detail colour.
     // Replace with real product photography when available.
@@ -1105,6 +1284,8 @@
       blazer: '<path d="M36 8 L50 30 L64 8 L86 18 L90 112 L10 112 L14 18 Z" fill="{c}" stroke="{d}" stroke-opacity=".35"/><path d="M36 8 L44 60 L50 30 L56 60 L64 8" fill="{c}" stroke="{d}" stroke-width="1"/><circle cx="50" cy="76" r="2.5" fill="{d}"/><path d="M20 84 h16 M64 84 h16" stroke="{d}" stroke-opacity=".6"/>',
       tote: '<path d="M36 40 Q36 14 50 14 Q64 14 64 40" fill="none" stroke="{d}" stroke-width="3"/><rect x="18" y="40" width="64" height="66" fill="{c}" stroke="{d}" stroke-opacity=".35"/><path d="M18 50 h64" stroke="{d}" stroke-opacity=".4"/>',
       scarf: '<path d="M30 8 L70 8 L64 70 L72 116 L56 116 L50 74 L44 116 L28 116 L36 70 Z" fill="{c}" stroke="{d}" stroke-opacity=".35"/><path d="M30 116 v4 M34 116 v4 M38 116 v4 M58 116 v4 M62 116 v4 M66 116 v4" stroke="{d}"/>',
+      coat: '<path d="M36 6 L50 22 L64 6 L84 14 L92 74 L82 76 L80 44 L80 120 L20 120 L20 44 L18 76 L8 74 L16 14 Z" fill="{c}" stroke="{d}" stroke-opacity=".55"/><path d="M36 6 L45 52 L50 22 L55 52 L64 6" fill="none" stroke="{d}" stroke-width="1.1"/><path d="M50 52 V120" stroke="{d}" stroke-opacity=".6"/><circle cx="55" cy="66" r="1.9" fill="{d}"/><circle cx="55" cy="84" r="1.9" fill="{d}"/><path d="M26 92 h12 M62 92 h12" stroke="{d}" stroke-opacity=".7"/>',
+      sweater: '<path d="M36 10 Q50 20 64 10 L86 20 L94 80 L80 82 L76 40 L76 110 L24 110 L24 40 L20 82 L6 80 L14 20 Z" fill="{c}" stroke="{d}" stroke-opacity=".55"/><path d="M36 10 Q50 26 64 10" fill="none" stroke="{d}" stroke-width="1.2"/><path d="M24 102 H76 M30 102 V110 M36 102 V110 M42 102 V110 M48 102 V110 M54 102 V110 M60 102 V110 M66 102 V110 M72 102 V110" stroke="{d}" stroke-opacity=".6"/><path d="M8 72 L21 74 M79 74 L92 72" stroke="{d}" stroke-opacity=".6"/>',
       hat: '<path d="M30 70 Q30 38 50 38 Q70 38 70 70 Z" fill="{c}" stroke="{d}" stroke-opacity=".35"/><path d="M14 74 Q50 60 86 74 Q50 88 14 74 Z" fill="{c}" stroke="{d}" stroke-opacity=".45"/><path d="M30 64 Q50 58 70 64" fill="none" stroke="{d}" stroke-width="2"/>'
     };
 
@@ -1120,11 +1301,21 @@
       { id: 9,  name: "Linen Tote",              price: 85,  cat: "accessories", shape: "tote",      colours: ["natural","clay","charcoal"],        badge: "New",        desc: "A generous everyday tote in sturdy double-layered linen with an inner pocket." },
       { id: 10, name: "Linen Scarf",             price: 75,  cat: "accessories", shape: "scarf",     colours: ["sand","ivory","sage"],                                  desc: "Lightweight and finished with a hand-frayed edge. Wear it in the city or wrap it on the beach." },
       { id: 11, name: "Linen Bucket Hat",        price: 70,  cat: "accessories", shape: "hat",       colours: ["natural","sand","charcoal"],                            desc: "A soft, packable bucket hat that keeps the sun off in style." },
-      { id: 12, name: "Linen Wrap Shirt",        price: 120, cat: "women",       shape: "shirt",     colours: ["clay","ivory","natural"],                               desc: "A feminine take on our classic shirt, with a wrap front and tie waist." }
+      { id: 12, name: "Linen Wrap Shirt",        price: 120, cat: "women",       shape: "shirt",     colours: ["clay","ivory","natural"],                               desc: "A feminine take on our classic shirt, with a wrap front and tie waist." },
+      // LARENZO: the winter house
+      { id: 13, line: "larenzo", name: "Wool Overcoat",          price: 200, cat: "men",         shape: "coat",     colours: ["black","camel","charcoal"],  badge: "New",        desc: "A long, clean-lined overcoat in dense wool. Warm enough for the coldest nights, light enough to wear every day." },
+      { id: 14, line: "larenzo", name: "Belted Wool Coat",       price: 195, cat: "women",       shape: "coat",     colours: ["camel","black","ivory"],                          desc: "A softly tailored coat with a tie belt and deep pockets." },
+      { id: 15, line: "larenzo", name: "Cashmere-Blend Sweater", price: 140, cat: "women",       shape: "sweater",  colours: ["ivory","camel","black"],     badge: "Bestseller", desc: "A relaxed crew-neck knit in a warm cashmere blend, finished with ribbed cuffs." },
+      { id: 16, line: "larenzo", name: "Ribbed Wool Sweater",    price: 120, cat: "men",         shape: "sweater",  colours: ["charcoal","black","burgundy"],                    desc: "A substantial ribbed knit that layers neatly under a coat." },
+      { id: 17, line: "larenzo", name: "Heavy Linen Blazer",     price: 180, cat: "men",         shape: "blazer",   colours: ["black","camel"],                                  desc: "Our linen tailoring in a heavier winter weight, lined for warmth." },
+      { id: 18, line: "larenzo", name: "Wool Wide-Leg Trousers", price: 135, cat: "women",       shape: "trousers", colours: ["black","camel","charcoal"],                       desc: "Fluid, high-waisted wool trousers with a pressed crease." },
+      { id: 19, line: "larenzo", name: "Tailored Wool Trousers", price: 130, cat: "men",         shape: "trousers", colours: ["charcoal","black"],                               desc: "Straight-leg trousers in smooth winter wool." },
+      { id: 20, line: "larenzo", name: "Wool Scarf",             price: 75,  cat: "accessories", shape: "scarf",    colours: ["camel","burgundy","charcoal"],                    desc: "A generous scarf in soft brushed wool." }
     ];
+    const isLarenzo = p => p.line === "larenzo";
 
     const money = n => "$" + n.toLocaleString("en-US");
-    const detailFor = key => key === "charcoal" ? "#b8954f" : "#8f7036";
+    const detailFor = key => ["charcoal", "black", "burgundy"].includes(key) ? "#c9a866" : "#8f7036";
     const svgFor = (p, colour) =>
       `<svg viewBox="0 0 100 124" aria-hidden="true">${shapes[p.shape].replaceAll("{c}", shades[colour].hex).replaceAll("{d}", detailFor(colour))}</svg>`;
     // Real photos: give a product `photo: "images/file.jpg"`, or `photos: { sand: "images/file-sand.jpg" }`
@@ -1138,7 +1329,8 @@
 
     // ----- Product grid -----
     const grid = document.getElementById("productGrid");
-    grid.innerHTML = products.map(p => `
+    const larenzoGrid = document.getElementById("larenzoGrid");
+    const cardHTML = p => `
       <article class="product reveal" data-id="${p.id}" data-cat="${p.cat}" data-colours="${p.colours.join(" ")}">
         <div class="product-img">
           ${p.badge ? `<span class="badge">${p.badge}</span>` : ""}
@@ -1150,9 +1342,11 @@
         <div class="swatches">
           ${p.colours.map((c, i) => `<button class="swatch${i === 0 ? " active" : ""}" style="background:${shades[c].hex}" data-colour="${c}" title="${shades[c].name}" aria-label="${shades[c].name}"></button>`).join("")}
         </div>
-      </article>`).join("");
+      </article>`;
+    grid.innerHTML = products.filter(p => !isLarenzo(p)).map(cardHTML).join("");
+    larenzoGrid.innerHTML = products.filter(isLarenzo).map(cardHTML).join("");
 
-    grid.addEventListener("click", e => {
+    function onGridClick(e) {
       const sw = e.target.closest(".swatch");
       if (sw) {
         const card = sw.closest(".product");
@@ -1166,7 +1360,9 @@
         const card = v.closest(".product");
         openModal(+v.dataset.view, card.querySelector(".swatch.active").dataset.colour);
       }
-    });
+    }
+    grid.addEventListener("click", onGridClick);
+    larenzoGrid.addEventListener("click", onGridClick);
 
     // ----- Filtering (category + shade) -----
     let activeCat = "all", activeShade = null;
@@ -1197,7 +1393,7 @@
 
     // ----- Palette -----
     const paletteGrid = document.getElementById("paletteGrid");
-    paletteGrid.innerHTML = Object.entries(shades).map(([key, s]) => `
+    paletteGrid.innerHTML = linenPalette.map(key => [key, shades[key]]).map(([key, s]) => `
       <button class="shade reveal" data-shade="${key}">
         <div class="shade-dot" style="background-color:${s.hex}"></div>
         <h4>${s.name}</h4><span>${s.note}</span>
@@ -1246,7 +1442,7 @@
       const p = products.find(x => x.id === id);
       const sizes = sizesFor(p);
       current = { p, colour: colour || p.colours[0], size: sizes.length === 1 ? sizes[0] : null };
-      document.getElementById("mCat").textContent = catLabel[p.cat] + " · 100% Linen";
+      document.getElementById("mCat").textContent = catLabel[p.cat] + (isLarenzo(p) ? " · LARENZO Winter" : " · 100% Linen");
       document.getElementById("mName").textContent = p.name;
       document.getElementById("mPrice").textContent = money(p.price);
       document.getElementById("mDesc").textContent = p.desc;
@@ -1631,7 +1827,7 @@
     const sp = document.getElementById("saleProduct"), sColour = document.getElementById("saleColour"), sSize = document.getElementById("saleSize");
     const sQty = document.getElementById("saleQty"), sPrice = document.getElementById("salePrice"), sItem = document.getElementById("saleItem");
     const fillSelect = (select, items) => { select.textContent = ""; items.forEach(([v, t]) => { const o = el("option", null, t); o.value = v; select.append(o); }); };
-    fillSelect(sp, [...products.map(p => [String(p.id), `${p.name} · ${cash(p.price)}`]), ["other", "Other item…"]]);
+    fillSelect(sp, [...products.map(p => [String(p.id), `${isLarenzo(p) ? "LARENZO · " : ""}${p.name} · ${cash(p.price)}`]), ["other", "Other item…"]]);
     function syncSale() {
       const p = products.find(x => String(x.id) === sp.value);
       document.getElementById("saleItemField").hidden = !!p;
@@ -1698,6 +1894,31 @@
         dashReady = true; dashError = ""; renderDash();
       }, () => { dashError = "Sales stopped updating. Reload the page to see the latest."; renderDash(); });
     })();
+
+    // ----- Day and night -----
+    // The header turns black and becomes LARENZO once the fade between the two houses is
+    // halfway past it, and turns back to ENZO the other way.
+    const seasonBand = document.getElementById("seasonBand");
+    const worldLarenzo = document.getElementById("world-larenzo");
+    const headerEl = document.querySelector("header");
+    const toOther = document.getElementById("toOther");
+    function updateNight() {
+      const larenzoAfterBand = !!(seasonBand.compareDocumentPosition(worldLarenzo) & Node.DOCUMENT_POSITION_FOLLOWING);
+      const b = seasonBand.getBoundingClientRect();
+      const pastBand = b.top + b.height * 0.55 < headerEl.getBoundingClientRect().bottom;
+      const night = larenzoAfterBand === pastBand;
+      document.body.classList.toggle("night", night);
+      toOther.textContent = night ? "Enzo" : "Larenzo";
+      toOther.setAttribute("href", night ? "#enzo" : "#larenzo");
+    }
+    let nightQueued = false;
+    window.addEventListener("scroll", () => {
+      if (nightQueued) return;
+      nightQueued = true;
+      requestAnimationFrame(() => { nightQueued = false; updateNight(); });
+    }, { passive: true });
+    window.addEventListener("resize", updateNight);
+    updateNight();
 
     // ----- Toast -----
     const toast = document.getElementById("toast");
