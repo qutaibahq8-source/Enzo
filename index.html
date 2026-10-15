@@ -1268,7 +1268,8 @@
       charcoal: { name: "Charcoal", hex: "#3d382f", note: "Deep stone" },
       black:    { name: "Black",    hex: "#141210", note: "Night" },
       camel:    { name: "Camel",    hex: "#b48c5f", note: "Warm tan" },
-      burgundy: { name: "Burgundy", hex: "#5e2b2e", note: "Deep wine" }
+      burgundy: { name: "Burgundy", hex: "#5e2b2e", note: "Deep wine" },
+      olive:    { name: "Olive",    hex: "#4b4a2b", note: "Deep green" }
     };
     const linenPalette = ["natural", "ivory", "sand", "sage", "clay", "charcoal"];
 
@@ -1290,6 +1291,9 @@
     };
 
     const products = [
+      { id: 21, name: "ENZO Polo", price: 85, cat: "men", shape: "shirt", colours: ["black", "olive"], badge: "New", label: "ENZO Essentials",
+        photos: { black: "images/polo-black.jpg", olive: "images/polo-olive.jpg" },
+        desc: "A clean, classic polo with a two-button placket. The ENZO mark is printed inside the neck, so the outside stays plain. The black has white tipping on the collar and sleeves." },
       { id: 1,  name: "Linen Maxi Dress",        price: 180, cat: "women",       shape: "dress",     colours: ["natural","ivory","sage"],          badge: "New",        desc: "A floor-skimming silhouette with a softly defined waist. Light, fluid and made for long summer days." },
       { id: 2,  name: "Classic Linen Shirt",     price: 110, cat: "men",         shape: "shirt",     colours: ["ivory","sand","sage","charcoal"],  badge: "Bestseller", desc: "Our signature shirt in garment-washed linen, with a relaxed collar and mother-of-pearl buttons." },
       { id: 3,  name: "Wide-Leg Linen Trousers", price: 140, cat: "women",       shape: "trousers",  colours: ["natural","charcoal","clay"],                            desc: "High-waisted and fluid, with a wide leg that moves beautifully. Pairs with everything." },
@@ -1442,7 +1446,7 @@
       const p = products.find(x => x.id === id);
       const sizes = sizesFor(p);
       current = { p, colour: colour || p.colours[0], size: sizes.length === 1 ? sizes[0] : null };
-      document.getElementById("mCat").textContent = catLabel[p.cat] + (isLarenzo(p) ? " · LARENZO Winter" : " · 100% Linen");
+      document.getElementById("mCat").textContent = catLabel[p.cat] + " · " + (p.label || (isLarenzo(p) ? "LARENZO Winter" : "100% Linen"));
       document.getElementById("mName").textContent = p.name;
       document.getElementById("mPrice").textContent = money(p.price);
       document.getElementById("mDesc").textContent = p.desc;
