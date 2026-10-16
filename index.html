@@ -254,6 +254,24 @@
     .fan-tile .cap small { display: block; font-family: var(--sans); font-size: 0.66rem; letter-spacing: 0.08em; color: var(--gold-dark); margin-top: 0.2rem; }
     @media (prefers-reduced-motion: reduce) { .fan-tile { transition: none; } }
 
+    /* The ENZO Polo showcase */
+    .polo-band { background: var(--beige); }
+    .polo-row { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 0.9rem; }
+    .polo-tile { background: none; border: none; padding: 0; cursor: pointer; font: inherit; color: inherit; text-align: center; min-width: 0; }
+    .polo-tile .pic { display: block; position: relative; aspect-ratio: 4 / 5; overflow: hidden; box-shadow: 0 10px 24px rgba(46, 42, 36, 0.12); max-width: 100%; }
+    .polo-tile img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; }
+    .polo-tile:hover img { transform: scale(1.05); }
+    .polo-tile:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+    .polo-tile .name { display: block; margin-top: 0.7rem; font-family: var(--serif); font-size: 1.15rem; }
+    .polo-cta { text-align: center; margin-top: 2.6rem; }
+    /* Front / back switch in the quick view */
+    .modal-img .views { position: absolute; left: 50%; bottom: 1rem; transform: translateX(-50%); display: flex; gap: 0.4rem; z-index: 2; }
+    .view-btn { background: rgba(255, 255, 255, 0.94); border: 1px solid var(--beige-deep); padding: 0.45rem 1rem; cursor: pointer; font-family: var(--sans); font-size: 0.66rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink); }
+    .view-btn.on { background: var(--ink); border-color: var(--ink); color: var(--gold-light); }
+    /* Footer logos */
+    .footer-logos { display: flex; align-items: center; gap: 1.4rem; flex-wrap: wrap; }
+    .footer-logos img { height: 82px; width: auto; max-width: 100%; }
+
     /* Products */
     .products { background: var(--ivory); }
     .product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.5rem 1.5rem; }
@@ -771,6 +789,8 @@
       .hero-text { padding: 4rem 1.5rem; }
       .collection-grid { grid-template-columns: 1fr; }
       .collection-card { aspect-ratio: 4 / 3; }
+      .polo-row { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 0.8rem; padding-bottom: 0.8rem; }
+      .polo-tile { flex: 0 0 34%; scroll-snap-align: start; }
       .collection-info { padding: 1.2rem 1.6rem 1.6rem; }
       .product-grid { grid-template-columns: repeat(2, 1fr); }
       .story-grid { grid-template-columns: 1fr; gap: 4rem; }
@@ -801,6 +821,7 @@
       .care-grid { grid-template-columns: 1fr; }
       .filters { gap: 0.6rem 1.2rem; }
       .collection-card { aspect-ratio: 1 / 1; }
+      .polo-tile { flex-basis: 44%; }
       .collection-info h3 { font-size: 1.8rem; }
       .fan-tile { padding: 0.3rem 0.3rem 0; }
       .fan-tile .cap { font-size: 0.72rem; padding: 0.35rem 0.1rem 0.4rem; }
@@ -890,6 +911,20 @@
           <div class="collection-info"><h3>Men</h3><a href="#shop" data-filter="men">Shop Men</a></div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- The ENZO Polo: every colour, photographed -->
+  <section class="polo-band" id="polo">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">The ENZO Polo</span>
+        <h2>Seven Colours, One Polo</h2>
+        <div class="gold-rule"></div>
+        <p id="poloLine">Soft cotton piqué with the ENZO mark printed inside the neck.</p>
+      </div>
+      <div class="polo-row" id="poloRow"></div>
+      <div class="polo-cta"><a href="#shop" class="btn" data-filter="polos">Shop All Polos</a></div>
     </div>
   </section>
 
@@ -1111,7 +1146,10 @@
     <div class="container">
       <div class="footer-grid">
         <div>
-          <div class="logo"><svg class="flax" viewBox="0 0 132 132" aria-hidden="true"><use href="#flax" width="132" height="132"/></svg>ENZO</div>
+          <div class="footer-logos">
+            <img src="brand/enzo-logo-white.png" alt="ENZO, Pure Linen" width="760" height="520" />
+            <img src="brand/larenzo-logo.png" alt="LARENZO, The Winter House" width="960" height="520" />
+          </div>
           <p>ENZO for pure summer linen, LARENZO for winter. Crafted with care for the modern wardrobe.</p>
         </div>
         <div>
@@ -1351,6 +1389,8 @@
       { id: 21, name: "ENZO Piqué Polo",            price: 95,  cat: "men",   tags: ["polos"],     shape: "polo",       colours: ["navy", "white", "black", "olive", "sky", "forest", "butter"], badge: "New", label: "Cotton Piqué",
         photos: { navy: "images/polo-navy.jpg", white: "images/polo-white.jpg", black: "images/polo-black.jpg", olive: "images/polo-olive.jpg",
                   sky: "images/polo-sky.jpg", forest: "images/polo-forest.jpg", butter: "images/polo-butter.jpg" },
+        backs:  { navy: "images/polo-navy-back.jpg", white: "images/polo-white-back.jpg", olive: "images/polo-olive-back.jpg",
+                  sky: "images/polo-sky-back.jpg", forest: "images/polo-forest-back.jpg", butter: "images/polo-butter-back.jpg" },
         desc: "Our signature polo in soft cotton piqué with a two-button placket. The ENZO mark is printed inside the neck, so the outside stays plain. The black has white tipping on the collar and sleeves." },
       { id: 22, name: "Knitted Riviera Polo",       price: 125, cat: "men",   tags: ["polos", "knitwear"], shape: "knitpolo", colours: ["ivory", "navy", "sage", "tobacco"], badge: "New", label: "Knitted Cotton",
         desc: "A fine-knit polo with an open collar and ribbed hem, made for long lunches by the sea." },
@@ -1465,6 +1505,19 @@
     }
     grid.addEventListener("click", onGridClick);
 
+    // The ENZO Polo showcase: one tile per photographed colour
+    const signaturePolo = products.find(x => x.id === 21);
+    document.getElementById("poloLine").textContent += ` ${money(signaturePolo.price)} · ${kwd(toKwd(signaturePolo.price))}.`;
+    const poloRow = document.getElementById("poloRow");
+    poloRow.innerHTML = signaturePolo.colours.filter(c => signaturePolo.photos[c]).map(c => `
+      <button class="polo-tile reveal" type="button" data-colour="${c}" aria-label="ENZO Piqué Polo in ${shades[c].name}">
+        <span class="pic"><img src="${signaturePolo.photos[c]}" alt="ENZO Piqué Polo in ${shades[c].name}" loading="lazy" /></span>
+        <span class="name">${shades[c].name}</span>
+      </button>`).join("");
+    poloRow.addEventListener("click", e => {
+      const t = e.target.closest(".polo-tile"); if (t) openModal(21, t.dataset.colour);
+    });
+
     // Collection cards: three real pieces each, using the product photo where there is one
     const fanPicks = { women: [[26, "butter"], [1, "sky"], [31, "navy"]], men: [[2, "sky"], [21, "navy"], [30, "sand"]] };
     document.querySelectorAll(".fan").forEach(fan => {
@@ -1547,7 +1600,12 @@
     let current = null;
     function renderModal() {
       const { p, colour, size } = current;
-      document.getElementById("mImg").innerHTML = artFor(p, colour);
+      const back = p.backs && p.backs[colour];
+      if (!back) current.view = "front";
+      document.getElementById("mImg").innerHTML = (current.view === "back"
+        ? `<img class="photo" src="${back}" alt="${p.name} in ${shades[colour].name}, back" />`
+        : artFor(p, colour)) +
+        (back ? `<div class="views"><button class="view-btn${current.view !== "back" ? " on" : ""}" data-view-side="front">Front</button><button class="view-btn${current.view === "back" ? " on" : ""}" data-view-side="back">Back</button></div>` : "");
       document.getElementById("mColourName").textContent = shades[colour].name;
       document.getElementById("mSizeName").textContent = size || "";
       document.getElementById("mSwatches").innerHTML = p.colours.map(c =>
@@ -1559,7 +1617,7 @@
     function openModal(id, colour) {
       const p = products.find(x => x.id === id);
       const sizes = sizesFor(p);
-      current = { p, colour: colour || p.colours[0], size: sizes.length === 1 ? sizes[0] : null };
+      current = { p, colour: colour || p.colours[0], size: sizes.length === 1 ? sizes[0] : null, view: "front" };
       document.getElementById("mCat").textContent = catLabel[p.cat] + " · " + (p.label || (isLarenzo(p) ? "LARENZO Winter" : "100% Linen"));
       document.getElementById("mName").textContent = p.name;
       document.getElementById("mPrice").textContent = `${money(p.price)} · ${kwd(toKwd(p.price))}`;
@@ -1567,6 +1625,10 @@
       renderModal();
       show(modal);
     }
+    document.getElementById("mImg").addEventListener("click", e => {
+      const b = e.target.closest(".view-btn"); if (!b) return;
+      current.view = b.dataset.viewSide; renderModal();
+    });
     document.getElementById("mSwatches").addEventListener("click", e => {
       const b = e.target.closest(".swatch"); if (!b) return;
       current.colour = b.dataset.colour; renderModal();
